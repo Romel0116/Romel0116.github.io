@@ -1,5 +1,5 @@
 html {
-        background-image: linear-gradient(bottom, blue, #98c70a 100%);
+        background-image: linear-gradient(to bottom, blue, #98c70a 100%);
 }
 
 body { 
