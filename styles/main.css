@@ -13,8 +13,7 @@ body {
     border-radius: 25px;
     box-shadow: 5px 5px 0 0;
     background: blue;
-    background: blue url(/images/Houston.JPG);
-    background: #808080 url(images/header.JPG) repeat-y;
+    background: url(/images/Houston.JPG);
     background-position: right;
     background-attachment: fixed;
 }
