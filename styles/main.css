@@ -15,6 +15,8 @@ body {
     background: blue;
     background: blue url(/images/Houston.JPG);
     background: #808080 url(images/header.JPG) repeat-y;
+    background-position: right;
+    background-attachment: fixed;
 }
 a:hover, a:focus {
     font-style: italic;
