@@ -42,13 +42,15 @@ main {
     clear: left;
 }
 main h3{
-    margin-top: 3em;
+    margin-top: 3em 2em 1.5em;
+    border: 5px;
+    border-style: dashed;
+    border-color: blue;
     font-size: 105%;
     color: aliceblue;
 }
 #id {
     line-height: 105%;
-    color: aliceblue;
 }
 footer p.copyright {
     text-align: center;
