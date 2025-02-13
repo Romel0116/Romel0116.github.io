@@ -46,6 +46,9 @@ main h3{
     border: 5px;
     border-style: dashed;
     border-color: aliceblue;
+    border-radius: 20px;
+    box-shadow: 3px 3px 4px 4px red;
+    padding: .5em;
     font-size: 105%;
     color: aliceblue;
 }
