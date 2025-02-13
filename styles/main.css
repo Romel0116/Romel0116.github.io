@@ -12,7 +12,8 @@ body {
     border: 1px solid black;
     border-radius: 25px;
     box-shadow: 5px 5px 0 0;
-
+    background: blue url(/images/Houston.JPG);
+    background: #808080 url(/images/header) repeat-y scroll center top;
 }
 a:hover, a:focus {
     font-style: italic;
