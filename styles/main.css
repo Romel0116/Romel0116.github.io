@@ -36,7 +36,7 @@ header img {
     float: left;
 }
 .shadow {
-    text-shadow: 2px 2px 2px rgb(128, 0, 0);
+    text-shadow: 2px 2px 2px rgb(248, 245, 245);
 }
 main {
     clear: left;
@@ -44,6 +44,7 @@ main {
 main h3{
     margin-top: 3em;
     font-size: 105%;
+    color: aliceblue;
 }
 #id {
     line-height: 105%;
