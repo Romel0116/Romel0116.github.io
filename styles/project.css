@@ -20,7 +20,7 @@ a:hover, a:focus {
     border-style: dotted solid;
 }
 header {
-    border-bottom: 2px solid maroon;
+    border-bottom: 2px solid blue;
 }
 header h1 {
     font-size: 175%;
@@ -72,7 +72,7 @@ aside {
 }
 footer {
     clear: both;
-    border-top: 2px solid maroon;
+    border-top: 2px solid blue;
 }
 footer p.copyright {
     text-align: center;
