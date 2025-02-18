@@ -54,8 +54,8 @@ article h3 {
 }
 article img {
     float: left;
-    margin-right: 1em;
-    margin-bottom: 1em;
+    margin-right: 1px;
+    margin-bottom: 1px;
 }
 article p::first-letter {
     font-size: 3em;
