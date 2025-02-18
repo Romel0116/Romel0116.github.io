@@ -52,8 +52,8 @@ article {
 }
 article img {
     float: left;
-    margin-right: 1em;
-    margin-bottom: 1em;
+    margin-right: 3em;
+    margin-bottom: 3em;
 }
 article p::first-letter {
     font-size: 3em;
