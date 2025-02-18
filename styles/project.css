@@ -23,7 +23,6 @@ header h1 {
     font-size: 175%;
     color: rgb(0, 130, 252);
     text-indent: 30px;
-    border-bottom: 1px solid maroon;
 }
 header h2 {
     font-size: 130%;
@@ -34,6 +33,7 @@ header img {
     float: left;
     margin-right: 1em;
     margin-bottom: 1em;
+    border-bottom: 1em solid maroon;
 }
 .shadow {
     text-shadow: 2px 2px 2px rgb(248, 245, 245);
