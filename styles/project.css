@@ -1,11 +1,11 @@
 html {
-    background-image: linear-gradient(to bottom, rgb(1, 24, 75), #a1a0a0 100%);
+    background-image: linear-gradient(to left, rgb(1, 24, 75), #a1a0a0 100%);
 }
 
 body { 
     font-family:Arial, Helvetica, sans-serif;
     font-size: 100%;
-    width: 1000px;
+    width: 90%;
     background-color: rgb(171, 171, 171);
     margin: 15px auto;
     padding: 15px 1.5em;
@@ -15,12 +15,14 @@ body {
     background-image: url(/images/Houston.JPG);
     background-size: contain;
     background-repeat: repeat-y;
-    background-position: right;
+    background-position: right top;
     background-attachment: fixed;
 }
 a:hover, a:focus {
     font-style: italic;
     color: aqua;
+    border: 3px blue;
+    border-style: dotted solid;
 }
 header h1 {
     font-size: 175%;
