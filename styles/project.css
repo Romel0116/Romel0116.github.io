@@ -23,6 +23,7 @@ header h1 {
     font-size: 175%;
     color: rgb(0, 130, 252);
     text-indent: 30px;
+    border-bottom: 1px solid maroon;
 }
 header h2 {
     font-size: 130%;
@@ -48,9 +49,6 @@ article {
 }
 article h3 {    
     column-span: all;
-}
-article {
-    border-top: 1px solid maroon;
 }
 article img {
     float: left;
