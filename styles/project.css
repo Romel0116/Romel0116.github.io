@@ -46,6 +46,8 @@ article {
 }
 article h3 {    
     column-span: all;
+}
+article {
     border-top: 2px solid maroon;
 }
 article img {
