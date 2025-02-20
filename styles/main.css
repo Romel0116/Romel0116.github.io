@@ -9,14 +9,14 @@ body {
     background-color: rgb(171, 171, 171);
     margin: 15px auto;
     padding: 15px 1.5em;
-    border: 1px solid black;
+    border: 1px solid blue;
     border-radius: 25px;
     box-shadow: 5px 5px 0 0;
-    background-image: url(/images/Houston.JPG);
+    background-image: url(/images/Galveston\ Ferris\ Wheel.JPG);
     background-size: contain;
     background-repeat: repeat-y;
     background-position: right;
-    background-attachment: fixed;
+    background-attachment: scroll;
 }
 a:hover, a:focus {
     font-style: italic;
