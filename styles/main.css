@@ -44,19 +44,25 @@ main {
 main h3{
     margin: 3em 2em 1.5em;
     border: 5px;
-    border-style: double rgb(235, 235, 241);
+    border-style: double aliceblue;
     border-radius: 20px;
-    box-shadow: 3px 3px 4px 4px rgb(242, 238, 238);
+    box-shadow: 3px 3px 4px 4px white;
     padding: 1em;
     font-size: 105%;
     color: rgb(236, 238, 239);
 }
 main nav{
     margin: 1.5em 2em 1.5em;
-    border: 5px dashed rgb(245, 245, 246);
+    border: 5px dashed aliceblue;
     border-radius: 20px;
-    box-shadow: 3px 3px 4px 4px;
+    box-shadow: 3px 3px 4px 4px white;
     padding: .5em;
+}
+main div{
+    margin: 1.5em 2em 0em;
+    border: 5px dotted aliceblue;
+    border-radius: 20px;
+    box-shadow: 3px 3px 4px 4px white;
 }
 #id {
     line-height: 105%;
