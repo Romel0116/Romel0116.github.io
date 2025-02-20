@@ -35,7 +35,7 @@ header h2 {
 header img {
     float: left;
     margin-right: 1px;
-    margin-bottom: 10em;
+    margin-bottom: 1px;
 }
 .shadow {
     text-shadow: 2px 2px 2px rgb(248, 245, 245);
