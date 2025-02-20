@@ -1,6 +1,6 @@
 html {
     background-image: linear-gradient(to bottom, rgb(1, 24, 75), black 100%);
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
 }
 
