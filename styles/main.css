@@ -46,7 +46,7 @@ main h3{
     border: 5px;
     border-style: double aliceblue;
     border-radius: 20px;
-    box-shadow: 3px 3px 4px 4px white;
+    box-shadow: 2px 2px 3px 3px white;
     padding: 1em;
     font-size: 105%;
     color: aliceblue;
@@ -55,7 +55,7 @@ main nav{
     margin: 1.5em 2em 1.5em;
     border: 5px dashed aliceblue;
     border-radius: 20px;
-    box-shadow: 3px 3px 4px 4px white;
+    box-shadow: 2px 2px 3px 3px white;
     padding: .5em;
     color: aliceblue;
 }
@@ -63,7 +63,7 @@ main div{
     margin: 1.5em 2em 0em;
     border: 5px dotted aliceblue;
     border-radius: 20px;
-    box-shadow: 3px 3px 4px 4px white;
+    box-shadow: 2px 2px 3px 3px white;
     padding: 1em;
     color: aliceblue;
 }
