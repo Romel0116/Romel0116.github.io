@@ -20,7 +20,7 @@ a:hover, a:focus {
     border-style: dotted solid;
 }
 header {
-    border-bottom: 2px solid black;
+    border-bottom: 1em solid white;
 }
 header h1 {
     font-size: 175%;
@@ -29,7 +29,7 @@ header h1 {
 }
 header h2 {
     font-size: 130%;
-    color: rgb(251, 247, 247);
+    color: black;
     text-indent: 30px;
 }
 header img {
