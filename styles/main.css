@@ -43,8 +43,7 @@ main {
 }
 main h3{
     margin: 3em 2em 1.5em;
-    border: 5px;
-    border-style: double aliceblue;
+    border: 5px double aliceblue;
     border-radius: 20px;
     box-shadow: 2px 2px 3px 3px white;
     padding: 1em;
