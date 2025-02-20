@@ -54,6 +54,9 @@ main h3{
 main nav{
     margin: 1.5em 2em 1.5em;
     border: 5px dashed rgb(245, 245, 246);
+    border-radius: 20px;
+    box-shadow: 3px 3px 4px 4px;
+    padding: .5em;
 }
 #id {
     line-height: 105%;
