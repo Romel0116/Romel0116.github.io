@@ -44,13 +44,16 @@ main {
 main h3{
     margin: 3em 2em 1.5em;
     border: 5px;
-    border-style: double blue;
-    border-color: rgb(10, 104, 186);
+    border-style: double rgb(235, 235, 241);
     border-radius: 20px;
     box-shadow: 3px 3px 4px 4px rgb(242, 238, 238);
     padding: 1em;
     font-size: 105%;
-    color: aliceblue;
+    color: rgb(236, 238, 239);
+}
+main nav{
+    margin: 1.5em 2em 1.5em;
+    border: 5px dashed rgb(245, 245, 246);
 }
 #id {
     line-height: 105%;
