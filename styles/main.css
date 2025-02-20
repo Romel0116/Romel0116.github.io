@@ -42,7 +42,7 @@ main {
     clear: left;
 }
 main h3{
-    margin-top: 3em 2em 1.5em;
+    margin: 3em 2em 1.5em;
     border: 5px;
     border-style: dashed;
     border-color: rgb(10, 104, 186);
