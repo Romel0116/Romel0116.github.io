@@ -44,11 +44,11 @@ main {
 main h3{
     margin: 3em 2em 1.5em;
     border: 5px;
-    border-style: dashed;
+    border-style: double blue;
     border-color: rgb(10, 104, 186);
     border-radius: 20px;
-    box-shadow: 3px 3px 4px 4px red;
-    padding: .5em;
+    box-shadow: 3px 3px 4px 4px rgb(242, 238, 238);
+    padding: 1em;
     font-size: 105%;
     color: aliceblue;
 }
