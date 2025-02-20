@@ -19,32 +19,39 @@ body {
     background-position: right;
     background-attachment: scroll;
 }
+
 a:hover, a:focus {
     font-style: italic;
     color: aqua;
 }
+
 header h1 {
     font-size: 175%;
     color: rgb(0, 130, 252);
     text-indent: 30px;
 }
+
 header h2 {
     font-size: 130%;
     color: #079bf0;
     text-indent: 30px;
 }
+
 header img {
     float: left;
     margin-bottom: 1em;
     margin-left: 2em;
     border-radius: 2em;
 }
+
 .shadow {
     text-shadow: 2px 2px 2px rgb(248, 245, 245);
 }
+
 main {
     clear: left;
 }
+
 main h3{
     margin: 3em 2em 1.5em;
     border: 5px double aliceblue;
@@ -54,6 +61,7 @@ main h3{
     font-size: 105%;
     color: aliceblue;
 }
+
 main nav{
     margin: 1.5em 2em 1.5em;
     border: 5px dashed aliceblue;
@@ -62,6 +70,7 @@ main nav{
     padding: .5em;
     color: aliceblue;
 }
+
 main div{
     margin: 1.5em 2em 0em;
     border: 5px dotted aliceblue;
@@ -70,9 +79,11 @@ main div{
     padding: 1em;
     color: aliceblue;
 }
+
 #id {
     line-height: 105%;
 }
+
 footer p.copyright {
     text-align: center;
     font-size: 80%;
