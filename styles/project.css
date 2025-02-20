@@ -1,5 +1,5 @@
 html {
-    background-image: linear-gradient(to left, rgb(1, 24, 75), #a1a0a0 100%);
+    background-image: linear-gradient(to left, red, orange 100%);
 }
 
 body { 
@@ -16,11 +16,11 @@ body {
 a:hover, a:focus {
     font-style: italic;
     color: aqua;
-    border: 3px blue;
+    border: 3px black;
     border-style: dotted solid;
 }
 header {
-    border-bottom: 2px solid blue;
+    border-bottom: 2px solid black;
 }
 header h1 {
     font-size: 175%;
@@ -61,7 +61,7 @@ article p::first-letter {
     font-size: 3em;
     font-weight: bold;
     font-style: italic;
-    color: lightgreen;
+    color: orangered;
 }
 aside {
     width: 20%;
@@ -72,7 +72,7 @@ aside {
 }
 footer {
     clear: both;
-    border-top: 2px solid blue ;
+    border-top: 2px solid red ;
 }
 footer p.copyright {
     text-align: center;
