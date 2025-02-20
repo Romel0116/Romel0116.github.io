@@ -63,6 +63,7 @@ main div{
     border: 5px dotted aliceblue;
     border-radius: 20px;
     box-shadow: 3px 3px 4px 4px white;
+    padding: 1em;
 }
 #id {
     line-height: 105%;
