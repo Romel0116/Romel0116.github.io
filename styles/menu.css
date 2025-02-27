@@ -22,4 +22,6 @@ aside ol {
     list-style-type: upper-roman;
 }
 
-aside ul
+aside ul {
+    list-style-type: square;
+}
