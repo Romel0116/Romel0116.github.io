@@ -17,3 +17,11 @@ border-right: 2px solid white; }
 article {
     clear: both;
 }
+
+aside ol {
+    list-style-type: upper-roman;
+}
+
+aside ul {
+    list-style-type: square;
+}
