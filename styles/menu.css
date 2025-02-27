@@ -1,4 +1,4 @@
-#nav_menu ul { list-style-type: circle; }
+#nav_menu ul { list-style-type: none; }
 #nav_menu ul li { float: left; }
 #nav_menu ul li a {
 text-align: center;
@@ -22,6 +22,4 @@ aside ol {
     list-style-type: upper-roman;
 }
 
-aside ol ul {
-    list-style-type: square;
-}
+aside ul
