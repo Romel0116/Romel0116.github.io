@@ -94,3 +94,6 @@ aside.fixed {
     background-color: pink;
     padding: 2em;
 }
+aside ol{
+    list-style-type: upper-roman;
+}
