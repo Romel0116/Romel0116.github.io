@@ -77,8 +77,8 @@ aside {
     background-color: cyan;
     padding-left: 1em;
     padding-bottom: 1em;
-    position: fixed;
 }
+
 footer {
     clear: both;
     border-top: 2px solid black ;
