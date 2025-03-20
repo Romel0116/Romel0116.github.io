@@ -69,8 +69,15 @@ article p::first-letter {
     font-weight: bold;
     font-style: italic;
     color: orangered;
-}   
- 
+} 
+
+aside {
+    width: 20%;
+    float: right;
+    background-color: cyan;
+    padding-left: 1em;
+    padding-bottom: 1em;
+}
 footer {
     clear: both;
     border-top: 2px solid black ;
