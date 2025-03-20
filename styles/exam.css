@@ -14,6 +14,7 @@ body {
     box-shadow: 5px 5px 0 0;
     background-size: cover;
 }
+
 #nav_menu ul { list-style-type: none; }
 #nav_menu ul li { float: left; }
 #nav_menu ul li a {
@@ -33,28 +34,16 @@ a:hover, a:focus {
     border: 3px black;
     border-style: dotted solid;
 }
+
 header {
     border-bottom: 2px solid black;
     padding-bottom: 1em;
 }
-header h1 {
-    font-size: 175%;
-    color: black;
-    text-indent: 30px;
-}
-header h2 {
-    font-size: 130%;
-    color: black;
-    text-indent: 30px;
-}
-header img {
-    float: left;
-    margin-right: 1px;
-    margin-bottom: 1px;
-}
+
 .shadow {
     text-shadow: 2px 2px 2px rgb(248, 245, 245);
 }
+
 article {
     clear: both;
     width: 70%;
@@ -64,23 +53,29 @@ article {
     column-gap: 2em;
     margin-left: 2em;
 }
+
 article h1 {    
     column-span: all;
 }
+
 article img {
     float: left;
     padding-right: 2px;
     padding-bottom: 1px;
 }
+
 article p::first-letter {
     font-size: 3em;
     font-weight: bold;
     font-style: italic;
     color: orangered;
+}   
+ 
 footer {
     clear: both;
     border-top: 2px solid black ;
 }
+
 footer p.copyright {
     text-align: center;
     font-size: 80%;
