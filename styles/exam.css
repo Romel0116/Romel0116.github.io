@@ -85,3 +85,12 @@ footer p.copyright {
     font-size: 80%;
     color: black;
 }
+aside.fixed {
+    width: auto;
+    position: fixed;
+    bottom: 20%;
+    right: 0;
+    border: 3px solid black;
+    background-color: pink;
+    padding: 2em;
+}
