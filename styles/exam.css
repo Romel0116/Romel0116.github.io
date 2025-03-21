@@ -100,11 +100,11 @@ aside ul{
     list-style:square;
 }
 
-aside.roman{
-    list-style: upper-roman;
+.roman{
+    list-style-type: upper-roman;
 }
 
-aside.alpha{
+.alpha{
     list-style: lower-alpha;
 }
 
