@@ -6,7 +6,7 @@ body {
     font-family:Arial, Helvetica, sans-serif;
     font-size: 100%;
     width: 90%;
-    margin: 15px auto;
+    margin: 15px 15px;
     padding: 15px 1.5em;
     border: 1px solid black;
     border-radius: 25px;
@@ -57,12 +57,11 @@ article {
     column-count: 3;
     column-rule: 5px dashed blue;
     column-gap: 2em;
-    margin-left: 2em;
     background-image: url(/images/Sam\ Logo.png);
     background-repeat: repeat-y;
     background-position: right;
     background-attachment: scroll;
-    margin-right: 5em;
+    margin-right: 10em;
 }
 
 article h1 {    
