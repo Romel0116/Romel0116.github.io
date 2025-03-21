@@ -67,6 +67,7 @@ article {
 
 article h1 {    
     column-span: all;
+    color: blue;
 }
 
 article h2{
