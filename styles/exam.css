@@ -60,6 +60,7 @@ article {
     column-count: 3;
     column-rule: 5px dashed blue;
     column-gap: 2em;
+    border-color: black;
 }
 
 article h1 {    
