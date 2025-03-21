@@ -61,7 +61,7 @@ article {
     background-repeat: repeat-y;
     background-position: right;
     background-attachment: scroll;
-    margin-right: 10em;
+    padding-right: 10em;
 }
 
 article h1 {    
