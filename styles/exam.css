@@ -1,5 +1,5 @@
 html {
-    background-image: linear-gradient(to left, orange, orange);
+    background-image: linear-gradient(to left, grey, white);
 }
 
 body { 
@@ -52,16 +52,17 @@ header {
 
 article {
     clear: both;
-    width: 90%;
+    width: 100%;
     float: left;
     column-count: 3;
-    column-rule: 2px dotted blue;
+    column-rule: 2em dotted blue;
     column-gap: 2em;
     margin-left: 2em;
     background-image: url(/images/Sam\ Logo.png);
     background-repeat: repeat-y;
     background-position: right;
     background-attachment: scroll;
+    background-color: white;
 }
 
 article h1 {    
