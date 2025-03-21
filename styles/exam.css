@@ -52,7 +52,7 @@ header {
 
 article {
     clear: both;
-    width: 50%;
+    width: 90%;
     float: left;
     column-count: 3;
     column-rule: 2px dotted blue;
