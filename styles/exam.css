@@ -98,6 +98,10 @@ aside ul{
     list-style:square;
 }
 
+aside ol{
+    list-style: upper-roman;
+}
+
 footer {
     clear: both;
     border-top: 2px solid black ;
