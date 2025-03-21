@@ -89,6 +89,7 @@ aside {
     position: fixed;
     padding-left: 1em;
     padding-bottom: 1em;
+    border-color: red;
     right: 10px;
     top: 100px;
 }
