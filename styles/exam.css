@@ -55,7 +55,7 @@ article {
     width: 100%;
     float: left;
     column-count: 3;
-    column-rule: 10px dotted blue;
+    column-rule: 10px dashed blue;
     column-gap: 2em;
     margin-left: 2em;
     background-image: url(/images/Sam\ Logo.png);
