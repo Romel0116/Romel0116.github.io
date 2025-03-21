@@ -60,8 +60,9 @@ article {
     margin-left: 2em;
     background-image: url(/images/Sam\ Logo.png);
     background-repeat: repeat-y;
-    background-position: right;
+    background-position: left;
     background-attachment: scroll;
+    back
 }
 
 article h1 {    
