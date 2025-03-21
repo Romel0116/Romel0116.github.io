@@ -55,7 +55,7 @@ article {
     width: 70%;
     float: left;
     column-count: 3;
-    column-rule: 2px dotted maroon;
+    column-rule: 2px dotted blue;
     column-gap: 2em;
     margin-left: 2em;
     background-image: url(/images/Sam\ Logo.png);
@@ -68,6 +68,9 @@ article h1 {
     column-span: all;
 }
 
+article h2 {
+    text-decoration: blue;
+}
 article img {
     float: left;
     padding-right: 2px;
