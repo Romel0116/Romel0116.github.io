@@ -1,5 +1,5 @@
 html {
-    background-image: linear-gradient(to left, grey, white);
+    background-image: linear-gradient(to left, white, grey);
 }
 
 body { 
@@ -62,7 +62,6 @@ article {
     background-repeat: repeat-y;
     background-position: right;
     background-attachment: scroll;
-    background-color: white;
 }
 
 article h1 {    
