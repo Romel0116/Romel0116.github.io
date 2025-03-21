@@ -52,7 +52,7 @@ header {
 
 article {
     clear: both;
-    width: 70%;
+    width: 50%;
     float: left;
     column-count: 3;
     column-rule: 2px dotted blue;
@@ -60,7 +60,7 @@ article {
     margin-left: 2em;
     background-image: url(/images/Sam\ Logo.png);
     background-repeat: repeat-y;
-    background-position: left;
+    background-position: right;
     background-attachment: scroll;
 }
 
