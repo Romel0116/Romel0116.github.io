@@ -100,8 +100,12 @@ aside ul{
     list-style:square;
 }
 
-aside ol{
+aside.roman{
     list-style: upper-roman;
+}
+
+aside.alpha{
+    list-style: lower-alpha;
 }
 
 footer {
