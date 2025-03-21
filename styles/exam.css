@@ -16,7 +16,7 @@ body {
     background-image: url(/images/Sam\ Logo.png);
     background-repeat: repeat-y;
     background-position: right;
-    background-attachment: fixed;
+    background-attachment: scroll;
 }
 
 #nav_menu ul { list-style-type: none; }
