@@ -41,11 +41,6 @@ nav::after {
     clear: both;
 }
 
-nav {
-    border-bottom: 2px solid blue;
-    border-right: 10em;
-}
-
 header {
     border-bottom: 2px solid black;
     padding-bottom: 1em;
