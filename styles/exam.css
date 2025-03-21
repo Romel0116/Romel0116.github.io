@@ -62,7 +62,6 @@ article {
     background-repeat: repeat-y;
     background-position: left;
     background-attachment: scroll;
-    back
 }
 
 article h1 {    
@@ -82,17 +81,16 @@ article p::first-letter {
     font-size: 3em;
     font-weight: bold;
     font-style: italic;
-    color: orangered;
 } 
 
 aside {
     width: 20%;
     float: right;
-    background-color: cyan;
+    background-color: rgb(206, 206, 206);
     position: fixed;
     padding-left: 1em;
     padding-bottom: 1em;
-    border-color: red;
+    border-color: blue;
     right: 10px;
     top: 100px;
 }
