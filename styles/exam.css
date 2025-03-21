@@ -94,6 +94,10 @@ aside {
     top: 100px;
 }
 
+aside ul{
+    list-style:square;
+}
+
 footer {
     clear: both;
     border-top: 2px solid black ;
