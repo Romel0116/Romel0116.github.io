@@ -69,9 +69,10 @@ article h1 {
     column-span: all;
 }
 
-article h2 {
-    text-decoration: blue;
+article h2{
+    color: blue;
 }
+
 article img {
     float: left;
     padding-right: 2px;
