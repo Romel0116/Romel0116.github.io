@@ -121,7 +121,7 @@ html, body {
     footer {
         border-top: 2px solid  #f46b45;
         text-align: center;
-        font-size: 8em;
+        font-size: .6em;
     }
 
     .menu-button-container {
