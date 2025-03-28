@@ -93,6 +93,7 @@ footer p.copyright {
 
 @media only screen and (max-width: 760px)
 {
+
 .menu-button-container {
 display: flex;
 }
@@ -130,5 +131,15 @@ background-color: #222;
 }
 .menu > li:not(:last-child) {
 border-bottom: 1px solid #444;
+}
+
+body {
+font-size: 1.1em;
+}
+
+footer {
+border-top: 1px solid #f46b45;
+text-align: center;
+font-size: .6em;
 }
 }
