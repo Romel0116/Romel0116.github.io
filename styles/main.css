@@ -90,17 +90,3 @@ footer p.copyright {
     font-size: 80%;
     color: aliceblue;
 }
-
-@media only screen and (max-width: 850px)
-{
-
-body {
-font-size: 1.1em;
-}
-
-footer {
-border-top: 1px solid #f46b45;
-text-align: center;
-font-size: .6em;
-}
-}
