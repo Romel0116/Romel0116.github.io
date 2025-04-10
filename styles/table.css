@@ -58,9 +58,10 @@ html, body {
         vertical-align: top;
     }
 
-    table.third thead {
+    table.third th {
         border-top:2px solid orange;
         border-bottom: 2px solid orange;
+        background-color: lime;
     }
     
     table.third tbody {
