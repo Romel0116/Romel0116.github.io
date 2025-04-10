@@ -56,14 +56,13 @@ html, body {
     /*-----------------------------------------------------------*/
     table.third {
         vertical-align: top;
-        border: 2px solid orange;
     }
 
-    table.third thead tr:first-child {
-        border-top: orange;
-        border-bottom: orange;
+    table.third thead {
+        border-top:2px solid orange;
+        border-bottom: 2px solid orange;
     }
     
     table.third tbody {
-        border-bottom: orange;
+        border-bottom: 2px solid orange;
     }
