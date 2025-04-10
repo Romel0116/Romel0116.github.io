@@ -62,8 +62,6 @@ html, body {
         border-top:2px solid orange;
         border-bottom: 2px solid orange;
         background-color: lime;
+        border-collapse: collapse;
     }
     
-    table.third tbody {
-        border-bottom: 2px solid orange;
-    }
