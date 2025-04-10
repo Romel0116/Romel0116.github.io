@@ -56,6 +56,7 @@ html, body {
     /*-----------------------------------------------------------*/
     table.third {
         vertical-align: top;
+        border: 2px solid orange;
     }
 
     table.third thead tr:first-child {
