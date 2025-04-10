@@ -62,4 +62,7 @@ html, body {
         border-top: orange;
         border-bottom: orange;
     }
-        
+    
+    table.third tbody {
+        border-bottom: orange;
+    }
