@@ -64,7 +64,3 @@ html, body {
         background-color: lime;
         border-collapse: collapse;
     }
-    
-    table.third :last-child {
-        border-bottom: 2px solid orange;
-    }
