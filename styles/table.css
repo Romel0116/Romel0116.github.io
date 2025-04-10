@@ -53,4 +53,13 @@ html, body {
     padding: 0;
     }
     }
+    /*-----------------------------------------------------------*/
+    table.third {
+        vertical-align: top;
+    }
+
+    table.third thead tr:first-child {
+        border-top: orange;
+        border-bottom: orange;
+    }
         
