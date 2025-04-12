@@ -1,0 +1,19 @@
+#nav_menu ul { list-style-type: none; }
+#nav_menu ul li { float: right; }
+#nav_menu ul li a {
+text-align: center;
+display: block;
+width: 175px;
+padding: 1em 0; /* padding above and below a
+elements */
+text-decoration: none;
+background-color: orange;
+color: white;
+font-weight: bold;
+border-right: 2px solid white; }
+a:hover, a:focus {
+    font-style: italic;
+    color: aqua;
+    border: 3px black;
+    border-style: dotted solid;
+}
