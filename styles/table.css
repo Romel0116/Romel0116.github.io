@@ -68,3 +68,7 @@ html, body {
     table.third tbody {
         border-bottom: 2px solid orange;
     }
+
+    table.third thead tr:first-child {
+        border-bottom: 2px solid orange;
+    }
