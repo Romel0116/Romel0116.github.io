@@ -55,12 +55,12 @@ html, body {
     }
     /*-----------------------------------------------------------*/
     table.third {
-        vertical-align: top;
+        vertical-align: top;        
+        border-collapse: collapse;
     }
 
-    table.third th {
+    table.third thead {
         border-top:2px solid orange;
         border-bottom: 2px solid orange;
         background-color: lime;
-        border-collapse: collapse;
     }
