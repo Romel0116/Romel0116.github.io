@@ -72,3 +72,13 @@ html, body {
     table.third thead tr:first-child {
         border-bottom: 2px solid orange;
     }
+
+    @media only screen and (max-width: 425px) {
+        th, td {
+        display: block;
+        }
+        thead, td.number {
+        display: none;
+        padding: 0;
+        }
+    }
