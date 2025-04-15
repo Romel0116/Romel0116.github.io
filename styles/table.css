@@ -64,3 +64,8 @@ html, body {
         border-bottom: 2px solid orange;
         background-color: lime;
     }
+
+    table.third tbody {
+        border-bottom: 2px solid orange;
+        background-color: lime;
+    }
