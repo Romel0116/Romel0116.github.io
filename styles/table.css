@@ -60,17 +60,17 @@ html, body {
     }
 
     table.third thead {
-        border-top:2px solid orange;
-        border-bottom: 2px solid orange;
-        background-color: lime;
+        border-top:2px solid orangered;
+        border-bottom: 2px solid orangered;
+        background-color: lightgreen;
     }
 
     table.third tbody {
-        border-bottom: 2px solid orange;
+        border-bottom: 2px solid orangered;
     }
 
     table.third thead tr:first-child {
-        border-bottom: 2px solid orange;
+        border-bottom: 2px solid orangered;
     }
 
     @media only screen and (max-width: 425px) {
