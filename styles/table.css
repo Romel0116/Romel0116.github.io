@@ -57,12 +57,11 @@ html, body {
     table.third {
         vertical-align: top;        
         border-collapse: collapse;
-        padding: 5em;
     }
 
     table.third thead {
-        border-top:2px solid rgb(72, 0, 255);
-        border-bottom: 2px solid rgb(38, 0, 255);
+        border-top:2px solid orangered;
+        border-bottom: 2px solid orangered;
         background-color: lightgreen;
     }
 
