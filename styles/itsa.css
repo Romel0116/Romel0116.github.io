@@ -18,6 +18,9 @@ a:hover, a:focus {
     border-style: dotted solid;
 }
 
+article {
+    column-count: 1;
+}
 img {
     float: left;
 }
