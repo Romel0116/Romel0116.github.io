@@ -18,6 +18,10 @@ a:hover, a:focus {
     border-style: dotted solid;
 }
 
+header {
+    border-bottom: solid 2px blue;
+}
+
 article {
     column-count: 2;
 }
