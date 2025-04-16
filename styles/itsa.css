@@ -20,6 +20,8 @@ a:hover, a:focus {
 
 header {
     border-bottom: solid 2px blue;
+    padding-bottom: 1em;
+    display: block;
 }
 
 article {
