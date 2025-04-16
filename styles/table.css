@@ -57,7 +57,7 @@ html, body {
     table.third {
         vertical-align: top;        
         border-collapse: collapse;
-        padding: 10px;
+        padding: 5em;
     }
 
     table.third thead {
