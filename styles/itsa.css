@@ -19,8 +19,9 @@ a:hover, a:focus {
 }
 
 article {
-    column-count: 1;
+    column-count: 2;
 }
+
 img {
     float: left;
 }
