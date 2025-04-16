@@ -17,3 +17,7 @@ a:hover, a:focus {
     border: 3px black;
     border-style: dotted solid;
 }
+
+img {
+    float: left;
+}
