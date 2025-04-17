@@ -9,6 +9,7 @@ text-decoration: none;
 background-color: orange;
 color: white;
 font-weight: bold;
+border-bottom: solid 2px blue;
 border-right: 2px solid white; }
 
 a:hover, a:focus {
@@ -19,7 +20,7 @@ a:hover, a:focus {
 }
 
 header {
-    border-bottom: solid 2px blue;
+    
     padding-bottom: 1em;
     display: block;
     padding: 1em;
