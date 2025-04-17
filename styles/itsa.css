@@ -4,13 +4,13 @@
 text-align: center;
 display: block;
 width: 175px;
-padding: 1em 0; /* padding above and below a
-elements */
+padding: 1em; /* padding above and below a elements */
 text-decoration: none;
 background-color: orange;
 color: white;
 font-weight: bold;
 border-right: 2px solid white; }
+
 a:hover, a:focus {
     font-style: italic;
     color: aqua;
@@ -22,10 +22,7 @@ header {
     border-bottom: solid 2px blue;
     padding-bottom: 1em;
     display: block;
-}
-
-article {
-    column-count: 2;
+    padding: 1em;
 }
 
 img {
