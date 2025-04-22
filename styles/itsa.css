@@ -5,28 +5,6 @@ a:hover, a:focus {
     border-style: dotted solid;
 }
 
-header {
-    border-bottom: solid 2px blue;
-    padding-bottom: 1em;
-    display: block;
-    padding: 1em;
-}
-
-#nav_menu ul {list-style-type: none;}
-
-#nav_menu ul li { float: right;}
-
-#nav_menu ul li a {
-text-align: center;
-display: block;
-width: 175px;
-padding: 1em; /* padding above and below a elements */
-text-decoration: none;
-background-color: orange;
-color: white;
-font-weight: bold;
-border-right: 2px solid white;}
-
 main {
     margin: 2em
 }
