@@ -8,4 +8,5 @@ img {
 
 body {
     background-image: url(/images/Sam\ University.jpg);
+    background-size: cover;
 }
