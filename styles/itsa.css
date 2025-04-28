@@ -6,7 +6,12 @@ img {
     float: left;
 }
 
-body {
+header {
+    width: 100%;
+    height: 400px;
     background-image: url(/images/Sam\ University.jpg);
     background-size: cover;
-}
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
