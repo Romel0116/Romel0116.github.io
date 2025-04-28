@@ -6,4 +6,6 @@ img {
     float: left;
 }
 
-background-image: url(/images/Sam University.jpg);
+body {
+    background-image: url(/images/Sam\ University.jpg);
+}
