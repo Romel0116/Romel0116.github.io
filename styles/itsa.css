@@ -26,9 +26,10 @@ section.officers {
 }
 
 aside {
-    width: 20%;
+    width: 10px;
     float: right;
     background-color: orange;
     padding-left: 1em;
     padding-bottom: 1em;
+    border-radius: 10%;
 }
