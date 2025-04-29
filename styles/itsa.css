@@ -19,6 +19,16 @@ header {
   @media only screen and (max-width: 760px)
   {
   
+    header {
+        width: 100%;
+        height: 550px;
+        background-image: url(/images/Sam\ University.jpg);
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-size: large;
+      }
+
   .menu-button-container {
   display: flex;
   }
