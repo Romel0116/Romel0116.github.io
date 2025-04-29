@@ -140,6 +140,8 @@ transform: scale(1.05);
   section.officers {
     float: left;
     clear: both;
+    background-color: transparent; 
+    color: black;
   }
   
   aside {
