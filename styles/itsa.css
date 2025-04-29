@@ -22,8 +22,8 @@ section.about {
 
 section.officers {
     float: left;
+    clear: both;
 }
-
 
 aside {
     width: 20%;
