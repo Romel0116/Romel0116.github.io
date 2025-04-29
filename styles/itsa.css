@@ -20,6 +20,14 @@ section {
     text-align: center;
 }
 
+main h1{
+    float: left;
+}
+
+main p{
+    float: left;
+}
+
 aside {
     width: 20%;
     float: right;
