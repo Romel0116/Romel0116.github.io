@@ -125,20 +125,7 @@ transform: scale(1.05);
     text-align: center;
   }
   
-  section.officers {
-    float: left;
-    clear: both;
-    background-color: transparent; 
-    color: black;
-  }
-  
-  aside {
-    width: 180px;
-    float: right;
-    background-color: orange;
-    padding: 1em;
-    border-radius: 10%;
-  }
+
   
   /* Header Styling */
   .header-container {
