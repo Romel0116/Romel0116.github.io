@@ -253,4 +253,8 @@ transform: scale(1.05);
   .footer-column a:hover {
     text-decoration: underline;
   }
+
+  .body-content {
+    padding: 20px;
+  }
   
