@@ -16,15 +16,15 @@ header {
     font-size: large;
   }
   
-section {
+section.about {
     text-align: center;
 }
 
-main h1{
+section.officers {
     float: left;
 }
 
-main p{
+main h2{
     float: left;
 }
 
