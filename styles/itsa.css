@@ -68,7 +68,7 @@ main {
 
 img {
 max-width: 100%;     /* responsive images */
-height: auto;
+height: 30rem;
 }
 
 /* ----- BANNER SECTION ----- */
