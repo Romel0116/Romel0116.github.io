@@ -179,33 +179,47 @@ body {
 
 /* Responsive Design for Mobile Devices */
 @media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   #nav_menu ul {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      background: blue;
-      padding: 10px;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
   }
 
-  / Style the hamburger /
-  .hamburger {
-      font-size: 24px;
-      cursor: pointer;
-      color: white;
-      padding: 10px;
-      display: block;
+  #nav_menu ul li a {
+    display: block;
+    width: 100%;
   }
 
-  / Hide checkbox visually /
-  #menu-toggle {
-      display: none;
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
-  / Show menu when checkbox is checked */
-  #menu-toggle:checked + label + #nav_menu ul {
-      display: block;
+  .footer-columns {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .footer-image img {
+    margin-bottom: 20px;
+  }
+
+  .profile-pic {
+    float: none;
+    display: block;
+    margin: 0 auto 1em;
+  }
+
+  .profile-block {
+    text-align: center;
+  }
+
+  img {
+    height: auto;
   }
 }
