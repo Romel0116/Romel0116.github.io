@@ -156,3 +156,35 @@ body {
 .body-content {
   padding: 20px;
 }
+
+@media (max-width: 768px) {
+  #nav_menu ul {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      background: blue;
+      padding: 10px;
+  }
+
+  / Style the hamburger /
+  .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+      padding: 10px;
+      display: block;
+  }
+
+  / Hide checkbox visually /
+  #menu-toggle {
+      display: none;
+  }
+
+  / Show menu when checkbox is checked */
+  #menu-toggle:checked + label + #nav_menu ul {
+      display: block;
+  }
+}
