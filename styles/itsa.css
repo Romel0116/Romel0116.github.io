@@ -100,16 +100,6 @@ header a:hover, footer a:hover {
   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
 }
 
-.slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  animation: fade 75s infinite;
-}
-
 section.Sam_University {
   width: 100%;
   height: auto;
