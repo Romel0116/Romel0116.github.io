@@ -332,7 +332,7 @@ section .cards .card {
 }
 @media screen and (max-width: 560px) {
   section .cards .card {
-    width: 100%;
+    width: 50%;
     margin-bottom: 30px;
   }
 }
