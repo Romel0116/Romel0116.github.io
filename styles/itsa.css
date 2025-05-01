@@ -110,6 +110,11 @@ header a:hover, footer a:hover {
   animation: fade 75s infinite;
 }
 
+section.Sam_University {
+  width: 100%;
+  height: auto;
+}
+
 section {
   display: flex;
   align-items: center;
