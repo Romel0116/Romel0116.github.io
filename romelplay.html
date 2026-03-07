@@ -1,41 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Romel Garcia's personal web site at SHSU">
-    <meta name="keywords" content="Romel, Garcia, shsu">
-    <title> Romel Garcia's web site</title>
-    <link rel="stylesheet" href="styles/romelplaystyles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Romel Garcia | Portfolio</title>
+  <link rel="stylesheet" href="styles/romelplaystyles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+  <script src="https://kit.fontawesome.com/7a4b62b0a4.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <img src="images/Romel- Beach Profile.JPG" alt="My picture" height="250">
-        <h1 class="shadow"> Welcome to my website!</h1>
-        <h2 class="shadow"> https://romel0116.github.io/</h2>
-    </header>
-    <main>
-       
-        <h3>My name is Romel! I work at an Accounting Firm and I am a student at SHSU! I'm excited to complete my Bachelors in MIS and start a career in Data Analytics. Welcome to my website!!!</h3>
-        <nav>
-            <ul id="list">
-                <li>Education</li>
-                <li>Work Experience</li>
-                <li>Knowledge and Skills</li>
-                <li>Certifications</li>
-                <li><a href="#">Class Projects</a></li>
-            </ul>
-        </nav>
-        <div>
-            <p>Click here to download <a href="images/Pepper.jpg" target="_blank">my resume</a></p>
-            <p>Click here to visit <a href="https://www.instagram.com/romell.g8/" target="_blank">my Instagram</a></p>
-            <p>Contact me at <em><a href="mailto:rag098@shsu.edu">rag098@shsu.edu</a></em> for any inquiries</p>
+
+  <header class="header">
+    <div class="container nav-container">
+      <h1 class="logo">Romel Garcia</h1>
+
+      <input type="checkbox" id="menu-toggle">
+      <label for="menu-toggle" class="menu-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#resume">Resume</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <p class="intro">Hello, my name is</p>
+        <h2>Romel Garcia</h2>
+        <h3>Aspiring Professional & Portfolio Owner</h3>
+        <p class="hero-description">
+          Welcome to my personal website. Here you can learn more about my
+          background, experience, projects, skills, and career goals.
+        </p>
+
+        <div class="hero-buttons">
+          <a href="#projects" class="btn primary-btn">View My Work</a>
+          <a href="#contact" class="btn secondary-btn">Contact Me</a>
         </div>
-    </main>
-    <br>
-    <br>
-    <footer>
-        <p class="copyright">&copy; 2025 Romel Garcia <a href="https://www.instagram.com/romell.g8/" target="_blank">Instagram</a></p>
-    </footer>
+
+        <div class="social-icons">
+          <a href="https://linkedin.com/in/yourprofile" target="_blank" aria-label="LinkedIn">
+            <i class="fab fa-linkedin"></i>
+          </a>
+          <a href="https://github.com/yourusername" target="_blank" aria-label="GitHub">
+            <i class="fab fa-github"></i>
+          </a>
+          <a href="mailto:your.email@email.com" aria-label="Email">
+            <i class="fas fa-envelope"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="card">
+        <p>
+          I am Romel Garcia, and this portfolio highlights my background,
+          work experience, education, and technical skills. I am passionate
+          about growing professionally, continuing to learn, and applying
+          my knowledge in meaningful ways. This site is designed to give
+          employers, recruiters, and collaborators a clear overview of who I am
+          and what I can contribute.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="resume" class="section alt-bg">
+    <div class="container">
+      <h2 class="section-title">Resume</h2>
+      <div class="card center-card">
+        <p>You can download a copy of my resume below.</p>
+        <a href="resume.pdf" target="_blank" class="btn primary-btn">Download Resume</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <div class="container">
+      <h2 class="section-title">Work Experience</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content card">
+            <h3>Current or Most Recent Job Title</h3>
+            <span class="timeline-date">Company Name | Start Year - Present</span>
+            <p>
+              Describe your main responsibilities, accomplishments, and the
+              impact you made in this role. Include leadership, teamwork,
+              software, or job-specific duties.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content card">
+            <h3>Previous Job Title</h3>
+            <span class="timeline-date">Company Name | Start Year - End Year</span>
+            <p>
+              Add another summary of your responsibilities, work experience,
+              and notable contributions from this position.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-content card">
+            <h3>Earlier Job Title</h3>
+            <span class="timeline-date">Company Name | Start Year - End Year</span>
+            <p>
+              Include any earlier experience that helped build your skills,
+              work ethic, and professional development.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section alt-bg">
+    <div class="container">
+      <h2 class="section-title">Projects</h2>
+
+      <div class="projects-grid">
+        <div class="project-card">
+          <h3>Portfolio Website</h3>
+          <p>
+            A personal website created using HTML and CSS to present my resume,
+            work experience, skills, education, and contact information in a
+            clean and professional format.
+          </p>
+          <a href="#" class="project-link">View Project</a>
+        </div>
+
+        <div class="project-card">
+          <h3>School or Class Project</h3>
+          <p>
+            Replace this with a project from one of your courses, internships,
+            or personal work. Briefly explain what it was, what tools you used,
+            and what you learned.
+          </p>
+          <a href="#" class="project-link">View Project</a>
+        </div>
+
+        <div class="project-card">
+          <h3>Technical Project</h3>
+          <p>
+            Add a project related to programming, business, data, networking,
+            or another area that demonstrates your strengths and experience.
+          </p>
+          <a href="#" class="project-link">View Project</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="section-title">Skills</h2>
+
+      <div class="skills-grid">
+        <div class="skill-box card">
+          <h3>HTML</h3>
+          <div class="skill-bar">
+            <div class="skill-fill html">90%</div>
+          </div>
+        </div>
+
+        <div class="skill-box card">
+          <h3>CSS</h3>
+          <div class="skill-bar">
+            <div class="skill-fill css">85%</div>
+          </div>
+        </div>
+
+        <div class="skill-box card">
+          <h3>Python</h3>
+          <div class="skill-bar">
+            <div class="skill-fill python">75%</div>
+          </div>
+        </div>
+
+        <div class="skill-box card">
+          <h3>Java</h3>
+          <div class="skill-bar">
+            <div class="skill-fill java">70%</div>
+          </div>
+        </div>
+
+        <div class="skill-box card">
+          <h3>Communication</h3>
+          <div class="skill-bar">
+            <div class="skill-fill communication">95%</div>
+          </div>
+        </div>
+
+        <div class="skill-box card">
+          <h3>Problem Solving</h3>
+          <div class="skill-bar">
+            <div class="skill-fill problem-solving">90%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" class="section alt-bg">
+    <div class="container">
+      <h2 class="section-title">Education</h2>
+
+      <div class="card">
+        <h3>Degree or Program Name</h3>
+        <p><strong>School Name</strong> | Graduation Year</p>
+        <p>
+          Include major coursework, honors, certifications, or academic
+          achievements that are relevant to your field.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <h2 class="section-title">Contact</h2>
+
+      <div class="contact-grid">
+        <div class="contact-card card">
+          <i class="fas fa-envelope"></i>
+          <h3>Email</h3>
+          <p>your.email@email.com</p>
+        </div>
+
+        <div class="contact-card card">
+          <i class="fab fa-linkedin"></i>
+          <h3>LinkedIn</h3>
+          <p>linkedin.com/in/yourprofile</p>
+        </div>
+
+        <div class="contact-card card">
+          <i class="fab fa-github"></i>
+          <h3>GitHub</h3>
+          <p>github.com/yourusername</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 Romel Garcia. All rights reserved.</p>
+    </div>
+  </footer>
+
 </body>
 </html>
