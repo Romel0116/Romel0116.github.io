@@ -1,93 +1,129 @@
-html {
-    background-image: linear-gradient(to bottom, rgb(1, 24, 75), black 100%);
-    background-size: cover;
-    background-attachment: fixed;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body { 
-    font-family:Arial, Helvetica, sans-serif;
-    font-size: 100%;
-    width: 1000px;
-    background-color: rgb(171, 171, 171);
-    margin: 15px auto;
-    padding: 15px 1.5em;
-    border: 1px solid blue;
-    border-radius: 25px;
-    box-shadow: 5px 5px 0 0;
-    background-image: url(/images/Houston.JPG);
-    background-size: cover;
-    background-repeat: repeat-y;
-    background-position: right;
-    background-attachment: scroll;
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background: #f4f4f4;
+  color: #333;
 }
 
-a:hover, a:focus {
-    font-style: italic;
-    color: aqua;
+.container {
+  width: 85%;
+  max-width: 1100px;
+  margin: auto;
+}
+
+
+header {
+  background: #222;
+  color: white;
+  padding: 20px 0;
 }
 
 header h1 {
-    font-size: 175%;
-    color: rgb(0, 130, 252);
-    text-indent: 30px;
+  text-align: center;
+  margin-bottom: 5px;
 }
 
-header h2 {
-    font-size: 130%;
-    color: #079bf0;
-    text-indent: 30px;
+.tagline {
+  text-align: center;
+  color: #ccc;
+  margin-bottom: 15px;
 }
 
-header img {
-    float: left;
-    margin-bottom: 1em;
-    margin-left: 2em;
-    border-radius: 2em;
+nav ul {
+  list-style: none;
+  text-align: center;
 }
 
-.shadow {
-    text-shadow: 2px 2px 2px rgb(248, 245, 245);
+nav ul li {
+  display: inline-block;
+  margin: 0 15px;
 }
 
-main {
-    clear: left;
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
 }
 
-main h3{
-    margin: 3em 2em 1.5em;
-    border: 5px double aliceblue;
-    border-radius: 20px;
-    box-shadow: 2px 2px 3px 3px white;
-    padding: 1em;
-    font-size: 105%;
-    color: aliceblue;
+nav ul li a:hover {
+  color: #00bcd4;
 }
 
-main nav{
-    margin: 1.5em 2em 1.5em;
-    border: 5px dashed aliceblue;
-    border-radius: 20px;
-    box-shadow: 2px 2px 3px 3px white;
-    padding: .5em;
-    color: aliceblue;
+
+#hero {
+  background: #00bcd4;
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
 }
 
-main div{
-    margin: 1.5em 2em 0em;
-    border: 5px dotted aliceblue;
-    border-radius: 20px;
-    box-shadow: 2px 2px 3px 3px white;
-    padding: 1em;
-    color: aliceblue;
+#hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
-#id {
-    line-height: 105%;
+.btn {
+  display: inline-block;
+  background: #222;
+  color: white;
+  padding: 12px 24px;
+  margin-top: 15px;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
-footer p.copyright {
-    text-align: center;
-    font-size: 80%;
-    color: aliceblue;
+.btn:hover {
+  background: #444;
 }
-    
+
+
+.section {
+  padding: 60px 0;
+}
+
+.section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.alt-bg {
+  background: #e9f7fa;
+}
+
+
+.card {
+  background: white;
+  padding: 20px;
+  margin: 20px 0;
+  border-left: 5px solid #00bcd4;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+.skills-list {
+  text-align: center;
+}
+
+.skills-list span {
+  display: inline-block;
+  background: #00bcd4;
+  color: white;
+  padding: 10px 15px;
+  margin: 8px;
+  border-radius: 20px;
+}
+
+
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
