@@ -121,6 +121,18 @@ nav ul li a:hover {
   border-radius: 20px;
 }
 
+.softwares-list {
+  text-align: center;
+}
+
+.softwares-list span {
+  display: inline-block;
+  background: #00bcd4;
+  color: white;
+  padding: 10px 15px;
+  margin: 8px;
+  border-radius: 20px;
+}
 
 footer {
   background: #222;
