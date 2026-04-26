@@ -98,6 +98,10 @@ nav ul li a:hover {
 }
 
 
+.certificate {
+text-align: center;
+}
+
 .card {
   background: white;
   padding: 20px;
