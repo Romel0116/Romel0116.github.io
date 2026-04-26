@@ -112,6 +112,19 @@ border: white;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
+.cardKenyon {
+  background: white;
+  padding: 20px;
+  margin: 20px 0;
+  border-left: 5px solid #00bcd4;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+
 
 .skills-list {
   text-align: center;
