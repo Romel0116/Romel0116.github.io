@@ -103,6 +103,13 @@ text-align: center;
 border: white;
 }
 
+.certificate img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 20px auto;
+}
+
 .card {
   background: white;
   padding: 20px;
