@@ -109,6 +109,18 @@ nav ul li a:hover {
   border-radius: 10px;
   cursor: pointer;
   transition: transform 0.3s ease;
+  .certificate-item {
+  display: inline-block;
+  margin: 20px;
+  text-align: center;
+}
+
+.certificate-label {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+  font-size: 1rem;
+}
 }
 
 .certificate-img:hover {
