@@ -164,12 +164,23 @@ environment
 <section id="certifications" class="certificate">
   <div class="container">
     <h2>Certifications</h2>
-    <p>All my following certificates</p>
+    <p>Click a certificate to enlarge it</p>
 
-    </a><img src="images/Certificate- Databases.png" alt="Databases"></a>
-    <a><img src="images/Certificate- HTML & CSS.png" alt="HTML"></a>
+    <img src="images/Certificate- Databases.png" 
+         alt="Databases Certificate" 
+         class="certificate-img">
+
+    <img src="images/Certificate- HTML & CSS.png" 
+         alt="HTML Certificate" 
+         class="certificate-img">
   </div>
 </section>
+
+<!-- Lightbox -->
+<div id="lightbox">
+  <span id="close-btn">&times;</span>
+  <img id="lightbox-img" src="" alt="">
+</div>
 
 <section id="contact" class="section alt-bg">
   <div class="container">
@@ -189,6 +200,30 @@ environment
     <p>© 2026 Romel Garcia</p>
   </div>
 </footer>
+
+<script>
+  const certificates = document.querySelectorAll(".certificate-img");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const closeBtn = document.getElementById("close-btn");
+
+  certificates.forEach(img => {
+    img.addEventListener("click", () => {
+      lightbox.style.display = "flex";
+      lightboxImg.src = img.src;
+    });
+  });
+
+  closeBtn.addEventListener("click", () => {
+    lightbox.style.display = "none";
+  });
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target !== lightboxImg) {
+      lightbox.style.display = "none";
+    }
+  });
+</script>
 
 </body>
 </html>
