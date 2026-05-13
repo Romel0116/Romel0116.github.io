@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+/* Smooth Scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
@@ -17,11 +22,16 @@ body {
   margin: auto;
 }
 
+/* ================= HEADER ================= */
+
 header {
   background: #020617;
   color: white;
   padding: 25px 0;
-  border-bottom: 1px solid #1e293b;
+  border-bottom: 2px solid #38bdf8;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 header h1 {
@@ -50,47 +60,67 @@ nav ul li a {
   color: #e5e7eb;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
   color: #38bdf8;
 }
 
+/* ================= HERO ================= */
+
 #hero {
   background: linear-gradient(135deg, #020617, #1e293b);
   color: white;
   text-align: center;
-  padding: 90px 20px;
+  padding: 100px 20px;
+  border-bottom: 1px solid #334155;
 }
 
 #hero h2 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
   margin-bottom: 15px;
   color: #f8fafc;
 }
 
 #hero p {
   color: #cbd5e1;
+  max-width: 700px;
+  margin: auto;
 }
+
+/* ================= BUTTONS ================= */
 
 .btn {
   display: inline-block;
   background: #38bdf8;
   color: #020617;
   padding: 12px 24px;
-  margin-top: 15px;
+  margin-top: 20px;
   text-decoration: none;
   border-radius: 6px;
   font-weight: bold;
+  transition: background 0.3s ease,
+              transform 0.3s ease;
 }
 
 .btn:hover {
   background: #0ea5e9;
+  transform: translateY(-2px);
 }
+
+/* ================= SECTIONS ================= */
 
 .section,
 .certificate {
-  padding: 60px 0;
+  padding: 75px 0;
+  border-top: 1px solid #1e293b;
+}
+
+/* Alternate Section Backgrounds */
+.alt-bg {
+  background: #172033;
+  text-align: center;
 }
 
 .section h2,
@@ -98,36 +128,65 @@ nav ul li a:hover {
   text-align: center;
   margin-bottom: 30px;
   color: #f8fafc;
+  font-size: 2rem;
 }
 
-.alt-bg {
-  background: #111827;
-  text-align: center;
-}
+/* ================= CARDS ================= */
 
 .card {
   background: #1e293b;
-  padding: 22px;
-  margin: 20px 0;
+  padding: 24px;
+  margin: 25px 0;
   border-left: 5px solid #38bdf8;
-  border-radius: 8px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
   text-decoration: none;
   color: #e5e7eb;
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease,
+              border-left 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(56,189,248,0.25);
+  border-left: 5px solid #7dd3fc;
 }
 
 .card h3 {
   color: #f8fafc;
+  margin-bottom: 10px;
 }
 
 .card p {
   color: #cbd5e1;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* ================= CLICKABLE JOB CARD ================= */
+
+a .card {
+  position: relative;
+  overflow: hidden;
 }
+
+a .card::before {
+  content: "Click to Learn More";
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #38bdf8;
+  color: #020617;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+a .card:hover {
+  box-shadow: 0 0 20px rgba(56,189,248,0.45);
+}
+
+/* ================= SKILLS ================= */
 
 .skills-list,
 .softwares-list {
@@ -143,11 +202,21 @@ a {
   margin: 8px;
   border: 1px solid #38bdf8;
   border-radius: 20px;
+  transition: transform 0.3s ease,
+              background 0.3s ease;
 }
+
+.skills-list span:hover,
+.softwares-list span:hover {
+  transform: scale(1.05);
+  background: #243247;
+}
+
+/* ================= CERTIFICATES ================= */
 
 .certificate {
   text-align: center;
-  background: #0f172a;
+  background: #111827;
 }
 
 .certificate p {
@@ -166,13 +235,15 @@ a {
   margin: 15px;
   border-radius: 10px;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease;
   border: 1px solid #334155;
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
 .certificate-img:hover {
   transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(56,189,248,0.35);
 }
 
 .certificate-label {
@@ -181,6 +252,8 @@ a {
   color: #f8fafc;
   font-size: 1rem;
 }
+
+/* ================= LIGHTBOX ================= */
 
 #lightbox {
   display: none;
@@ -210,6 +283,8 @@ a {
   cursor: pointer;
 }
 
+/* ================= CONTACT ================= */
+
 .email-link {
   color: #38bdf8;
   text-decoration: none;
@@ -218,13 +293,15 @@ a {
 
 .email-link:hover {
   text-decoration: underline;
-  color: #0ea5e9;
+  color: #7dd3fc;
 }
+
+/* ================= FOOTER ================= */
 
 footer {
   background: #020617;
   color: #94a3b8;
   text-align: center;
-  padding: 20px 0;
-  border-top: 1px solid #1e293b;
+  padding: 25px 0;
+  border-top: 2px solid #38bdf8;
 }
