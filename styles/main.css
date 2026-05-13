@@ -22,6 +22,14 @@ body {
   margin: auto;
 }
 
+/* ================= PARAGRAPH TEXT ================= */
+
+p {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #d1d5db;
+}
+
 /* ================= HEADER ================= */
 
 header {
