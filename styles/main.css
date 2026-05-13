@@ -7,8 +7,8 @@
 body {
   font-family: Arial, sans-serif;
   line-height: 1.6;
-  background: #f4f4f4;
-  color: #333;
+  background: #0f172a;
+  color: #e5e7eb;
 }
 
 .container {
@@ -17,21 +17,22 @@ body {
   margin: auto;
 }
 
-
 header {
-  background: #222;
+  background: #020617;
   color: white;
-  padding: 20px 0;
+  padding: 25px 0;
+  border-bottom: 1px solid #1e293b;
 }
 
 header h1 {
   text-align: center;
   margin-bottom: 5px;
+  color: #f8fafc;
 }
 
 .tagline {
   text-align: center;
-  color: #ccc;
+  color: #94a3b8;
   margin-bottom: 15px;
 }
 
@@ -46,88 +47,141 @@ nav ul li {
 }
 
 nav ul li a {
-  color: white;
+  color: #e5e7eb;
   text-decoration: none;
   font-weight: bold;
 }
 
 nav ul li a:hover {
-  color: #00bcd4;
+  color: #38bdf8;
 }
 
-
 #hero {
-  background: #00bcd4;
+  background: linear-gradient(135deg, #020617, #1e293b);
   color: white;
   text-align: center;
-  padding: 80px 20px;
+  padding: 90px 20px;
 }
 
 #hero h2 {
   font-size: 2.5rem;
   margin-bottom: 15px;
+  color: #f8fafc;
+}
+
+#hero p {
+  color: #cbd5e1;
 }
 
 .btn {
   display: inline-block;
-  background: #222;
-  color: white;
+  background: #38bdf8;
+  color: #020617;
   padding: 12px 24px;
   margin-top: 15px;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: bold;
 }
 
 .btn:hover {
-  background: #444;
+  background: #0ea5e9;
 }
 
-
-.section {
+.section,
+.certificate {
   padding: 60px 0;
 }
 
-.section h2 {
+.section h2,
+.certificate h2 {
   text-align: center;
   margin-bottom: 30px;
+  color: #f8fafc;
 }
 
 .alt-bg {
-  background: #e9f7fa;
+  background: #111827;
   text-align: center;
 }
 
+.card {
+  background: #1e293b;
+  padding: 22px;
+  margin: 20px 0;
+  border-left: 5px solid #38bdf8;
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  text-decoration: none;
+  color: #e5e7eb;
+}
+
+.card h3 {
+  color: #f8fafc;
+}
+
+.card p {
+  color: #cbd5e1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.skills-list,
+.softwares-list {
+  text-align: center;
+}
+
+.skills-list span,
+.softwares-list span {
+  display: inline-block;
+  background: #1e293b;
+  color: #e5e7eb;
+  padding: 10px 15px;
+  margin: 8px;
+  border: 1px solid #38bdf8;
+  border-radius: 20px;
+}
 
 .certificate {
   text-align: center;
+  background: #0f172a;
 }
 
-.certificate-img {
-  width: 500px;
-  max-width: 90%;
-  margin: 15px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  .certificate-item {
+.certificate p {
+  color: #cbd5e1;
+}
+
+.certificate-item {
   display: inline-block;
   margin: 20px;
   text-align: center;
 }
 
-.certificate-label {
-  margin-top: 30px;
-  font-weight: bold;
-  color: #333;
-  font-size: 1rem;
-}
+.certificate-img {
+  width: 350px;
+  max-width: 90%;
+  margin: 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border: 1px solid #334155;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
 .certificate-img:hover {
   transform: scale(1.05);
 }
 
-/* Lightbox Background */
+.certificate-label {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #f8fafc;
+  font-size: 1rem;
+}
+
 #lightbox {
   display: none;
   position: fixed;
@@ -136,19 +190,17 @@ nav ul li a:hover {
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.9);
+  background: rgba(2, 6, 23, 0.95);
   justify-content: center;
   align-items: center;
 }
 
-/* Enlarged Image */
 #lightbox-img {
   max-width: 90%;
   max-height: 85%;
   border-radius: 10px;
 }
 
-/* Close Button */
 #close-btn {
   position: absolute;
   top: 20px;
@@ -158,58 +210,21 @@ nav ul li a:hover {
   cursor: pointer;
 }
 
-.card {
-  background: white;
-  padding: 20px;
-  margin: 20px 0;
-  border-left: 5px solid #00bcd4;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  text-decoration: none;
-  color: inherit;
-}
-
-
-.skills-list {
-  text-align: center;
-}
-
-.skills-list span {
-  display: inline-block;
-  background: #00bcd4;
-  color: white;
-  padding: 10px 15px;
-  margin: 8px;
-  border-radius: 20px;
-}
-
-.softwares-list {
-  text-align: center;
-}
-
-.softwares-list span {
-  display: inline-block;
-  background: #00bcd4;
-  color: white;
-  padding: 10px 15px;
-  margin: 8px;
-  border-radius: 20px;
-}
-
 .email-link {
-  color: #00bcd4;
+  color: #38bdf8;
   text-decoration: none;
   font-weight: bold;
 }
 
 .email-link:hover {
   text-decoration: underline;
-  color: #0097a7;
+  color: #0ea5e9;
 }
 
 footer {
-  background: #222;
-  color: white;
+  background: #020617;
+  color: #94a3b8;
   text-align: center;
   padding: 20px 0;
+  border-top: 1px solid #1e293b;
 }
