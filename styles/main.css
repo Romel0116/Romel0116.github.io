@@ -170,7 +170,7 @@ a .card {
 }
 
 a .card::before {
-  content: "Click to Learn More";
+  content: "Click to Read Newsletter";
   position: absolute;
   top: 15px;
   right: 15px;
