@@ -101,20 +101,25 @@ nav ul li a:hover {
 
 .btn {
   display: inline-block;
-  background: #38bdf8;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
   color: #020617;
-  padding: 12px 24px;
+  padding: 14px 30px;
   margin-top: 20px;
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 8px;
   font-weight: bold;
-  transition: background 0.3s ease,
-              transform 0.3s ease;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 18px rgba(56,189,248,0.35);
+  transition: transform 0.3s ease,
+              box-shadow 0.3s ease,
+              background 0.3s ease;
 }
 
 .btn:hover {
-  background: #0ea5e9;
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #7dd3fc, #38bdf8);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(56,189,248,0.5);
 }
 
 /* ================= SECTIONS ================= */
