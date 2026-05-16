@@ -175,6 +175,18 @@ nav ul li a:hover {
   color: #cbd5e1;
 }
 
+/* ================= RESUME SECTION ================= */
+
+#resume {
+  background: linear-gradient(135deg, #111827, #172033);
+  border-top: 1px solid #334155;
+  border-bottom: 1px solid #334155;
+}
+
+#resume p {
+  margin-bottom: 15px;
+}
+
 /* ================= CLICKABLE JOB CARD ================= */
 
 a .card {
