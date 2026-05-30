@@ -296,9 +296,12 @@ a .card:hover {
 }
 
 #lightbox-img {
-  max-width: 90%;
-  max-height: 85%;
+  max-width: 95%;
+  max-height: 95vh;
+  width: auto;
+  height: auto;
   border-radius: 10px;
+  object-fit: contain;
 }
 
 #close-btn {
