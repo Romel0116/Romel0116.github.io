@@ -75,3 +75,59 @@ loginBtn.addEventListener("click", async () => {
     }
 
 });
+
+    try {
+
+        const userCredential =
+            await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+        await setDoc(
+            doc(db, "users", userCredential.user.uid),
+            {
+                name: name,
+                email: email,
+                createdAt: new Date()
+            }
+        );
+
+        message.style.color = "green";
+        message.textContent = "Account created successfully!";
+
+        window.location.href = "TopGun-Dashboard.html";
+
+    } catch (error) {
+
+        message.style.color = "red";
+        message.textContent = error.message;
+
+    }
+
+});
+
+loginBtn.addEventListener("click", async () => {
+
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
+
+    try {
+
+        await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+        );
+
+        window.location.href = "TopGun-Dashboard.html";
+
+    } catch (error) {
+
+        message.style.color = "red";
+        message.textContent = error.message;
+
+    }
+
+});
