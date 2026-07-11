@@ -57,6 +57,21 @@ button{
 button:hover{
     background:#09552f;
 }
+.secondary-button {
+    margin-top: 10px;
+    background-color: transparent;
+    color: #0c6e3d;
+    border: 1px solid #0c6e3d;
+}
+
+.secondary-button:hover {
+    background-color: #eaf5ef;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
 
 #message{
     text-align:center;
