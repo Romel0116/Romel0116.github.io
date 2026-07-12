@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Top Gun Dashboard</title>
+
+    <link rel="stylesheet" href="CSS/TopGun-style.css">
+</head>
+<body>
+
+    <main class="dashboard-container">
+
+        <header class="dashboard-header">
+            <div>
+                <h1>Top Gun Soccer App</h1>
+                <p id="welcomeMessage">Loading your account...</p>
+            </div>
+
+            <button id="logoutBtn" class="logout-button">
+                Logout
+            </button>
+        </header>
+
+        <section class="dashboard-card">
+            <h2>My Teams</h2>
+
+            <p>
+                You are successfully logged in. Team creation and team chat
+                will be added next.
+            </p>
+
+            <div id="teamsList">
+                <p>You do not have any teams yet.</p>
+            </div>
+
+            <button id="createTeamBtn">
+                Create a Team
+            </button>
+        </section>
+
+        <p id="dashboardMessage"></p>
+
+    </main>
+
+    <script
+        type="module"
+        src="JS/TopGun-dashboard.js">
+    </script>
+
+</body>
+</html>
