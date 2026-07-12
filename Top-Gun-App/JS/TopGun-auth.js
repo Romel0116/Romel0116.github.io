@@ -88,7 +88,11 @@ registerBtn.addEventListener("click", async () => {
 
         window.location.href = "TopGun-Dashboard.html";
     } catch (error) {
-        showMessage(getFriendlyErrorMessage(error.code));
+        console.error("Registration error:", error);
+
+showMessage(
+    `${error.code || "Unknown error"}: ${error.message}`
+);
     } finally {
         registerBtn.disabled = false;
         registerBtn.textContent = "Create Account";
@@ -108,11 +112,28 @@ loginBtn.addEventListener("click", async () => {
     loginBtn.textContent = "Logging In...";
 
     try {
-        await signInWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+);
 
-        showMessage("Login successful!", "success");
+const userReference = doc(
+    db,
+    "users",
+    userCredential.user.uid
+);
 
-        window.location.href = "TopGun-Dashboard.html";
+await setDoc(
+    userReference,
+    {
+        email: userCredential.user.email,
+        updatedAt: new Date()
+    },
+    { merge: true }
+);
+
+window.location.href = "TopGun-Dashboard.html";
     } catch (error) {
         showMessage(getFriendlyErrorMessage(error.code));
     } finally {
