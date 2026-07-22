@@ -3,8 +3,7 @@ import { auth, db } from "./TopGun-firebase.js";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    sendPasswordResetEmail,
-    onAuthStateChanged
+    sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 import {
@@ -162,16 +161,14 @@ forgotPasswordBtn.addEventListener("click", async () => {
             "Password reset email sent. Check your inbox and spam folder.",
             "success"
         );
-    } catch (error) {
-        showMessage(getFriendlyErrorMessage(error.code));
-    } finally {
+} catch (error) {
+    console.error("Login or profile creation error:", error);
+
+    showMessage(
+        `${error.code || "Unknown error"}: ${error.message}`
+    );
+} finally {
         forgotPasswordBtn.disabled = false;
         forgotPasswordBtn.textContent = "Forgot Password?";
-    }
-});
-
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        window.location.href = "TopGun-Dashboard.html";
     }
 });
