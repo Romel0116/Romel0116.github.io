@@ -31,13 +31,24 @@
                 will be added next.
             </p>
 
-            <div id="teamsList">
-                <p>You do not have any teams yet.</p>
-            </div>
+            <div class="team-form">
+    <label for="teamName">Team Name</label>
 
-            <button id="createTeamBtn">
-                Create a Team
-            </button>
+    <input
+        type="text"
+        id="teamName"
+        placeholder="Example: Top Gun FC"
+        maxlength="60"
+    >
+
+    <button id="createTeamBtn">
+        Create Team
+    </button>
+</div>
+
+<div id="teamsList">
+    <p>Loading your teams...</p>
+</div>
         </section>
 
         <p id="dashboardMessage"></p>
