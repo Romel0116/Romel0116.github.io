@@ -53,7 +53,7 @@ function createTeamCard(teamId, teamData) {
         const encodedTeamId = encodeURIComponent(teamId);
 
         window.location.href =
-            `TopGun-chat.html?teamId=${encodedTeamId}`;
+    `TopGun-Team.html?teamId=${encodedTeamId}`;
     });
 
     card.append(teamName, role, openButton);

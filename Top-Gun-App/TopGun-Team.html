@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Top Gun Team</title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/TopGun-style.css"
+    >
+</head>
+
+<body>
+
+    <main class="team-page-container">
+
+        <header class="team-page-header">
+
+            <div>
+                <p class="team-page-label">Team Workspace</p>
+
+                <h1 id="teamPageName">
+                    Loading team...
+                </h1>
+
+                <p id="teamPageRole">
+                    Checking your membership...
+                </p>
+            </div>
+
+            <div class="team-header-actions">
+
+                <a
+                    href="TopGun-Dashboard.html"
+                    class="dashboard-link"
+                >
+                    Back to Dashboard
+                </a>
+
+                <button
+                    type="button"
+                    id="teamLogoutBtn"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+        <section class="team-summary-card">
+
+            <h2>Team Home</h2>
+
+            <p id="teamSummary">
+                Loading team information...
+            </p>
+
+        </section>
+
+        <section class="team-navigation-grid">
+
+            <button
+                type="button"
+                class="team-feature-card"
+                data-feature="announcements"
+            >
+                <span class="feature-icon">📢</span>
+                <strong>Announcements</strong>
+                <span>Important updates for the team</span>
+            </button>
+
+            <button
+                type="button"
+                class="team-feature-card"
+                data-feature="chat"
+            >
+                <span class="feature-icon">💬</span>
+                <strong>Team Chat</strong>
+                <span>Message coaches and players</span>
+            </button>
+
+            <button
+                type="button"
+                class="team-feature-card"
+                data-feature="schedule"
+            >
+                <span class="feature-icon">📅</span>
+                <strong>Schedule</strong>
+                <span>Games, practices and events</span>
+            </button>
+
+            <button
+                type="button"
+                class="team-feature-card"
+                data-feature="roster"
+            >
+                <span class="feature-icon">👥</span>
+                <strong>Roster</strong>
+                <span>Players and team roles</span>
+            </button>
+
+            <button
+                type="button"
+                class="team-feature-card"
+                data-feature="scores"
+            >
+                <span class="feature-icon">⚽</span>
+                <strong>Scores</strong>
+                <span>Match results and statistics</span>
+            </button>
+
+            <button
+                type="button"
+                class="team-feature-card"
+                data-feature="standings"
+            >
+                <span class="feature-icon">📊</span>
+                <strong>Standings</strong>
+                <span>League position and record</span>
+            </button>
+
+            <button
+                type="button"
+                class="team-feature-card"
+                data-feature="settings"
+                id="teamSettingsCard"
+            >
+                <span class="feature-icon">⚙️</span>
+                <strong>Team Settings</strong>
+                <span>Manage team information</span>
+            </button>
+
+        </section>
+
+        <p id="teamPageMessage"></p>
+
+    </main>
+
+    <script
+        type="module"
+        src="JS/TopGun-team.js"
+    ></script>
+
+</body>
+</html>
