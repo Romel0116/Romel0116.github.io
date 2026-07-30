@@ -344,3 +344,103 @@ button:disabled {
         width: 100%;
     }
 }
+
+.roster-page-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.roster-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+
+    padding: 24px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.roster-page-header h1 {
+    margin: 4px 0 8px;
+    text-align: left;
+}
+
+.roster-controls,
+.roster-list-card {
+    margin-top: 24px;
+    padding: 24px;
+
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.roster-controls h2,
+.roster-list-card h2 {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.roster-controls button {
+    margin-top: 16px;
+}
+
+.roster-member-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    margin-top: 14px;
+    padding: 16px;
+
+    background-color: #f4f6f8;
+    border: 1px solid #d9dee3;
+    border-radius: 10px;
+}
+
+.member-avatar {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    background-color: #0c6e3d;
+    border-radius: 50%;
+
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.member-information h3 {
+    margin-bottom: 4px;
+    color: #0c6e3d;
+}
+
+.member-information p {
+    color: #555;
+}
+
+#rosterMessage {
+    margin-top: 18px;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .roster-page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .roster-page-header h1,
+    .roster-page-header .team-page-label,
+    #rosterMemberCount {
+        text-align: center;
+    }
+}

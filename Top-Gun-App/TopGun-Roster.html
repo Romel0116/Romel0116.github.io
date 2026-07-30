@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Top Gun Team Roster</title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/TopGun-style.css"
+    >
+</head>
+
+<body>
+
+    <main class="roster-page-container">
+
+        <header class="roster-page-header">
+            <div>
+                <p class="team-page-label">Team Roster</p>
+
+                <h1 id="rosterTeamName">
+                    Loading team...
+                </h1>
+
+                <p id="rosterMemberCount">
+                    Loading members...
+                </p>
+            </div>
+
+            <div class="team-header-actions">
+                <a
+                    id="backToTeamLink"
+                    class="dashboard-link"
+                    href="TopGun-Dashboard.html"
+                >
+                    Back to Team
+                </a>
+
+                <button
+                    type="button"
+                    id="rosterLogoutBtn"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <section
+            id="rosterOwnerControls"
+            class="roster-controls"
+            hidden
+        >
+            <h2>Manage Roster</h2>
+
+            <p>
+                Invite codes and player management will be added in the
+                next step.
+            </p>
+
+            <button
+                type="button"
+                id="invitePlayerBtn"
+            >
+                Invite Player
+            </button>
+        </section>
+
+        <section class="roster-list-card">
+            <h2>Members</h2>
+
+            <div id="rosterList">
+                <p>Loading roster...</p>
+            </div>
+        </section>
+
+        <p id="rosterMessage"></p>
+
+    </main>
+
+    <script
+        type="module"
+        src="JS/TopGun-roster.js"
+    ></script>
+
+</body>
+</html>
