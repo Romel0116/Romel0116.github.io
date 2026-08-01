@@ -516,3 +516,158 @@ button:disabled {
         width: 100%;
     }
 }
+
+.chat-page-container {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.chat-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+
+    padding: 24px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chat-page-header h1 {
+    margin: 4px 0 8px;
+    text-align: left;
+}
+
+.chat-card {
+    margin-top: 24px;
+    padding: 20px;
+
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.chat-messages {
+    height: 460px;
+    overflow-y: auto;
+
+    padding: 16px;
+    background-color: #f4f6f8;
+    border: 1px solid #d9dee3;
+    border-radius: 10px;
+}
+
+.chat-empty-message {
+    color: #666;
+    text-align: center;
+}
+
+.chat-message {
+    max-width: 78%;
+    margin-bottom: 14px;
+    padding: 12px 14px;
+
+    background-color: white;
+    border: 1px solid #d9dee3;
+    border-radius: 10px;
+}
+
+.own-chat-message {
+    margin-left: auto;
+    background-color: #eaf5ef;
+    border-color: #b8d9c4;
+}
+
+.chat-message-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-bottom: 6px;
+}
+
+.chat-message-header strong {
+    color: #0c6e3d;
+}
+
+.chat-message-header time {
+    color: #777;
+    font-size: 0.8rem;
+}
+
+.chat-message p {
+    overflow-wrap: anywhere;
+    line-height: 1.45;
+}
+
+.chat-composer {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+
+    margin-top: 16px;
+}
+
+.chat-composer textarea {
+    width: 100%;
+    min-height: 54px;
+    padding: 12px;
+
+    resize: vertical;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font: inherit;
+}
+
+.chat-composer button {
+    width: auto;
+    min-width: 110px;
+    margin: 0;
+}
+
+#chatPageMessage {
+    margin-top: 18px;
+    text-align: center;
+}
+
+.visually-hidden {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 700px) {
+    .chat-page-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .chat-page-header h1,
+    .chat-page-header .team-page-label,
+    #chatMemberStatus {
+        text-align: center;
+    }
+
+    .chat-message {
+        max-width: 92%;
+    }
+
+    .chat-composer {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-composer button {
+        width: 100%;
+    }
+}

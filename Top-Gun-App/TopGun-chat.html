@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Top Gun Team Chat</title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/TopGun-style.css"
+    >
+</head>
+
+<body>
+
+    <main class="chat-page-container">
+
+        <header class="chat-page-header">
+            <div>
+                <p class="team-page-label">Team Chat</p>
+
+                <h1 id="chatTeamName">
+                    Loading team...
+                </h1>
+
+                <p id="chatMemberStatus">
+                    Checking your membership...
+                </p>
+            </div>
+
+            <div class="team-header-actions">
+                <a
+                    id="backToTeamFromChat"
+                    class="dashboard-link"
+                    href="TopGun-Dashboard.html"
+                >
+                    Back to Team
+                </a>
+
+                <button
+                    type="button"
+                    id="chatLogoutBtn"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <section class="chat-card">
+
+            <div
+                id="chatMessages"
+                class="chat-messages"
+                aria-live="polite"
+            >
+                <p class="chat-empty-message">
+                    Loading messages...
+                </p>
+            </div>
+
+            <div class="chat-composer">
+                <label
+                    for="chatMessageInput"
+                    class="visually-hidden"
+                >
+                    Message
+                </label>
+
+                <textarea
+                    id="chatMessageInput"
+                    placeholder="Write a message..."
+                    maxlength="1000"
+                    rows="2"
+                ></textarea>
+
+                <button
+                    type="button"
+                    id="sendMessageBtn"
+                >
+                    Send
+                </button>
+            </div>
+
+        </section>
+
+        <p id="chatPageMessage"></p>
+
+    </main>
+
+    <script
+        type="module"
+        src="JS/TopGun-chat.js"
+    ></script>
+
+</body>
+</html>
