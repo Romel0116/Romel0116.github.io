@@ -567,4 +567,49 @@ footer {
   }
 
   .projects-gallery {
-    grid-template-columns: minmax()
+    grid-template-columns: minmax(0, 380px);
+  }
+
+}
+
+
+@media (max-width: 480px) {
+
+  html {
+    scroll-padding-top: 250px;
+  }
+
+  header h1 {
+    font-size: 1.7rem;
+  }
+
+  nav ul {
+    gap: 6px 14px;
+  }
+
+  #hero h2 {
+    font-size: 1.8rem;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .clickable-job-card {
+    padding-top: 70px;
+  }
+
+  .project-content {
+    padding: 20px;
+  }
+
+  #lightbox {
+    padding: 15px;
+  }
+
+  #lightbox-img {
+    max-width: 100%;
+    max-height: calc(100vh - 30px);
+  }
+
+}
