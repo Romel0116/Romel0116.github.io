@@ -13,7 +13,8 @@ import {
     query,
     where,
     onSnapshot,
-    serverTimestamp
+    serverTimestamp,
+    runTransaction
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const welcomeMessage = document.getElementById("welcomeMessage");
@@ -22,6 +23,10 @@ const createTeamBtn = document.getElementById("createTeamBtn");
 const teamNameInput = document.getElementById("teamName");
 const teamsList = document.getElementById("teamsList");
 const dashboardMessage = document.getElementById("dashboardMessage");
+const teamInviteCodeInput =
+    document.getElementById("teamInviteCode");
+const joinTeamBtn =
+    document.getElementById("joinTeamBtn");
 
 let currentUser = null;
 let unsubscribeFromTeams = null;
@@ -184,6 +189,118 @@ teamNameInput.addEventListener("keydown", (event) => {
         createTeamBtn.click();
     }
 });
+
+joinTeamBtn.addEventListener("click", async () => {
+    const inviteCode =
+        teamInviteCodeInput.value
+            .trim()
+            .toUpperCase();
+
+    if (!currentUser) {
+        showDashboardMessage(
+            "Your session has expired. Please log in again."
+        );
+
+        return;
+    }
+
+    if (!inviteCode) {
+        showDashboardMessage(
+            "Please enter a team invite code."
+        );
+
+        teamInviteCodeInput.focus();
+        return;
+    }
+
+    joinTeamBtn.disabled = true;
+    joinTeamBtn.textContent = "Joining Team...";
+
+    try {
+        await runTransaction(db, async (transaction) => {
+            const inviteReference =
+                doc(db, "teamInvites", inviteCode);
+
+            const inviteSnapshot =
+                await transaction.get(inviteReference);
+
+            if (!inviteSnapshot.exists()) {
+                throw new Error(
+                    "That invite code does not exist."
+                );
+            }
+
+            const inviteData =
+                inviteSnapshot.data();
+
+            if (inviteData.active !== true) {
+                throw new Error(
+                    "That invite code is no longer active."
+                );
+            }
+
+            const teamReference =
+                doc(db, "teams", inviteData.teamId);
+
+            const teamSnapshot =
+                await transaction.get(teamReference);
+
+            if (!teamSnapshot.exists()) {
+                throw new Error(
+                    "The team connected to this code no longer exists."
+                );
+            }
+
+            const teamData =
+                teamSnapshot.data();
+
+            const currentMembers =
+                Array.isArray(teamData.members)
+                    ? teamData.members
+                    : [];
+
+            if (currentMembers.includes(currentUser.uid)) {
+                throw new Error(
+                    "You are already a member of this team."
+                );
+            }
+
+            transaction.update(teamReference, {
+                members: [
+                    ...currentMembers,
+                    currentUser.uid
+                ],
+                updatedAt: serverTimestamp()
+            });
+        });
+
+        teamInviteCodeInput.value = "";
+
+        showDashboardMessage(
+            "You joined the team successfully.",
+            "success"
+        );
+    } catch (error) {
+        console.error("Unable to join team:", error);
+
+        showDashboardMessage(
+            error.message ||
+            "Unable to join the team."
+        );
+    } finally {
+        joinTeamBtn.disabled = false;
+        joinTeamBtn.textContent = "Join Team";
+    }
+});
+
+teamInviteCodeInput.addEventListener(
+    "keydown",
+    (event) => {
+        if (event.key === "Enter") {
+            joinTeamBtn.click();
+        }
+    }
+);
 
 logoutBtn.addEventListener("click", async () => {
     logoutBtn.disabled = true;

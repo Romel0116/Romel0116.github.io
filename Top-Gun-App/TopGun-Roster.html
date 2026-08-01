@@ -65,11 +65,27 @@
             </p>
 
             <button
-                type="button"
-                id="invitePlayerBtn"
-            >
-                Invite Player
-            </button>
+    type="button"
+    id="invitePlayerBtn"
+>
+    Generate Invite Code
+</button>
+
+<div id="inviteCodeSection" class="invite-code-section" hidden>
+    <p>Share this code with a player:</p>
+
+    <div class="invite-code-row">
+        <strong id="inviteCodeDisplay"></strong>
+
+        <button
+            type="button"
+            id="copyInviteCodeBtn"
+            class="secondary-button"
+        >
+            Copy Code
+        </button>
+    </div>
+</div>
         </section>
 
         <section class="roster-list-card">

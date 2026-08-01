@@ -7,7 +7,11 @@ import {
 
 import {
     doc,
-    getDoc
+    getDoc,
+    setDoc,
+    updateDoc,
+    serverTimestamp,
+    writeBatch
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const rosterTeamName =
@@ -24,6 +28,15 @@ const rosterOwnerControls =
 
 const invitePlayerBtn =
     document.getElementById("invitePlayerBtn");
+
+const inviteCodeSection =
+    document.getElementById("inviteCodeSection");
+
+const inviteCodeDisplay =
+    document.getElementById("inviteCodeDisplay");
+
+const copyInviteCodeBtn =
+    document.getElementById("copyInviteCodeBtn");
 
 const backToTeamLink =
     document.getElementById("backToTeamLink");
@@ -56,6 +69,51 @@ function showRosterError(message) {
     rosterList.innerHTML = `<p>${message}</p>`;
 }
 
+function displayInviteCode(inviteCode) {
+    inviteCodeDisplay.textContent = inviteCode;
+    inviteCodeSection.hidden = false;
+    invitePlayerBtn.textContent = "Generate New Code";
+}
+
+function generateInviteCode() {
+    const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let code = "TG-";
+
+    for (let index = 0; index < 6; index += 1) {
+        const randomIndex =
+            Math.floor(Math.random() * characters.length);
+
+        code += characters[randomIndex];
+    }
+
+    return code;
+}
+
+async function createUniqueInviteCode() {
+    const maximumAttempts = 5;
+
+    for (
+        let attempt = 0;
+        attempt < maximumAttempts;
+        attempt += 1
+    ) {
+        const candidateCode = generateInviteCode();
+
+        const inviteSnapshot = await getDoc(
+            doc(db, "teamInvites", candidateCode)
+        );
+
+        if (!inviteSnapshot.exists()) {
+            return candidateCode;
+        }
+    }
+
+    throw new Error(
+        "Unable to create a unique invite code. Please try again."
+    );
+}
+
 function createMemberCard(memberData, memberId, ownerId) {
     const memberCard =
         document.createElement("article");
@@ -68,7 +126,9 @@ function createMemberCard(memberData, memberId, ownerId) {
     memberInitial.classList.add("member-avatar");
 
     const displayName =
-        memberData.name || memberData.email || "Team member";
+        memberData.name ||
+        memberData.email ||
+        "Team member";
 
     memberInitial.textContent =
         displayName.charAt(0).toUpperCase();
@@ -106,16 +166,13 @@ function createMemberCard(memberData, memberId, ownerId) {
 
 async function loadMemberProfile(memberId, ownerId) {
     try {
-        const profileSnapshot =
-            await getDoc(
-                doc(db, "users", memberId)
-            );
+        const profileSnapshot = await getDoc(
+            doc(db, "users", memberId)
+        );
 
         if (!profileSnapshot.exists()) {
             return createMemberCard(
-                {
-                    name: "Team member"
-                },
+                { name: "Team member" },
                 memberId,
                 ownerId
             );
@@ -126,7 +183,6 @@ async function loadMemberProfile(memberId, ownerId) {
             memberId,
             ownerId
         );
-
     } catch (error) {
         console.error(
             `Unable to load member ${memberId}:`,
@@ -191,21 +247,16 @@ async function loadRoster(user) {
         `TopGun-Team.html?teamId=${encodeURIComponent(teamId)}`;
 
     try {
-        const teamSnapshot =
-            await getDoc(
-                doc(db, "teams", teamId)
-            );
+        const teamSnapshot = await getDoc(
+            doc(db, "teams", teamId)
+        );
 
         if (!teamSnapshot.exists()) {
-            showRosterError(
-                "This team could not be found."
-            );
-
+            showRosterError("This team could not be found.");
             return;
         }
 
-        const teamData =
-            teamSnapshot.data();
+        const teamData = teamSnapshot.data();
 
         const members =
             Array.isArray(teamData.members)
@@ -224,15 +275,15 @@ async function loadRoster(user) {
 
         if (teamData.createdBy === user.uid) {
             rosterOwnerControls.hidden = false;
+
+            if (teamData.inviteCode) {
+                displayInviteCode(teamData.inviteCode);
+            }
         }
 
         await displayRoster(teamData);
-
     } catch (error) {
-        console.error(
-            "Unable to load roster:",
-            error
-        );
+        console.error("Unable to load roster:", error);
 
         showRosterError(
             "The roster could not be loaded."
@@ -246,9 +297,7 @@ async function loadRoster(user) {
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
-        window.location.href =
-            "TopGun-Index.html";
-
+        window.location.href = "TopGun-Index.html";
         return;
     }
 
@@ -257,24 +306,141 @@ onAuthStateChanged(auth, async (user) => {
     await loadRoster(user);
 });
 
-invitePlayerBtn.addEventListener("click", () => {
-    showRosterMessage(
-        "Invite codes will be added in the next step.",
-        "success"
-    );
+invitePlayerBtn.addEventListener("click", async () => {
+    if (!currentUser || !currentTeam || !teamId) {
+        showRosterMessage(
+            "The team information is not available."
+        );
+
+        return;
+    }
+
+    if (currentTeam.createdBy !== currentUser.uid) {
+        showRosterMessage(
+            "Only the team owner can generate invite codes."
+        );
+
+        return;
+    }
+
+    invitePlayerBtn.disabled = true;
+    invitePlayerBtn.textContent = "Generating Code...";
+
+    try {
+        const inviteCode =
+            await createUniqueInviteCode();
+
+        const batch = writeBatch(db);
+
+        const teamReference =
+            doc(db, "teams", teamId);
+
+        const inviteReference =
+            doc(db, "teamInvites", inviteCode);
+
+        batch.update(teamReference, {
+            inviteCode,
+            updatedAt: serverTimestamp()
+        });
+
+        batch.set(inviteReference, {
+            teamId,
+            teamName: currentTeam.teamName,
+            createdBy: currentUser.uid,
+            active: true,
+            createdAt: serverTimestamp()
+        });
+
+        /*
+         * Disable the previous code after the new code
+         * has been prepared.
+         */
+        if (
+            currentTeam.inviteCode &&
+            currentTeam.inviteCode !== inviteCode
+        ) {
+            const previousInviteReference =
+                doc(
+                    db,
+                    "teamInvites",
+                    currentTeam.inviteCode
+                );
+
+            batch.set(
+                previousInviteReference,
+                {
+                    active: false,
+                    replacedAt: serverTimestamp()
+                },
+                { merge: true }
+            );
+        }
+
+        await batch.commit();
+
+        currentTeam.inviteCode = inviteCode;
+
+        displayInviteCode(inviteCode);
+
+        showRosterMessage(
+            "Invite code created successfully.",
+            "success"
+        );
+    } catch (error) {
+        console.error(
+            "Unable to generate invite code:",
+            error
+        );
+
+        showRosterMessage(
+            `${error.code || "Unknown error"}: ${error.message}`
+        );
+
+        invitePlayerBtn.textContent =
+            currentTeam?.inviteCode
+                ? "Generate New Code"
+                : "Generate Invite Code";
+    } finally {
+        invitePlayerBtn.disabled = false;
+    }
+});
+
+copyInviteCodeBtn.addEventListener("click", async () => {
+    const inviteCode =
+        inviteCodeDisplay.textContent.trim();
+
+    if (!inviteCode) {
+        return;
+    }
+
+    try {
+        await navigator.clipboard.writeText(inviteCode);
+
+        showRosterMessage(
+            "Invite code copied.",
+            "success"
+        );
+    } catch (error) {
+        console.error(
+            "Unable to copy invite code:",
+            error
+        );
+
+        showRosterMessage(
+            `Copy this code manually: ${inviteCode}`,
+            "success"
+        );
+    }
 });
 
 rosterLogoutBtn.addEventListener("click", async () => {
     rosterLogoutBtn.disabled = true;
-    rosterLogoutBtn.textContent =
-        "Logging Out...";
+    rosterLogoutBtn.textContent = "Logging Out...";
 
     try {
         await signOut(auth);
 
-        window.location.href =
-            "TopGun-Index.html";
-
+        window.location.href = "TopGun-Index.html";
     } catch (error) {
         console.error("Logout error:", error);
 
@@ -283,7 +449,6 @@ rosterLogoutBtn.addEventListener("click", async () => {
         );
 
         rosterLogoutBtn.disabled = false;
-        rosterLogoutBtn.textContent =
-            "Logout";
+        rosterLogoutBtn.textContent = "Logout";
     }
 });
