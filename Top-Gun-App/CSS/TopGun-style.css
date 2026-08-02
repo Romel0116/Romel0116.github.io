@@ -1361,3 +1361,335 @@ button:disabled {
         padding: 16px;
     }
 }
+
+/* =========================================================
+   SCHEDULE
+   ========================================================= */
+
+.schedule-page-body {
+    min-height: 100vh;
+    margin: 0;
+    background: #f3f7f4;
+    color: #18392b;
+}
+
+.schedule-page-container {
+    width: min(1120px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 56px;
+}
+
+.schedule-page-header,
+.schedule-composer-card,
+.schedule-list-card {
+    background: #ffffff;
+    border: 1px solid #dce8df;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(20, 66, 43, 0.08);
+}
+
+.schedule-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.schedule-header-identity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.schedule-header-icon,
+.schedule-event-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 auto;
+    background: #e9f6ee;
+    border: 1px solid #cde8d7;
+}
+
+.schedule-header-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    font-size: 1.75rem;
+}
+
+.schedule-page-header h1,
+.schedule-section-heading h2,
+.schedule-event-card h3 {
+    margin: 0;
+}
+
+.schedule-page-header h1 {
+    font-size: clamp(1.55rem, 4vw, 2.1rem);
+}
+
+.schedule-page-header p,
+.schedule-section-heading p {
+    margin: 5px 0 0;
+    color: #64766d;
+}
+
+.schedule-composer-card,
+.schedule-list-card {
+    padding: 24px;
+    margin-bottom: 24px;
+}
+
+.schedule-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.schedule-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.schedule-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.schedule-field-wide {
+    grid-column: 1 / -1;
+}
+
+.schedule-field label {
+    color: #244c38;
+    font-weight: 700;
+}
+
+.schedule-field input,
+.schedule-field select,
+.schedule-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #bed2c5;
+    border-radius: 12px;
+    background: #fbfdfb;
+    color: #18392b;
+    font: inherit;
+    padding: 12px 14px;
+}
+
+.schedule-field input:focus,
+.schedule-field select:focus,
+.schedule-field textarea:focus {
+    outline: 3px solid rgba(20, 112, 65, 0.15);
+    border-color: #147041;
+}
+
+.schedule-field textarea {
+    resize: vertical;
+}
+
+#createScheduleEventBtn {
+    border: 0;
+    border-radius: 12px;
+    background: #147041;
+    color: #ffffff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    padding: 13px 22px;
+}
+
+#createScheduleEventBtn:hover {
+    background: #0e5c35;
+}
+
+#createScheduleEventBtn:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.schedule-list {
+    display: grid;
+    gap: 14px;
+}
+
+.schedule-event-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    padding: 18px;
+    border: 1px solid #dce8df;
+    border-radius: 16px;
+    background: #fbfdfb;
+}
+
+.schedule-event-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-size: 1.35rem;
+}
+
+.schedule-event-content {
+    min-width: 0;
+}
+
+.schedule-event-top-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.schedule-event-card h3 {
+    margin-top: 7px;
+    overflow-wrap: anywhere;
+    font-size: 1.08rem;
+}
+
+.schedule-type-badge,
+.owner-only-badge {
+    display: inline-block;
+    border-radius: 999px;
+    font-size: 0.73rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    padding: 5px 9px;
+    text-transform: uppercase;
+}
+
+.owner-only-badge,
+.schedule-type-game {
+    background: #dff3e6;
+    color: #0b6337;
+}
+
+.schedule-type-practice {
+    background: #e6efff;
+    color: #2858a5;
+}
+
+.schedule-type-meeting {
+    background: #fff0d5;
+    color: #8a5400;
+}
+
+.schedule-type-tournament {
+    background: #f1e7ff;
+    color: #6738a2;
+}
+
+.schedule-event-date {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: flex-end;
+    color: #2b4f3c;
+    text-align: right;
+}
+
+.schedule-event-date span {
+    margin-top: 3px;
+    color: #64766d;
+}
+
+.schedule-event-location,
+.schedule-event-notes {
+    margin: 12px 0 0;
+    overflow-wrap: anywhere;
+}
+
+.schedule-event-location {
+    color: #3c5c4b;
+    font-weight: 650;
+}
+
+.schedule-event-notes {
+    color: #64766d;
+    line-height: 1.55;
+    white-space: pre-wrap;
+}
+
+.schedule-past-card .schedule-event-card {
+    opacity: 0.78;
+}
+
+.schedule-empty-message {
+    margin: 0;
+    border: 1px dashed #bfd1c5;
+    border-radius: 14px;
+    color: #64766d;
+    padding: 22px;
+    text-align: center;
+}
+
+.schedule-page-feedback {
+    min-height: 24px;
+    margin: 0;
+    color: #b42318;
+    font-weight: 700;
+    text-align: center;
+}
+
+.schedule-page-feedback.success {
+    color: #0c6e3d;
+}
+
+@media (max-width: 720px) {
+    .schedule-page-container {
+        width: min(100% - 20px, 1120px);
+        padding-top: 14px;
+    }
+
+    .schedule-page-header,
+    .schedule-event-top-row {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .schedule-page-header .team-header-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+    .schedule-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .schedule-field-wide {
+        grid-column: auto;
+    }
+
+    .schedule-event-date {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule-page-header,
+    .schedule-composer-card,
+    .schedule-list-card {
+        padding: 18px;
+    }
+
+    .schedule-header-identity {
+        align-items: flex-start;
+    }
+
+    .schedule-page-header .team-header-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .schedule-event-card {
+        grid-template-columns: 1fr;
+    }
+}

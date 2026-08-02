@@ -145,6 +145,15 @@ featureCards.forEach((card) => {
 
         const feature = card.dataset.feature;
 
+        if (feature === "schedule") {
+    const encodedTeamId = encodeURIComponent(teamId);
+
+    window.location.href =
+        `TopGun-Schedule.html?teamId=${encodedTeamId}`;
+
+    return;
+}
+
         if (feature === "announcements") {
     const encodedTeamId =
         encodeURIComponent(teamId);
@@ -154,6 +163,9 @@ featureCards.forEach((card) => {
 
     return;
 }
+
+
+
         if (feature === "roster") {
     const encodedTeamId =
         encodeURIComponent(teamId);

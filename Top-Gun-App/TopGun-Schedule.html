@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Gun Schedule</title>
+    <link rel="stylesheet" href="CSS/TopGun-style.css">
+</head>
+<body class="schedule-page-body">
+    <main class="schedule-page-container">
+        <header class="schedule-page-header">
+            <div class="schedule-header-identity">
+                <div class="schedule-header-icon" aria-hidden="true">📅</div>
+                <div>
+                    <p class="team-page-label">Team Schedule</p>
+                    <h1 id="scheduleTeamName">Loading team...</h1>
+                    <p id="scheduleStatus">Checking your membership...</p>
+                </div>
+            </div>
+
+            <div class="team-header-actions">
+                <a id="backToTeamFromSchedule" class="dashboard-link" href="TopGun-Dashboard.html">Back to Team</a>
+                <button type="button" id="scheduleLogoutBtn" class="logout-button">Logout</button>
+            </div>
+        </header>
+
+        <section id="scheduleComposer" class="schedule-composer-card" hidden>
+            <div class="schedule-section-heading">
+                <div>
+                    <h2>Add an Event</h2>
+                    <p>Create a game, practice, meeting, or tournament for the team.</p>
+                </div>
+                <span class="owner-only-badge">Owner Only</span>
+            </div>
+
+            <div class="schedule-form-grid">
+                <div class="schedule-field">
+                    <label for="scheduleEventType">Event Type</label>
+                    <select id="scheduleEventType">
+                        <option value="game">Game</option>
+                        <option value="practice">Practice</option>
+                        <option value="meeting">Meeting</option>
+                        <option value="tournament">Tournament</option>
+                    </select>
+                </div>
+
+                <div class="schedule-field">
+                    <label for="scheduleEventTitle">Opponent or Event Title</label>
+                    <input type="text" id="scheduleEventTitle" maxlength="100" placeholder="Example: Houston United">
+                </div>
+
+                <div class="schedule-field">
+                    <label for="scheduleEventDate">Date</label>
+                    <input type="date" id="scheduleEventDate">
+                </div>
+
+                <div class="schedule-field">
+                    <label for="scheduleEventTime">Time</label>
+                    <input type="time" id="scheduleEventTime">
+                </div>
+
+                <div class="schedule-field schedule-field-wide">
+                    <label for="scheduleEventLocation">Location</label>
+                    <input type="text" id="scheduleEventLocation" maxlength="150" placeholder="Example: Memorial Soccer Complex, Field 2">
+                </div>
+
+                <div class="schedule-field schedule-field-wide">
+                    <label for="scheduleEventNotes">Notes (optional)</label>
+                    <textarea id="scheduleEventNotes" maxlength="1000" rows="4" placeholder="Arrival time, uniforms, equipment, or other details..."></textarea>
+                </div>
+            </div>
+
+            <button type="button" id="createScheduleEventBtn">Add Event</button>
+        </section>
+
+        <section class="schedule-list-card">
+            <div class="schedule-section-heading">
+                <div>
+                    <h2>Upcoming Events</h2>
+                    <p>Games, practices, meetings, and tournaments coming up next.</p>
+                </div>
+            </div>
+            <div id="upcomingScheduleList" class="schedule-list" aria-live="polite">
+                <p class="schedule-empty-message">Loading upcoming events...</p>
+            </div>
+        </section>
+
+        <section class="schedule-list-card schedule-past-card">
+            <div class="schedule-section-heading">
+                <div>
+                    <h2>Past Events</h2>
+                    <p>Your team’s completed schedule history.</p>
+                </div>
+            </div>
+            <div id="pastScheduleList" class="schedule-list" aria-live="polite">
+                <p class="schedule-empty-message">Loading past events...</p>
+            </div>
+        </section>
+
+        <p id="schedulePageMessage" class="schedule-page-feedback" role="status"></p>
+    </main>
+
+    <script type="module" src="JS/TopGun-schedule.js"></script>
+</body>
+</html>
