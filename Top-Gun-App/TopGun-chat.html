@@ -16,47 +16,65 @@
     >
 </head>
 
-<body>
+<body class="chat-page-body">
 
-    <main class="chat-page-container">
+    <main class="modern-chat-container">
 
-        <header class="chat-page-header">
-            <div>
-                <p class="team-page-label">Team Chat</p>
+        <header class="modern-chat-header">
 
-                <h1 id="chatTeamName">
-                    Loading team...
-                </h1>
+            <div class="chat-header-identity">
 
-                <p id="chatMemberStatus">
-                    Checking your membership...
-                </p>
+                <div class="chat-header-icon" aria-hidden="true">
+                    💬
+                </div>
+
+                <div>
+                    <p class="chat-section-label">
+                        Team Chat
+                    </p>
+
+                    <h1 id="chatTeamName">
+                        Loading team...
+                    </h1>
+
+                    <p id="chatMemberStatus" class="chat-status">
+                        Checking your membership...
+                    </p>
+                </div>
+
             </div>
 
-            <div class="team-header-actions">
+            <div class="chat-header-actions">
+
                 <a
                     id="backToTeamFromChat"
-                    class="dashboard-link"
+                    class="chat-back-button"
                     href="TopGun-Dashboard.html"
                 >
-                    Back to Team
+                    ← Back to Team
                 </a>
 
                 <button
                     type="button"
                     id="chatLogoutBtn"
-                    class="logout-button"
+                    class="chat-logout-button"
                 >
                     Logout
                 </button>
+
             </div>
+
         </header>
 
-        <section class="chat-card">
+        <section class="modern-chat-panel">
+
+            <div class="chat-date-divider">
+                <span>Team conversation</span>
+            </div>
 
             <div
                 id="chatMessages"
-                class="chat-messages"
+                class="modern-chat-messages"
                 aria-live="polite"
             >
                 <p class="chat-empty-message">
@@ -64,32 +82,48 @@
                 </p>
             </div>
 
-            <div class="chat-composer">
+            <div class="modern-chat-composer">
+
                 <label
                     for="chatMessageInput"
                     class="visually-hidden"
                 >
-                    Message
+                    Type a message
                 </label>
 
-                <textarea
-                    id="chatMessageInput"
-                    placeholder="Write a message..."
-                    maxlength="1000"
-                    rows="2"
-                ></textarea>
+                <div class="chat-input-wrapper">
+
+                    <span class="chat-input-icon" aria-hidden="true">
+                        💬
+                    </span>
+
+                    <textarea
+                        id="chatMessageInput"
+                        placeholder="Type a message..."
+                        maxlength="1000"
+                        rows="1"
+                    ></textarea>
+
+                </div>
 
                 <button
                     type="button"
                     id="sendMessageBtn"
+                    class="chat-send-button"
                 >
+                    <span aria-hidden="true">➤</span>
                     Send
                 </button>
+
             </div>
+
+            <p class="chat-keyboard-help">
+                Press Enter to send · Shift + Enter for a new line
+            </p>
 
         </section>
 
-        <p id="chatPageMessage"></p>
+        <p id="chatPageMessage" class="chat-page-feedback"></p>
 
     </main>
 
