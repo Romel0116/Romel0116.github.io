@@ -1080,3 +1080,284 @@ button:disabled {
         gap: 8px;
     }
 }
+
+/* =========================================================
+   TEAM ANNOUNCEMENTS
+   ========================================================= */
+
+.announcements-page-body {
+    display: block;
+    min-height: 100vh;
+    margin: 0;
+    padding: 32px 20px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #f8faf9 0%,
+            #eef2f0 100%
+        );
+}
+
+.announcements-page-container {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.announcements-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+
+    padding: 24px 28px;
+
+    background-color: #ffffff;
+    border: 1px solid #dce4df;
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 28px rgba(25, 50, 38, 0.08);
+}
+
+.announcements-header-identity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.announcements-header-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #eaf5ef;
+    border-radius: 50%;
+
+    font-size: 1.6rem;
+}
+
+.announcements-page-header h1 {
+    margin: 4px 0 6px;
+    text-align: left;
+}
+
+#announcementsStatus {
+    margin: 0;
+    color: #647169;
+}
+
+.announcement-composer-card,
+.announcements-list-card {
+    margin-top: 24px;
+    padding: 26px 28px;
+
+    background-color: #ffffff;
+    border: 1px solid #dce4df;
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 28px rgba(25, 50, 38, 0.08);
+}
+
+.announcement-composer-heading,
+.announcements-list-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+.announcement-composer-heading h2,
+.announcements-list-heading h2 {
+    margin: 0 0 6px;
+    text-align: left;
+}
+
+.announcement-composer-heading p,
+.announcements-list-heading p {
+    margin: 0;
+    color: #647169;
+}
+
+.owner-only-badge {
+    flex-shrink: 0;
+
+    padding: 7px 11px;
+
+    color: #0c6e3d;
+    background-color: #eaf5ef;
+    border-radius: 999px;
+
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.announcement-composer-card label {
+    display: block;
+
+    margin: 16px 0 5px;
+
+    color: #24372d;
+    font-weight: bold;
+}
+
+.announcement-composer-card input,
+.announcement-composer-card textarea {
+    width: 100%;
+    padding: 12px 14px;
+
+    background-color: #f8faf9;
+    border: 1px solid #cad4ce;
+    border-radius: 10px;
+
+    font: inherit;
+}
+
+.announcement-composer-card textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.announcement-composer-card input:focus,
+.announcement-composer-card textarea:focus {
+    border-color: #0c6e3d;
+    outline: none;
+
+    box-shadow:
+        0 0 0 3px rgba(12, 110, 61, 0.12);
+}
+
+.announcement-composer-card button {
+    margin-top: 18px;
+}
+
+.announcements-list {
+    display: grid;
+    gap: 16px;
+}
+
+.announcements-empty-message {
+    padding: 30px 15px;
+
+    color: #6f7b74;
+    background-color: #f8faf9;
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.announcement-card {
+    padding: 20px;
+
+    background-color: #fbfcfb;
+    border: 1px solid #dce4df;
+    border-left: 5px solid #0c6e3d;
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 14px rgba(25, 50, 38, 0.05);
+}
+
+.announcement-card-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+}
+
+.announcement-card-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #eaf5ef;
+    border-radius: 50%;
+}
+
+.announcement-card-heading h3 {
+    margin: 0 0 4px;
+
+    color: #0c6e3d;
+}
+
+.announcement-card-heading p {
+    margin: 0;
+
+    color: #69766f;
+    font-size: 0.85rem;
+}
+
+.announcement-card time {
+    color: #77827c;
+    font-size: 0.8rem;
+}
+
+.announcement-card-message {
+    margin: 16px 0 0;
+
+    color: #25352d;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.announcements-page-feedback {
+    margin-top: 18px;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .announcements-page-body {
+        padding: 12px;
+    }
+
+    .announcements-page-header {
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 20px;
+    }
+
+    .announcements-header-identity {
+        align-items: flex-start;
+    }
+
+    .announcement-composer-card,
+    .announcements-list-card {
+        padding: 20px;
+    }
+
+    .announcement-composer-heading {
+        flex-direction: column;
+    }
+
+    .announcement-card-header {
+        grid-template-columns: auto 1fr;
+    }
+
+    .announcement-card time {
+        grid-column: 2;
+    }
+}
+
+@media (max-width: 480px) {
+    .announcements-page-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .announcement-card {
+        padding: 16px;
+    }
+}

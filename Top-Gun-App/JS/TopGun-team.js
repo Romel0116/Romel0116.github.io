@@ -145,6 +145,15 @@ featureCards.forEach((card) => {
 
         const feature = card.dataset.feature;
 
+        if (feature === "announcements") {
+    const encodedTeamId =
+        encodeURIComponent(teamId);
+
+    window.location.href =
+        `TopGun-Announcements.html?teamId=${encodedTeamId}`;
+
+    return;
+}
         if (feature === "roster") {
     const encodedTeamId =
         encodeURIComponent(teamId);

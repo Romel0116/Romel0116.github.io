@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Top Gun Announcements</title>
+
+    <link
+        rel="stylesheet"
+        href="CSS/TopGun-style.css"
+    >
+</head>
+
+<body class="announcements-page-body">
+
+    <main class="announcements-page-container">
+
+        <header class="announcements-page-header">
+
+            <div class="announcements-header-identity">
+
+                <div
+                    class="announcements-header-icon"
+                    aria-hidden="true"
+                >
+                    📢
+                </div>
+
+                <div>
+                    <p class="team-page-label">
+                        Team Announcements
+                    </p>
+
+                    <h1 id="announcementsTeamName">
+                        Loading team...
+                    </h1>
+
+                    <p id="announcementsStatus">
+                        Checking your membership...
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="team-header-actions">
+
+                <a
+                    id="backToTeamFromAnnouncements"
+                    class="dashboard-link"
+                    href="TopGun-Dashboard.html"
+                >
+                    Back to Team
+                </a>
+
+                <button
+                    type="button"
+                    id="announcementsLogoutBtn"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+
+            </div>
+
+        </header>
+
+        <section
+            id="announcementComposer"
+            class="announcement-composer-card"
+            hidden
+        >
+            <div class="announcement-composer-heading">
+                <div>
+                    <h2>Post an Announcement</h2>
+
+                    <p>
+                        Important updates will appear for every team member.
+                    </p>
+                </div>
+
+                <span class="owner-only-badge">
+                    Owner Only
+                </span>
+            </div>
+
+            <label for="announcementTitle">
+                Title
+            </label>
+
+            <input
+                type="text"
+                id="announcementTitle"
+                placeholder="Example: Practice Time Changed"
+                maxlength="100"
+            >
+
+            <label for="announcementMessage">
+                Announcement
+            </label>
+
+            <textarea
+                id="announcementMessage"
+                placeholder="Write the important update here..."
+                maxlength="1500"
+                rows="5"
+            ></textarea>
+
+            <button
+                type="button"
+                id="postAnnouncementBtn"
+            >
+                Post Announcement
+            </button>
+        </section>
+
+        <section class="announcements-list-card">
+
+            <div class="announcements-list-heading">
+                <div>
+                    <h2>Latest Announcements</h2>
+
+                    <p>
+                        Team updates from coaches and team owners.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                id="announcementsList"
+                class="announcements-list"
+                aria-live="polite"
+            >
+                <p class="announcements-empty-message">
+                    Loading announcements...
+                </p>
+            </div>
+
+        </section>
+
+        <p
+            id="announcementsPageMessage"
+            class="announcements-page-feedback"
+        ></p>
+
+    </main>
+
+    <script
+        type="module"
+        src="JS/TopGun-announcements.js"
+    ></script>
+
+</body>
+</html>
