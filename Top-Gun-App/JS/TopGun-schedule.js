@@ -14,6 +14,7 @@ import {
     orderBy,
     query,
     serverTimestamp,
+    setDoc,
     Timestamp
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
@@ -40,6 +41,7 @@ let currentUser = null;
 let currentUserName = "";
 let currentTeam = null;
 let unsubscribeFromSchedule = null;
+const attendanceListeners = new Map();
 
 function showScheduleMessage(text, type = "error") {
     schedulePageMessage.textContent = text;
@@ -86,7 +88,155 @@ function eventIcon(type) {
     return icons[type] || "📅";
 }
 
-function createScheduleCard(eventData) {
+function stopAttendanceListeners() {
+    attendanceListeners.forEach((unsubscribe) => unsubscribe());
+    attendanceListeners.clear();
+}
+
+async function saveAttendance(eventId, status, buttons) {
+    if (!currentUser || !currentTeam || !teamId) {
+        showScheduleMessage("The schedule page is not ready.");
+        return;
+    }
+
+    const members = Array.isArray(currentTeam.members)
+        ? currentTeam.members
+        : [];
+
+    if (!members.includes(currentUser.uid)) {
+        showScheduleMessage("Only team members can respond to events.");
+        return;
+    }
+
+    buttons.forEach((button) => {
+        button.disabled = true;
+    });
+
+    try {
+        await setDoc(
+            doc(
+                db,
+                "teams",
+                teamId,
+                "scheduleEvents",
+                eventId,
+                "attendance",
+                currentUser.uid
+            ),
+            {
+                userId: currentUser.uid,
+                userName: currentUserName,
+                status,
+                updatedAt: serverTimestamp()
+            }
+        );
+
+        showScheduleMessage("Your attendance response was saved.", "success");
+    } catch (error) {
+        console.error("Unable to save attendance:", error);
+        showScheduleMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    } finally {
+        buttons.forEach((button) => {
+            button.disabled = false;
+        });
+    }
+}
+
+function createAttendanceSection(eventId, canRespond) {
+    const section = document.createElement("div");
+    section.className = "schedule-attendance";
+
+    const heading = document.createElement("p");
+    heading.className = "schedule-attendance-heading";
+    heading.textContent = canRespond ? "Will you attend?" : "Attendance";
+
+    const buttonRow = document.createElement("div");
+    buttonRow.className = "schedule-attendance-buttons";
+
+    const choices = [
+        { status: "going", label: "Going", icon: "✅" },
+        { status: "maybe", label: "Maybe", icon: "❓" },
+        { status: "cantAttend", label: "Can't Attend", icon: "❌" }
+    ];
+
+    const buttons = choices.map((choice) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "attendance-button";
+        button.dataset.status = choice.status;
+        button.textContent = `${choice.icon} ${choice.label} (0)`;
+
+        if (canRespond) {
+            button.addEventListener("click", () => {
+                saveAttendance(eventId, choice.status, buttons);
+            });
+        } else {
+            button.disabled = true;
+        }
+
+        buttonRow.appendChild(button);
+        return button;
+    });
+
+    section.append(heading, buttonRow);
+
+    const attendanceReference = collection(
+        db,
+        "teams",
+        teamId,
+        "scheduleEvents",
+        eventId,
+        "attendance"
+    );
+
+    const unsubscribe = onSnapshot(
+        attendanceReference,
+        (snapshot) => {
+            const totals = {
+                going: 0,
+                maybe: 0,
+                cantAttend: 0
+            };
+
+            let currentStatus = "";
+
+            snapshot.forEach((responseDocument) => {
+                const response = responseDocument.data();
+
+                if (Object.hasOwn(totals, response.status)) {
+                    totals[response.status] += 1;
+                }
+
+                if (responseDocument.id === currentUser?.uid) {
+                    currentStatus = response.status;
+                }
+            });
+
+            buttons.forEach((button, index) => {
+                const choice = choices[index];
+                button.textContent =
+                    `${choice.icon} ${choice.label} (${totals[choice.status]})`;
+                button.classList.toggle(
+                    "selected",
+                    choice.status === currentStatus
+                );
+                button.setAttribute(
+                    "aria-pressed",
+                    choice.status === currentStatus ? "true" : "false"
+                );
+            });
+        },
+        (error) => {
+            console.error("Unable to load attendance:", error);
+            heading.textContent = "Attendance unavailable";
+        }
+    );
+
+    attendanceListeners.set(eventId, unsubscribe);
+    return section;
+}
+
+function createScheduleCard(eventId, eventData, canRespond) {
     const startsAt = eventData.startsAt?.toDate
         ? eventData.startsAt.toDate()
         : new Date(eventData.startsAt);
@@ -138,11 +288,14 @@ function createScheduleCard(eventData) {
         content.appendChild(notes);
     }
 
+    content.appendChild(createAttendanceSection(eventId, canRespond));
+
     card.append(icon, content);
     return card;
 }
 
 function renderSchedule(snapshot) {
+    stopAttendanceListeners();
     upcomingScheduleList.innerHTML = "";
     pastScheduleList.innerHTML = "";
 
@@ -152,23 +305,31 @@ function renderSchedule(snapshot) {
 
     snapshot.forEach((eventDocument) => {
         const eventData = eventDocument.data();
+        const scheduleEvent = {
+            id: eventDocument.id,
+            data: eventData
+        };
         const startsAt = eventData.startsAt?.toDate
             ? eventData.startsAt.toDate()
             : new Date(eventData.startsAt);
 
         if (startsAt >= now) {
-            upcomingEvents.push(eventData);
+            upcomingEvents.push(scheduleEvent);
         } else {
-            pastEvents.push(eventData);
+            pastEvents.push(scheduleEvent);
         }
     });
 
-    upcomingEvents.forEach((eventData) => {
-        upcomingScheduleList.appendChild(createScheduleCard(eventData));
+    upcomingEvents.forEach((scheduleEvent) => {
+        upcomingScheduleList.appendChild(
+            createScheduleCard(scheduleEvent.id, scheduleEvent.data, true)
+        );
     });
 
-    pastEvents.reverse().forEach((eventData) => {
-        pastScheduleList.appendChild(createScheduleCard(eventData));
+    pastEvents.reverse().forEach((scheduleEvent) => {
+        pastScheduleList.appendChild(
+            createScheduleCard(scheduleEvent.id, scheduleEvent.data, false)
+        );
     });
 
     if (upcomingEvents.length === 0) {
@@ -341,6 +502,8 @@ scheduleLogoutBtn.addEventListener("click", async () => {
     scheduleLogoutBtn.textContent = "Logging Out...";
 
     try {
+        stopAttendanceListeners();
+
         if (unsubscribeFromSchedule) {
             unsubscribeFromSchedule();
         }
@@ -356,6 +519,8 @@ scheduleLogoutBtn.addEventListener("click", async () => {
 });
 
 window.addEventListener("beforeunload", () => {
+    stopAttendanceListeners();
+
     if (unsubscribeFromSchedule) {
         unsubscribeFromSchedule();
     }
