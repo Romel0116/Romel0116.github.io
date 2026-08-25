@@ -144,6 +144,67 @@ function beginScheduleEdit(eventId, eventData) {
     showScheduleMessage("Update the event fields, then select Save Changes.", "success");
 }
 
+async function postEventReminder(eventId, eventData) {
+    if (!currentUser || currentTeam?.createdBy !== currentUser.uid) {
+        showScheduleMessage("Only the team owner can post event reminders.");
+        return;
+    }
+
+    const startsAt = eventData.startsAt?.toDate
+        ? eventData.startsAt.toDate()
+        : new Date(eventData.startsAt);
+
+    const confirmed = window.confirm(
+        `Post an announcement reminder for “${eventData.title || "this event"}”?`
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    const reminderLines = [
+        `${eventIcon(eventData.type)} ${eventData.title || "Team Event"}`,
+        `Date: ${formatEventDate(startsAt)}`,
+        `Time: ${formatEventTime(startsAt)}`
+    ];
+
+    if (eventData.location) {
+        reminderLines.push(`Location: ${eventData.location}`);
+    }
+
+    if (eventData.notes) {
+        reminderLines.push(`Notes: ${eventData.notes}`);
+    }
+
+    reminderLines.push("Open the team Schedule to update your attendance response.");
+
+    const reminderTitle =
+        `Event Reminder: ${eventData.title || "Team Event"}`.slice(0, 100);
+
+    try {
+        await addDoc(
+            collection(db, "teams", teamId, "announcements"),
+            {
+                title: reminderTitle,
+                message: reminderLines.join("\n"),
+                authorId: currentUser.uid,
+                authorName: currentUserName,
+                authorEmail: currentUser.email || "",
+                scheduleEventId: eventId,
+                createdAt: serverTimestamp()
+            }
+        );
+
+        showScheduleMessage(
+            "Event reminder posted to Team Announcements.",
+            "success"
+        );
+    } catch (error) {
+        console.error("Unable to post event reminder:", error);
+        showScheduleMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    }
+}
+
 async function deleteScheduleEvent(eventId, eventTitle) {
     if (!currentUser || currentTeam?.createdBy !== currentUser.uid) {
         showScheduleMessage("Only the team owner can delete events.");
@@ -442,6 +503,24 @@ function createScheduleCard(eventId, eventData, canRespond) {
         deleteButton.addEventListener("click", () => {
             deleteScheduleEvent(eventId, eventData.title);
         });
+
+        if (canRespond) {
+            const reminderButton = document.createElement("button");
+            reminderButton.type = "button";
+            reminderButton.className = "schedule-reminder-button";
+            reminderButton.textContent = "Post Reminder";
+            reminderButton.addEventListener("click", async () => {
+                reminderButton.disabled = true;
+                reminderButton.textContent = "Posting...";
+
+                await postEventReminder(eventId, eventData);
+
+                reminderButton.disabled = false;
+                reminderButton.textContent = "Post Reminder";
+            });
+
+            ownerActions.appendChild(reminderButton);
+        }
 
         ownerActions.append(editButton, deleteButton);
         heading.appendChild(ownerActions);
