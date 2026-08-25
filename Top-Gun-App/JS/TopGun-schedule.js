@@ -60,6 +60,38 @@ function showScheduleMessage(text, type = "error") {
     schedulePageMessage.classList.toggle("success", type === "success");
 }
 
+async function markScheduleSeen() {
+    if (!currentUser || !teamId) {
+        return;
+    }
+
+    try {
+        await setDoc(
+            doc(db, "teams", teamId, "memberReadStatus", currentUser.uid),
+            {
+                userId: currentUser.uid,
+                scheduleSeenAt: serverTimestamp()
+            },
+            { merge: true }
+        );
+    } catch (error) {
+        console.error("Unable to mark Schedule as viewed:", error);
+    }
+}
+
+async function createTeamNotification(feature, title, sourceId = "") {
+    await addDoc(
+        collection(db, "teams", teamId, "notifications"),
+        {
+            feature,
+            title: title.slice(0, 150),
+            sourceId,
+            actorId: currentUser.uid,
+            createdAt: serverTimestamp()
+        }
+    );
+}
+
 function disableSchedulePage(message) {
     scheduleTeamName.textContent = "Schedule unavailable";
     scheduleStatus.textContent = "";
@@ -182,18 +214,33 @@ async function postEventReminder(eventId, eventData) {
         `Event Reminder: ${eventData.title || "Team Event"}`.slice(0, 100);
 
     try {
-        await addDoc(
-            collection(db, "teams", teamId, "announcements"),
-            {
-                title: reminderTitle,
-                message: reminderLines.join("\n"),
-                authorId: currentUser.uid,
-                authorName: currentUserName,
-                authorEmail: currentUser.email || "",
-                scheduleEventId: eventId,
-                createdAt: serverTimestamp()
-            }
+        const batch = writeBatch(db);
+        const announcementReference = doc(
+            collection(db, "teams", teamId, "announcements")
         );
+        const notificationReference = doc(
+            collection(db, "teams", teamId, "notifications")
+        );
+
+        batch.set(announcementReference, {
+            title: reminderTitle,
+            message: reminderLines.join("\n"),
+            authorId: currentUser.uid,
+            authorName: currentUserName,
+            authorEmail: currentUser.email || "",
+            scheduleEventId: eventId,
+            createdAt: serverTimestamp()
+        });
+
+        batch.set(notificationReference, {
+            feature: "announcements",
+            title: reminderTitle,
+            sourceId: announcementReference.id,
+            actorId: currentUser.uid,
+            createdAt: serverTimestamp()
+        });
+
+        await batch.commit();
 
         showScheduleMessage(
             "Event reminder posted to Team Announcements.",
@@ -231,6 +278,19 @@ async function deleteScheduleEvent(eventId, eventTitle) {
         });
 
         batch.delete(eventReference);
+
+        const notificationReference = doc(
+            collection(db, "teams", teamId, "notifications")
+        );
+
+        batch.set(notificationReference, {
+            feature: "schedule",
+            title: `Event deleted: ${eventTitle || "Team Event"}`.slice(0, 150),
+            sourceId: eventId,
+            actorId: currentUser.uid,
+            createdAt: serverTimestamp()
+        });
+
         await batch.commit();
 
         if (currentEditingEventId === eventId) {
@@ -558,6 +618,7 @@ function createScheduleCard(eventId, eventData, canRespond) {
 }
 
 function renderSchedule(snapshot) {
+    markScheduleSeen();
     stopAttendanceListeners();
     upcomingScheduleList.innerHTML = "";
     pastScheduleList.innerHTML = "";
@@ -672,6 +733,7 @@ async function loadTeam(user) {
             scheduleComposer.hidden = true;
         }
 
+        await markScheduleSeen();
         loadSchedule();
     } catch (error) {
         console.error("Unable to load schedule page:", error);
@@ -735,8 +797,10 @@ createScheduleEventBtn.addEventListener("click", async () => {
 
     try {
         if (currentEditingEventId) {
+            const editingEventId = currentEditingEventId;
+
             await updateDoc(
-                doc(db, "teams", teamId, "scheduleEvents", currentEditingEventId),
+                doc(db, "teams", teamId, "scheduleEvents", editingEventId),
                 {
                     type,
                     title,
@@ -747,9 +811,17 @@ createScheduleEventBtn.addEventListener("click", async () => {
                 }
             );
 
+            await createTeamNotification(
+                "schedule",
+                `Event updated: ${title}`,
+                editingEventId
+            );
+
             showScheduleMessage("Event updated successfully.", "success");
         } else {
-            await addDoc(collection(db, "teams", teamId, "scheduleEvents"), {
+            const eventReference = await addDoc(
+                collection(db, "teams", teamId, "scheduleEvents"),
+                {
                 type,
                 title,
                 startsAt: Timestamp.fromDate(startsAtDate),
@@ -758,7 +830,14 @@ createScheduleEventBtn.addEventListener("click", async () => {
                 createdBy: currentUser.uid,
                 createdByName: currentUserName,
                 createdAt: serverTimestamp()
-            });
+                }
+            );
+
+            await createTeamNotification(
+                "schedule",
+                `New event: ${title}`,
+                eventReference.id
+            );
 
             showScheduleMessage("Event added successfully.", "success");
         }
