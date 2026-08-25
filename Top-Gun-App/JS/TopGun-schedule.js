@@ -10,12 +10,15 @@ import {
     collection,
     doc,
     getDoc,
+    getDocs,
     onSnapshot,
     orderBy,
     query,
     serverTimestamp,
     setDoc,
-    Timestamp
+    Timestamp,
+    updateDoc,
+    writeBatch
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const scheduleTeamName = document.getElementById("scheduleTeamName");
@@ -42,6 +45,15 @@ let currentUserName = "";
 let currentTeam = null;
 let unsubscribeFromSchedule = null;
 const attendanceListeners = new Map();
+let currentEditingEventId = null;
+
+const cancelScheduleEditBtn = document.createElement("button");
+cancelScheduleEditBtn.type = "button";
+cancelScheduleEditBtn.id = "cancelScheduleEditBtn";
+cancelScheduleEditBtn.className = "schedule-cancel-edit-button";
+cancelScheduleEditBtn.textContent = "Cancel Edit";
+cancelScheduleEditBtn.hidden = true;
+createScheduleEventBtn.insertAdjacentElement("afterend", cancelScheduleEditBtn);
 
 function showScheduleMessage(text, type = "error") {
     schedulePageMessage.textContent = text;
@@ -86,6 +98,89 @@ function eventIcon(type) {
     };
 
     return icons[type] || "📅";
+}
+
+function dateInputValue(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+}
+
+function timeInputValue(date) {
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    return `${hours}:${minutes}`;
+}
+
+function resetScheduleForm() {
+    currentEditingEventId = null;
+    scheduleEventType.value = "game";
+    scheduleEventTitle.value = "";
+    scheduleEventDate.value = "";
+    scheduleEventTime.value = "";
+    scheduleEventLocation.value = "";
+    scheduleEventNotes.value = "";
+    createScheduleEventBtn.textContent = "Add Event";
+    cancelScheduleEditBtn.hidden = true;
+}
+
+function beginScheduleEdit(eventId, eventData) {
+    const startsAt = eventData.startsAt?.toDate
+        ? eventData.startsAt.toDate()
+        : new Date(eventData.startsAt);
+
+    currentEditingEventId = eventId;
+    scheduleEventType.value = eventData.type || "game";
+    scheduleEventTitle.value = eventData.title || "";
+    scheduleEventDate.value = dateInputValue(startsAt);
+    scheduleEventTime.value = timeInputValue(startsAt);
+    scheduleEventLocation.value = eventData.location || "";
+    scheduleEventNotes.value = eventData.notes || "";
+    createScheduleEventBtn.textContent = "Save Changes";
+    cancelScheduleEditBtn.hidden = false;
+    scheduleComposer.scrollIntoView({ behavior: "smooth", block: "start" });
+    scheduleEventTitle.focus({ preventScroll: true });
+    showScheduleMessage("Update the event fields, then select Save Changes.", "success");
+}
+
+async function deleteScheduleEvent(eventId, eventTitle) {
+    if (!currentUser || currentTeam?.createdBy !== currentUser.uid) {
+        showScheduleMessage("Only the team owner can delete events.");
+        return;
+    }
+
+    const confirmed = window.confirm(
+        `Delete “${eventTitle || "this event"}”? Its attendance responses will also be deleted.`
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+        const eventReference = doc(db, "teams", teamId, "scheduleEvents", eventId);
+        const attendanceSnapshot = await getDocs(
+            collection(eventReference, "attendance")
+        );
+        const batch = writeBatch(db);
+
+        attendanceSnapshot.forEach((attendanceDocument) => {
+            batch.delete(attendanceDocument.ref);
+        });
+
+        batch.delete(eventReference);
+        await batch.commit();
+
+        if (currentEditingEventId === eventId) {
+            resetScheduleForm();
+        }
+
+        showScheduleMessage("Event and attendance responses deleted.", "success");
+    } catch (error) {
+        console.error("Unable to delete event:", error);
+        showScheduleMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    }
 }
 
 function stopAttendanceListeners() {
@@ -255,6 +350,7 @@ function createScheduleCard(eventId, eventData, canRespond) {
     topRow.className = "schedule-event-top-row";
 
     const heading = document.createElement("div");
+    heading.className = "schedule-event-heading";
     const badge = document.createElement("span");
     badge.className = `schedule-type-badge schedule-type-${eventData.type || "event"}`;
     badge.textContent = eventData.type || "event";
@@ -262,6 +358,30 @@ function createScheduleCard(eventId, eventData, canRespond) {
     const title = document.createElement("h3");
     title.textContent = eventData.title || "Team Event";
     heading.append(badge, title);
+
+    if (currentTeam?.createdBy === currentUser?.uid) {
+        const ownerActions = document.createElement("div");
+        ownerActions.className = "schedule-owner-actions";
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.className = "schedule-edit-button";
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", () => {
+            beginScheduleEdit(eventId, eventData);
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "schedule-delete-button";
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => {
+            deleteScheduleEvent(eventId, eventData.title);
+        });
+
+        ownerActions.append(editButton, deleteButton);
+        heading.appendChild(ownerActions);
+    }
 
     const dateBlock = document.createElement("div");
     dateBlock.className = "schedule-event-date";
@@ -466,35 +586,56 @@ createScheduleEventBtn.addEventListener("click", async () => {
     }
 
     createScheduleEventBtn.disabled = true;
-    createScheduleEventBtn.textContent = "Adding Event...";
+    createScheduleEventBtn.textContent = currentEditingEventId
+        ? "Saving Changes..."
+        : "Adding Event...";
 
     try {
-        await addDoc(collection(db, "teams", teamId, "scheduleEvents"), {
-            type,
-            title,
-            startsAt: Timestamp.fromDate(startsAtDate),
-            location,
-            notes,
-            createdBy: currentUser.uid,
-            createdByName: currentUserName,
-            createdAt: serverTimestamp()
-        });
+        if (currentEditingEventId) {
+            await updateDoc(
+                doc(db, "teams", teamId, "scheduleEvents", currentEditingEventId),
+                {
+                    type,
+                    title,
+                    startsAt: Timestamp.fromDate(startsAtDate),
+                    location,
+                    notes,
+                    updatedAt: serverTimestamp()
+                }
+            );
 
-        scheduleEventType.value = "game";
-        scheduleEventTitle.value = "";
-        scheduleEventDate.value = "";
-        scheduleEventTime.value = "";
-        scheduleEventLocation.value = "";
-        scheduleEventNotes.value = "";
-        showScheduleMessage("Event added successfully.", "success");
+            showScheduleMessage("Event updated successfully.", "success");
+        } else {
+            await addDoc(collection(db, "teams", teamId, "scheduleEvents"), {
+                type,
+                title,
+                startsAt: Timestamp.fromDate(startsAtDate),
+                location,
+                notes,
+                createdBy: currentUser.uid,
+                createdByName: currentUserName,
+                createdAt: serverTimestamp()
+            });
+
+            showScheduleMessage("Event added successfully.", "success");
+        }
+
+        resetScheduleForm();
         scheduleEventTitle.focus();
     } catch (error) {
         console.error("Unable to create schedule event:", error);
         showScheduleMessage(`${error.code || "Unknown error"}: ${error.message}`);
     } finally {
         createScheduleEventBtn.disabled = false;
-        createScheduleEventBtn.textContent = "Add Event";
+        createScheduleEventBtn.textContent = currentEditingEventId
+            ? "Save Changes"
+            : "Add Event";
     }
+});
+
+cancelScheduleEditBtn.addEventListener("click", () => {
+    resetScheduleForm();
+    showScheduleMessage("Editing canceled.", "success");
 });
 
 scheduleLogoutBtn.addEventListener("click", async () => {
