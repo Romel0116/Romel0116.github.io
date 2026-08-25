@@ -1805,3 +1805,66 @@ button:disabled {
 .schedule-cancel-edit-button[hidden] {
     display: none;
 }
+
+.attendance-response-details {
+    margin-top: 12px;
+    border: 1px solid #dce8df;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.attendance-response-details summary {
+    cursor: pointer;
+    color: #315443;
+    font-size: 0.86rem;
+    font-weight: 800;
+    padding: 11px 13px;
+}
+
+.attendance-response-details summary:hover {
+    color: #147041;
+}
+
+.attendance-response-groups {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding: 0 13px 13px;
+}
+
+.attendance-response-group {
+    min-width: 0;
+    border: 1px solid #e3ece6;
+    border-radius: 10px;
+    background: #fbfdfb;
+    padding: 11px;
+}
+
+.attendance-response-group h4 {
+    margin: 0 0 8px;
+    color: #244c38;
+    font-size: 0.82rem;
+}
+
+.attendance-response-group ul {
+    margin: 0;
+    padding-left: 19px;
+    color: #3c5c4b;
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+.attendance-response-group li {
+    overflow-wrap: anywhere;
+}
+
+.attendance-response-group .attendance-no-responses {
+    color: #7b8d83;
+    font-style: italic;
+}
+
+@media (max-width: 720px) {
+    .attendance-response-groups {
+        grid-template-columns: 1fr;
+    }
+}

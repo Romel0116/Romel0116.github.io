@@ -273,7 +273,37 @@ function createAttendanceSection(eventId, canRespond) {
         return button;
     });
 
-    section.append(heading, buttonRow);
+    const responseDetails = document.createElement("details");
+    responseDetails.className = "attendance-response-details";
+
+    const responseSummary = document.createElement("summary");
+    responseSummary.textContent = "View responses (0)";
+
+    const responseGroups = document.createElement("div");
+    responseGroups.className = "attendance-response-groups";
+
+    const responseLists = new Map();
+
+    choices.forEach((choice) => {
+        const group = document.createElement("section");
+        group.className = "attendance-response-group";
+
+        const groupHeading = document.createElement("h4");
+        groupHeading.textContent = `${choice.icon} ${choice.label}`;
+
+        const nameList = document.createElement("ul");
+        const emptyItem = document.createElement("li");
+        emptyItem.className = "attendance-no-responses";
+        emptyItem.textContent = "No responses";
+        nameList.appendChild(emptyItem);
+
+        group.append(groupHeading, nameList);
+        responseGroups.appendChild(group);
+        responseLists.set(choice.status, nameList);
+    });
+
+    responseDetails.append(responseSummary, responseGroups);
+    section.append(heading, buttonRow, responseDetails);
 
     const attendanceReference = collection(
         db,
@@ -293,6 +323,12 @@ function createAttendanceSection(eventId, canRespond) {
                 cantAttend: 0
             };
 
+            const names = {
+                going: [],
+                maybe: [],
+                cantAttend: []
+            };
+
             let currentStatus = "";
 
             snapshot.forEach((responseDocument) => {
@@ -300,6 +336,9 @@ function createAttendanceSection(eventId, canRespond) {
 
                 if (Object.hasOwn(totals, response.status)) {
                     totals[response.status] += 1;
+                    names[response.status].push(
+                        response.userName || "Team member"
+                    );
                 }
 
                 if (responseDocument.id === currentUser?.uid) {
@@ -319,6 +358,31 @@ function createAttendanceSection(eventId, canRespond) {
                     "aria-pressed",
                     choice.status === currentStatus ? "true" : "false"
                 );
+            });
+
+            responseSummary.textContent = `View responses (${snapshot.size})`;
+
+            choices.forEach((choice) => {
+                const nameList = responseLists.get(choice.status);
+                nameList.innerHTML = "";
+
+                const sortedNames = names[choice.status].sort((first, second) =>
+                    first.localeCompare(second)
+                );
+
+                if (sortedNames.length === 0) {
+                    const emptyItem = document.createElement("li");
+                    emptyItem.className = "attendance-no-responses";
+                    emptyItem.textContent = "No responses";
+                    nameList.appendChild(emptyItem);
+                    return;
+                }
+
+                sortedNames.forEach((name) => {
+                    const nameItem = document.createElement("li");
+                    nameItem.textContent = name;
+                    nameList.appendChild(nameItem);
+                });
             });
         },
         (error) => {
