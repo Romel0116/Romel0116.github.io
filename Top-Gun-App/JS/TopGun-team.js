@@ -29,9 +29,11 @@ const teamId = urlParameters.get("teamId");
 let currentUser = null;
 let currentTeam = null;
 let notifications = [];
+let recentChatMessages = [];
 let readStatus = {};
 let unsubscribeFromNotifications = null;
 let unsubscribeFromReadStatus = null;
+let unsubscribeFromChatMessages = null;
 
 function showTeamMessage(text, type = "error") {
     teamPageMessage.textContent = text;
@@ -79,6 +81,15 @@ function timestampMillis(timestamp) {
 }
 
 function unreadCount(feature) {
+    if (feature === "chat") {
+        const seenAt = timestampMillis(readStatus.chatSeenAt);
+
+        return recentChatMessages.filter((message) =>
+            message.senderId !== currentUser?.uid &&
+            timestampMillis(message.createdAt) > seenAt
+        ).length;
+    }
+
     const seenField = feature === "announcements"
         ? "announcementsSeenAt"
         : "scheduleSeenAt";
@@ -92,7 +103,7 @@ function unreadCount(feature) {
 }
 
 function renderUnreadIndicators() {
-    ["announcements", "schedule"].forEach((feature) => {
+    ["announcements", "chat", "schedule"].forEach((feature) => {
         const card = document.querySelector(
             `.team-feature-card[data-feature="${feature}"]`
         );
@@ -153,6 +164,25 @@ function listenForUnreadActivity(user) {
         },
         (error) => {
             console.error("Unable to load read status:", error);
+        }
+    );
+
+    const chatMessagesQuery = query(
+        collection(db, "teams", teamId, "messages"),
+        orderBy("createdAt", "desc"),
+        limit(100)
+    );
+
+    unsubscribeFromChatMessages = onSnapshot(
+        chatMessagesQuery,
+        (snapshot) => {
+            recentChatMessages = snapshot.docs.map((messageDocument) =>
+                messageDocument.data()
+            );
+            renderUnreadIndicators();
+        },
+        (error) => {
+            console.error("Unable to load unread chat messages:", error);
         }
     );
 }
@@ -240,6 +270,10 @@ teamLogoutBtn.addEventListener("click", async () => {
             unsubscribeFromReadStatus();
         }
 
+        if (unsubscribeFromChatMessages) {
+            unsubscribeFromChatMessages();
+        }
+
         await signOut(auth);
         window.location.href = "TopGun-Index.html";
     } catch (error) {
@@ -257,5 +291,9 @@ window.addEventListener("beforeunload", () => {
 
     if (unsubscribeFromReadStatus) {
         unsubscribeFromReadStatus();
+    }
+
+    if (unsubscribeFromChatMessages) {
+        unsubscribeFromChatMessages();
     }
 });
