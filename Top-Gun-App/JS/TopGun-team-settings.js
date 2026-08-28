@@ -30,8 +30,13 @@ const teamSettingsPageMessage = document.getElementById("teamSettingsPageMessage
 const urlParameters = new URLSearchParams(window.location.search);
 const teamId = urlParameters.get("teamId");
 
-const TEAMSIDELINE_ORGANIZATION_ID = 222;
-const SUPPORTED_HOST = "thewoodlandstownship.teamsidelinesite.com";
+const SUPPORTED_CALENDAR_HOSTS = new Set([
+    "tmsdln.com",
+    "www.tmsdln.com",
+    "calendar.teamsideline.com",
+    "teamsideline.com",
+    "www.teamsideline.com"
+]);
 
 let currentUser = null;
 let currentTeam = null;
@@ -55,38 +60,27 @@ function parseScheduleUrl(value) {
     try {
         parsedUrl = new URL(value);
     } catch {
-        throw new Error("Please enter a complete TeamSideline schedule URL.");
+        throw new Error("Please enter the TeamSideline team calendar URL.");
     }
 
-    if (parsedUrl.protocol !== "https:") {
-        throw new Error("The league schedule URL must begin with https://.");
+    if (parsedUrl.protocol !== "https:" && parsedUrl.protocol !== "http:") {
+        throw new Error("The calendar URL must begin with http:// or https://.");
     }
 
-    if (parsedUrl.hostname.toLowerCase() !== SUPPORTED_HOST) {
-        throw new Error("This version supports The Woodlands Township TeamSideline site.");
+    if (!SUPPORTED_CALENDAR_HOSTS.has(parsedUrl.hostname.toLowerCase())) {
+        throw new Error("Please use the calendar link provided by TeamSideline.");
     }
 
-    if (parsedUrl.pathname.toLowerCase() !== "/schedule") {
-        throw new Error("Please use the division Schedule page URL.");
+    if (parsedUrl.hostname.toLowerCase().endsWith("tmsdln.com")) {
+        if (!/^\/[a-z0-9]+\/?$/i.test(parsedUrl.pathname)) {
+            throw new Error("This TeamSideline short calendar link is invalid.");
+        }
+    } else if (!parsedUrl.pathname.toLowerCase().includes("ical")) {
+        throw new Error("Please use the Subscribe calendar link, not the division page URL.");
     }
 
-    const divisionIdText = parsedUrl.searchParams.get("divisionid");
-
-    if (!divisionIdText || !/^\d+$/.test(divisionIdText)) {
-        throw new Error("The URL is missing a valid divisionid value.");
-    }
-
-    const divisionId = Number(divisionIdText);
-
-    if (!Number.isSafeInteger(divisionId) || divisionId <= 0) {
-        throw new Error("The division ID in the URL is invalid.");
-    }
-
-    return {
-        divisionId,
-        normalizedUrl:
-            `https://${SUPPORTED_HOST}/schedule?divisionid=${divisionId}`
-    };
+    parsedUrl.protocol = "https:";
+    return parsedUrl.toString();
 }
 
 function formatSyncDate(timestamp) {
@@ -127,8 +121,7 @@ function renderConnection(connection) {
     if (status === "active") {
         heading.textContent = "League connection active";
         detail.textContent =
-            `${connection.leagueName || "TeamSideline league"} · ` +
-            `${connection.divisionName || `Division ${connection.divisionId}`} · ` +
+            `${connection.leagueName || "TeamSideline calendar"} · ` +
             `${connection.externalTeamName || connection.requestedTeamName}`;
     } else if (status === "error") {
         heading.textContent = "Connection needs attention";
@@ -137,7 +130,7 @@ function renderConnection(connection) {
     } else {
         heading.textContent = "Waiting for validation";
         detail.textContent =
-            `Division ${connection.divisionId} · ${connection.requestedTeamName}`;
+            connection.requestedTeamName;
     }
 
     syncDetail.textContent = `Last sync: ${formatSyncDate(connection.lastSyncAt)}`;
@@ -255,10 +248,9 @@ saveLeagueConnectionBtn.addEventListener("click", async () => {
 
         const payload = {
             provider: "teamsideline",
-            organizationId: TEAMSIDELINE_ORGANIZATION_ID,
-            divisionId: scheduleInformation.divisionId,
             requestedTeamName,
-            scheduleUrl: scheduleInformation.normalizedUrl,
+            calendarUrl: scheduleInformation,
+            scheduleUrl: scheduleInformation,
             enabled: leagueSyncEnabled.checked,
             status: "pending",
             createdBy: currentUser.uid,

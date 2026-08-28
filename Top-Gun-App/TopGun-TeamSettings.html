@@ -28,7 +28,7 @@
             <div class="league-settings-heading">
                 <div>
                     <h2>League Schedule Connection</h2>
-                    <p>Connect this team to its Woodlands TeamSideline season.</p>
+                    <p>Connect this team to its TeamSideline calendar.</p>
                 </div>
                 <span class="owner-only-badge">Owner Only</span>
             </div>
@@ -39,14 +39,14 @@
             </div>
 
             <div class="league-settings-field">
-                <label for="leagueScheduleUrl">TeamSideline Division Schedule URL</label>
+                <label for="leagueScheduleUrl">TeamSideline Team Calendar URL</label>
                 <input
                     type="url"
                     id="leagueScheduleUrl"
-                    placeholder="https://thewoodlandstownship.teamsidelinesite.com/schedule?divisionid=716970"
+                    placeholder="https://tmsdln.com/example"
                     autocomplete="url"
                 >
-                <small>Copy the URL from the league schedule page for the correct division and season.</small>
+                <small>On the league schedule, select Subscribe and copy the link for this team.</small>
             </div>
 
             <div class="league-settings-field">
@@ -63,7 +63,7 @@
                 <input type="checkbox" id="leagueSyncEnabled" checked>
                 <span>
                     <strong>Enable automatic synchronization</strong>
-                    <small>Import schedule changes, locations, game status, and final scores.</small>
+                    <small>Import opponents, dates, times, locations, and schedule changes.</small>
                 </span>
             </label>
 
@@ -76,12 +76,12 @@
         <section class="league-sync-information-card">
             <h2>How automatic synchronization works</h2>
             <ol>
-                <li>The owner saves the division URL and exact league team name.</li>
-                <li>The background sync validates the division and resolves the permanent TeamSideline team ID.</li>
-                <li>Upcoming games and completed scores are imported into Firebase.</li>
+                <li>The owner saves the team’s Subscribe calendar URL and exact league team name.</li>
+                <li>The background sync validates the TeamSideline calendar.</li>
+                <li>Games and later schedule changes are imported into Firebase.</li>
                 <li>Schedule changes create the same unread indicators already used on Team Home.</li>
             </ol>
-            <p>At the start of a new season, return here and replace the URL with the new season’s division schedule.</p>
+            <p>At the start of a new season, return here and replace the URL with the new team calendar link. TeamSideline’s calendar does not include final scores.</p>
         </section>
 
         <p id="teamSettingsPageMessage" class="team-settings-page-feedback" role="status"></p>
