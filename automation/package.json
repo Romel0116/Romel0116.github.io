@@ -1,0 +1,13 @@
+{
+  "name": "top-gun-league-sync",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "node sync-teamsideline.mjs"
+  },
+  "dependencies": {
+    "firebase-admin": "13.5.0",
+    "luxon": "3.7.2"
+  }
+}
