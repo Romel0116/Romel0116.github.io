@@ -1942,3 +1942,269 @@ button:disabled {
         }
     }
 }
+
+/* Team Settings */
+
+.team-settings-page-body {
+    min-height: 100vh;
+    margin: 0;
+    background: #f3f7f4;
+    color: #18392b;
+}
+
+.team-settings-page-container {
+    width: min(920px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 56px;
+}
+
+.team-settings-page-header,
+.league-connection-card,
+.league-sync-information-card {
+    border: 1px solid #dce8df;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 12px 32px rgba(20, 66, 43, 0.08);
+}
+
+.team-settings-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 24px;
+}
+
+.team-settings-header-identity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.team-settings-header-icon {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    place-items: center;
+    flex: 0 0 auto;
+    border: 1px solid #cde8d7;
+    border-radius: 16px;
+    background: #e9f6ee;
+    font-size: 1.75rem;
+}
+
+.team-settings-page-header h1,
+.league-settings-heading h2,
+.league-sync-information-card h2 {
+    margin: 0;
+}
+
+.team-settings-page-header p,
+.league-settings-heading p {
+    margin: 5px 0 0;
+    color: #64766d;
+}
+
+.league-connection-card,
+.league-sync-information-card {
+    margin-bottom: 24px;
+    padding: 24px;
+}
+
+.league-settings-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.league-connection-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #dce8df;
+    border-left: 5px solid #7b8d83;
+    border-radius: 12px;
+    background: #f8faf8;
+    padding: 14px 16px;
+}
+
+.league-connection-summary span {
+    color: #64766d;
+    line-height: 1.45;
+}
+
+.league-connection-pending {
+    border-left-color: #b7791f;
+    background: #fffaf0;
+}
+
+.league-connection-active {
+    border-left-color: #159447;
+    background: #eef9f2;
+}
+
+.league-connection-error {
+    border-left-color: #b42318;
+    background: #fff4f2;
+}
+
+.league-settings-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.league-settings-field label {
+    color: #244c38;
+    font-weight: 750;
+}
+
+.league-settings-field input {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #bed2c5;
+    border-radius: 12px;
+    background: #fbfdfb;
+    color: #18392b;
+    font: inherit;
+    padding: 12px 14px;
+}
+
+.league-settings-field input:focus {
+    outline: 3px solid rgba(20, 112, 65, 0.15);
+    border-color: #147041;
+}
+
+.league-settings-field small,
+.league-sync-toggle small {
+    color: #64766d;
+    line-height: 1.4;
+}
+
+.league-sync-toggle {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    margin: 4px 0 20px;
+    border: 1px solid #dce8df;
+    border-radius: 12px;
+    background: #fbfdfb;
+    cursor: pointer;
+    padding: 14px;
+}
+
+.league-sync-toggle input {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: #147041;
+}
+
+.league-sync-toggle span {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.league-settings-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#saveLeagueConnectionBtn,
+.league-remove-button {
+    width: auto;
+    border-radius: 11px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 800;
+    padding: 12px 18px;
+}
+
+#saveLeagueConnectionBtn {
+    border: 1px solid #147041;
+    background: #147041;
+    color: #ffffff;
+}
+
+.league-remove-button {
+    border: 1px solid #b42318;
+    background: #ffffff;
+    color: #b42318;
+}
+
+#saveLeagueConnectionBtn:disabled,
+.league-remove-button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+
+.league-sync-information-card ol {
+    margin: 16px 0;
+    padding-left: 22px;
+    color: #3c5c4b;
+    line-height: 1.65;
+}
+
+.league-sync-information-card p {
+    margin: 0;
+    color: #64766d;
+    line-height: 1.55;
+}
+
+.team-settings-page-feedback {
+    min-height: 24px;
+    margin: 0;
+    color: #b42318;
+    font-weight: 700;
+    text-align: center;
+}
+
+.team-settings-page-feedback.success {
+    color: #0c6e3d;
+}
+
+@media (max-width: 720px) {
+    .team-settings-page-container {
+        width: min(100% - 20px, 920px);
+        padding-top: 14px;
+    }
+
+    .team-settings-page-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .team-settings-page-header .team-header-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .team-settings-page-header,
+    .league-connection-card,
+    .league-sync-information-card {
+        padding: 18px;
+    }
+
+    .team-settings-page-header .team-header-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .league-settings-actions {
+        flex-direction: column;
+    }
+
+    #saveLeagueConnectionBtn,
+    .league-remove-button {
+        width: 100%;
+    }
+}

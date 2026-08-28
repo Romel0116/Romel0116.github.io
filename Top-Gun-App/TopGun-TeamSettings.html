@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Gun Team Settings</title>
+    <link rel="stylesheet" href="CSS/TopGun-style.css">
+</head>
+<body class="team-settings-page-body">
+    <main class="team-settings-page-container">
+        <header class="team-settings-page-header">
+            <div class="team-settings-header-identity">
+                <div class="team-settings-header-icon" aria-hidden="true">⚙️</div>
+                <div>
+                    <p class="team-page-label">Team Settings</p>
+                    <h1 id="settingsTeamName">Loading team...</h1>
+                    <p id="settingsStatus">Checking owner access...</p>
+                </div>
+            </div>
+
+            <div class="team-header-actions">
+                <a id="backToTeamFromSettings" class="dashboard-link" href="TopGun-Dashboard.html">Back to Team</a>
+                <button type="button" id="settingsLogoutBtn" class="logout-button">Logout</button>
+            </div>
+        </header>
+
+        <section id="leagueConnectionCard" class="league-connection-card" hidden>
+            <div class="league-settings-heading">
+                <div>
+                    <h2>League Schedule Connection</h2>
+                    <p>Connect this team to its Woodlands TeamSideline season.</p>
+                </div>
+                <span class="owner-only-badge">Owner Only</span>
+            </div>
+
+            <div id="leagueConnectionSummary" class="league-connection-summary">
+                <strong>No league connection yet</strong>
+                <span>Enter the current season information below.</span>
+            </div>
+
+            <div class="league-settings-field">
+                <label for="leagueScheduleUrl">TeamSideline Division Schedule URL</label>
+                <input
+                    type="url"
+                    id="leagueScheduleUrl"
+                    placeholder="https://thewoodlandstownship.teamsidelinesite.com/schedule?divisionid=716970"
+                    autocomplete="url"
+                >
+                <small>Copy the URL from the league schedule page for the correct division and season.</small>
+            </div>
+
+            <div class="league-settings-field">
+                <label for="leagueTeamName">Team name exactly as shown by the league</label>
+                <input
+                    type="text"
+                    id="leagueTeamName"
+                    placeholder="Example: Top Gun FC"
+                    maxlength="100"
+                >
+            </div>
+
+            <label class="league-sync-toggle" for="leagueSyncEnabled">
+                <input type="checkbox" id="leagueSyncEnabled" checked>
+                <span>
+                    <strong>Enable automatic synchronization</strong>
+                    <small>Import schedule changes, locations, game status, and final scores.</small>
+                </span>
+            </label>
+
+            <div class="league-settings-actions">
+                <button type="button" id="saveLeagueConnectionBtn">Save League Connection</button>
+                <button type="button" id="removeLeagueConnectionBtn" class="league-remove-button" hidden>Remove Connection</button>
+            </div>
+        </section>
+
+        <section class="league-sync-information-card">
+            <h2>How automatic synchronization works</h2>
+            <ol>
+                <li>The owner saves the division URL and exact league team name.</li>
+                <li>The background sync validates the division and resolves the permanent TeamSideline team ID.</li>
+                <li>Upcoming games and completed scores are imported into Firebase.</li>
+                <li>Schedule changes create the same unread indicators already used on Team Home.</li>
+            </ol>
+            <p>At the start of a new season, return here and replace the URL with the new season’s division schedule.</p>
+        </section>
+
+        <p id="teamSettingsPageMessage" class="team-settings-page-feedback" role="status"></p>
+    </main>
+
+    <script type="module" src="JS/TopGun-team-settings.js"></script>
+</body>
+</html>

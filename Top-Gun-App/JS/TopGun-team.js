@@ -240,7 +240,8 @@ featureCards.forEach((card) => {
             schedule: "TopGun-Schedule.html",
             announcements: "TopGun-Announcements.html",
             roster: "TopGun-Roster.html",
-            chat: "TopGun-chat.html"
+            chat: "TopGun-chat.html",
+            settings: "TopGun-TeamSettings.html"
         };
 
         if (destinations[feature]) {
