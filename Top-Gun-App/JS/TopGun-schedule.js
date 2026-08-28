@@ -544,25 +544,16 @@ function createScheduleCard(eventId, eventData, canRespond) {
     title.textContent = eventData.title || "Team Event";
     heading.append(badge, title);
 
+    if (eventData.source === "teamsideline") {
+        const leagueManagedBadge = document.createElement("span");
+        leagueManagedBadge.className = "league-managed-badge";
+        leagueManagedBadge.textContent = "League Managed";
+        heading.appendChild(leagueManagedBadge);
+    }
+
     if (currentTeam?.createdBy === currentUser?.uid) {
         const ownerActions = document.createElement("div");
         ownerActions.className = "schedule-owner-actions";
-
-        const editButton = document.createElement("button");
-        editButton.type = "button";
-        editButton.className = "schedule-edit-button";
-        editButton.textContent = "Edit";
-        editButton.addEventListener("click", () => {
-            beginScheduleEdit(eventId, eventData);
-        });
-
-        const deleteButton = document.createElement("button");
-        deleteButton.type = "button";
-        deleteButton.className = "schedule-delete-button";
-        deleteButton.textContent = "Delete";
-        deleteButton.addEventListener("click", () => {
-            deleteScheduleEvent(eventId, eventData.title);
-        });
 
         if (canRespond) {
             const reminderButton = document.createElement("button");
@@ -582,7 +573,26 @@ function createScheduleCard(eventId, eventData, canRespond) {
             ownerActions.appendChild(reminderButton);
         }
 
-        ownerActions.append(editButton, deleteButton);
+        if (eventData.source !== "teamsideline") {
+            const editButton = document.createElement("button");
+            editButton.type = "button";
+            editButton.className = "schedule-edit-button";
+            editButton.textContent = "Edit";
+            editButton.addEventListener("click", () => {
+                beginScheduleEdit(eventId, eventData);
+            });
+
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.className = "schedule-delete-button";
+            deleteButton.textContent = "Delete";
+            deleteButton.addEventListener("click", () => {
+                deleteScheduleEvent(eventId, eventData.title);
+            });
+
+            ownerActions.append(editButton, deleteButton);
+        }
+
         heading.appendChild(ownerActions);
     }
 
