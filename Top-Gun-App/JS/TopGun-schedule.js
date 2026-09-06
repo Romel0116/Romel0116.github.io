@@ -8,6 +8,7 @@ import {
 import {
     addDoc,
     collection,
+    deleteDoc,
     doc,
     getDoc,
     getDocs,
@@ -30,6 +31,11 @@ const scheduleEventDate = document.getElementById("scheduleEventDate");
 const scheduleEventTime = document.getElementById("scheduleEventTime");
 const scheduleEventLocation = document.getElementById("scheduleEventLocation");
 const scheduleEventNotes = document.getElementById("scheduleEventNotes");
+const schedulePaymentRequired = document.getElementById("schedulePaymentRequired");
+const schedulePaymentFields = document.getElementById("schedulePaymentFields");
+const schedulePaymentAmount = document.getElementById("schedulePaymentAmount");
+const schedulePaymentDueDate = document.getElementById("schedulePaymentDueDate");
+const schedulePaymentDescription = document.getElementById("schedulePaymentDescription");
 const createScheduleEventBtn = document.getElementById("createScheduleEventBtn");
 const upcomingScheduleList = document.getElementById("upcomingScheduleList");
 const pastScheduleList = document.getElementById("pastScheduleList");
@@ -44,7 +50,12 @@ let currentUser = null;
 let currentUserName = "";
 let currentTeam = null;
 let unsubscribeFromSchedule = null;
+let unsubscribeFromPaymentSettings = null;
 const attendanceListeners = new Map();
+const paymentListeners = new Map();
+const memberNames = new Map();
+let currentPaymentSettings = null;
+let latestScheduleSnapshot = null;
 let currentEditingEventId = null;
 
 const cancelScheduleEditBtn = document.createElement("button");
@@ -153,6 +164,11 @@ function resetScheduleForm() {
     scheduleEventTime.value = "";
     scheduleEventLocation.value = "";
     scheduleEventNotes.value = "";
+    schedulePaymentRequired.checked = false;
+    schedulePaymentFields.hidden = true;
+    schedulePaymentAmount.value = "";
+    schedulePaymentDueDate.value = "";
+    schedulePaymentDescription.value = "";
     createScheduleEventBtn.textContent = "Add Event";
     cancelScheduleEditBtn.hidden = true;
 }
@@ -169,6 +185,15 @@ function beginScheduleEdit(eventId, eventData) {
     scheduleEventTime.value = timeInputValue(startsAt);
     scheduleEventLocation.value = eventData.location || "";
     scheduleEventNotes.value = eventData.notes || "";
+    schedulePaymentRequired.checked = eventData.paymentRequired === true;
+    schedulePaymentFields.hidden = !schedulePaymentRequired.checked;
+    schedulePaymentAmount.value = eventData.paymentAmountCents
+        ? (eventData.paymentAmountCents / 100).toFixed(2)
+        : "";
+    schedulePaymentDueDate.value = eventData.paymentDueAt
+        ? dateInputValue(eventData.paymentDueAt.toDate())
+        : "";
+    schedulePaymentDescription.value = eventData.paymentDescription || "";
     createScheduleEventBtn.textContent = "Save Changes";
     cancelScheduleEditBtn.hidden = false;
     scheduleComposer.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -259,7 +284,7 @@ async function deleteScheduleEvent(eventId, eventTitle) {
     }
 
     const confirmed = window.confirm(
-        `Delete “${eventTitle || "this event"}”? Its attendance responses will also be deleted.`
+        `Delete “${eventTitle || "this event"}”? Its attendance and payment responses will also be deleted.`
     );
 
     if (!confirmed) {
@@ -271,10 +296,16 @@ async function deleteScheduleEvent(eventId, eventTitle) {
         const attendanceSnapshot = await getDocs(
             collection(eventReference, "attendance")
         );
+        const paymentsSnapshot = await getDocs(
+            collection(eventReference, "payments")
+        );
         const batch = writeBatch(db);
 
         attendanceSnapshot.forEach((attendanceDocument) => {
             batch.delete(attendanceDocument.ref);
+        });
+        paymentsSnapshot.forEach((paymentDocument) => {
+            batch.delete(paymentDocument.ref);
         });
 
         batch.delete(eventReference);
@@ -297,7 +328,7 @@ async function deleteScheduleEvent(eventId, eventTitle) {
             resetScheduleForm();
         }
 
-        showScheduleMessage("Event and attendance responses deleted.", "success");
+        showScheduleMessage("Event, attendance, and payment responses deleted.", "success");
     } catch (error) {
         console.error("Unable to delete event:", error);
         showScheduleMessage(`${error.code || "Unknown error"}: ${error.message}`);
@@ -307,6 +338,209 @@ async function deleteScheduleEvent(eventId, eventTitle) {
 function stopAttendanceListeners() {
     attendanceListeners.forEach((unsubscribe) => unsubscribe());
     attendanceListeners.clear();
+}
+
+function stopPaymentListeners() {
+    paymentListeners.forEach((unsubscribe) => unsubscribe());
+    paymentListeners.clear();
+}
+
+function formatPaymentAmount(cents) {
+    return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD"
+    }).format((Number(cents) || 0) / 100);
+}
+
+async function reportPayment(eventId, status, paymentMethod) {
+    if (!currentUser || !currentTeam?.members?.includes(currentUser.uid)) return;
+    try {
+        await setDoc(
+            doc(db, "teams", teamId, "scheduleEvents", eventId, "payments", currentUser.uid),
+            {
+                userId: currentUser.uid,
+                userName: currentUserName,
+                status,
+                paymentMethod,
+                reportedAt: serverTimestamp()
+            }
+        );
+        showScheduleMessage(
+            paymentMethod === "venmo"
+                ? "Venmo payment reported. Waiting for owner confirmation."
+                : "The owner has been told that you plan to pay in person.",
+            "success"
+        );
+    } catch (error) {
+        console.error("Unable to report payment:", error);
+        showScheduleMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    }
+}
+
+async function confirmPayment(eventId, userId, userName, paymentMethod) {
+    if (currentTeam?.createdBy !== currentUser?.uid) return;
+    try {
+        await setDoc(
+            doc(db, "teams", teamId, "scheduleEvents", eventId, "payments", userId),
+            {
+                userId,
+                userName,
+                status: "confirmed",
+                paymentMethod,
+                confirmedBy: currentUser.uid,
+                confirmedAt: serverTimestamp()
+            },
+            { merge: true }
+        );
+        showScheduleMessage(`${userName} marked as paid.`, "success");
+    } catch (error) {
+        console.error("Unable to confirm payment:", error);
+        showScheduleMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    }
+}
+
+async function undoPaymentConfirmation(eventId, userId, userName) {
+    if (currentTeam?.createdBy !== currentUser?.uid) return;
+    if (!window.confirm(`Remove the payment confirmation for ${userName}?`)) return;
+    try {
+        await deleteDoc(
+            doc(db, "teams", teamId, "scheduleEvents", eventId, "payments", userId)
+        );
+        showScheduleMessage(`${userName} returned to Not paid.`, "success");
+    } catch (error) {
+        console.error("Unable to undo payment confirmation:", error);
+        showScheduleMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    }
+}
+
+function paymentStatusText(record) {
+    if (!record) return "Not paid";
+    if (record.status === "confirmed") {
+        return `Confirmed · ${record.paymentMethod === "cash" ? "Cash" : "Venmo"}`;
+    }
+    return record.paymentMethod === "venmo"
+        ? "Venmo sent · Awaiting confirmation"
+        : "Paying in person · Awaiting confirmation";
+}
+
+function createPaymentSection(eventId, eventData, canRespond) {
+    const section = document.createElement("section");
+    section.className = "schedule-payment-section";
+
+    const heading = document.createElement("div");
+    heading.className = "schedule-payment-heading";
+    const title = document.createElement("strong");
+    title.textContent = `💵 Payment required · ${formatPaymentAmount(eventData.paymentAmountCents)}`;
+    const description = document.createElement("span");
+    description.textContent = eventData.paymentDescription || "Team event payment";
+    heading.append(title, description);
+    if (eventData.paymentDueAt) {
+        const due = document.createElement("span");
+        due.textContent = `Due ${formatEventDate(eventData.paymentDueAt.toDate())}`;
+        heading.appendChild(due);
+    }
+    section.appendChild(heading);
+
+    const memberArea = document.createElement("div");
+    memberArea.className = "schedule-payment-member-area";
+    const ownerArea = document.createElement("div");
+    ownerArea.className = "schedule-payment-owner-area";
+    section.append(memberArea, ownerArea);
+
+    const paymentsReference = collection(
+        db, "teams", teamId, "scheduleEvents", eventId, "payments"
+    );
+    const unsubscribe = onSnapshot(paymentsReference, (snapshot) => {
+        const records = new Map();
+        snapshot.forEach((paymentDocument) => {
+            records.set(paymentDocument.id, paymentDocument.data());
+        });
+
+        memberArea.innerHTML = "";
+        const yourStatus = document.createElement("p");
+        yourStatus.className = "schedule-payment-your-status";
+        yourStatus.textContent = `Your status: ${paymentStatusText(records.get(currentUser.uid))}`;
+        memberArea.appendChild(yourStatus);
+
+        const currentRecord = records.get(currentUser.uid);
+        if (canRespond && currentRecord?.status !== "confirmed") {
+            const memberActions = document.createElement("div");
+            memberActions.className = "schedule-payment-actions";
+            if (currentPaymentSettings?.venmoUrl) {
+                const venmoLink = document.createElement("a");
+                venmoLink.className = "schedule-venmo-link";
+                venmoLink.href = currentPaymentSettings.venmoUrl;
+                venmoLink.target = "_blank";
+                venmoLink.rel = "noopener noreferrer";
+                venmoLink.textContent = "Open Venmo";
+                memberActions.appendChild(venmoLink);
+
+                const sentButton = document.createElement("button");
+                sentButton.type = "button";
+                sentButton.className = "schedule-payment-secondary";
+                sentButton.textContent = "I Sent Venmo Payment";
+                sentButton.addEventListener("click", () => reportPayment(eventId, "reported", "venmo"));
+                memberActions.appendChild(sentButton);
+            }
+
+            const cashButton = document.createElement("button");
+            cashButton.type = "button";
+            cashButton.className = "schedule-payment-secondary";
+            cashButton.textContent = "Pay in Person";
+            cashButton.addEventListener("click", () => reportPayment(eventId, "reported", "cash"));
+            memberActions.appendChild(cashButton);
+            memberArea.appendChild(memberActions);
+        }
+
+        ownerArea.innerHTML = "";
+        if (currentTeam?.createdBy !== currentUser?.uid) return;
+        const ownerHeading = document.createElement("strong");
+        ownerHeading.textContent = "Owner payment confirmations";
+        ownerArea.appendChild(ownerHeading);
+
+        const list = document.createElement("div");
+        list.className = "schedule-payment-roster";
+        for (const memberId of currentTeam.members || []) {
+            const name = memberNames.get(memberId) || "Team member";
+            const record = records.get(memberId);
+            const row = document.createElement("div");
+            row.className = "schedule-payment-roster-row";
+            const identity = document.createElement("div");
+            const nameText = document.createElement("strong");
+            nameText.textContent = name;
+            const statusText = document.createElement("span");
+            statusText.textContent = paymentStatusText(record);
+            identity.append(nameText, statusText);
+
+            const actions = document.createElement("div");
+            actions.className = "schedule-payment-owner-buttons";
+            if (record?.status === "confirmed") {
+                const undo = document.createElement("button");
+                undo.type = "button";
+                undo.className = "schedule-payment-undo";
+                undo.textContent = "Undo";
+                undo.addEventListener("click", () => undoPaymentConfirmation(eventId, memberId, name));
+                actions.appendChild(undo);
+            } else {
+                const method = record?.paymentMethod === "venmo" ? "venmo" : "cash";
+                const confirm = document.createElement("button");
+                confirm.type = "button";
+                confirm.className = "schedule-payment-confirm";
+                confirm.textContent = method === "venmo" ? "Confirm Venmo" : "Confirm Cash";
+                confirm.addEventListener("click", () => confirmPayment(eventId, memberId, name, method));
+                actions.appendChild(confirm);
+            }
+            row.append(identity, actions);
+            list.appendChild(row);
+        }
+        ownerArea.appendChild(list);
+    }, (error) => {
+        console.error("Unable to load event payments:", error);
+        memberArea.textContent = "Payment information is unavailable.";
+    });
+
+    paymentListeners.set(eventId, unsubscribe);
+    return section;
 }
 
 async function saveAttendance(eventId, status, buttons) {
@@ -621,6 +855,10 @@ function createScheduleCard(eventId, eventData, canRespond) {
         content.appendChild(notes);
     }
 
+    if (eventData.paymentRequired === true) {
+        content.appendChild(createPaymentSection(eventId, eventData, canRespond));
+    }
+
     content.appendChild(createAttendanceSection(eventId, canRespond));
 
     card.append(icon, content);
@@ -630,6 +868,8 @@ function createScheduleCard(eventId, eventData, canRespond) {
 function renderSchedule(snapshot) {
     markScheduleSeen();
     stopAttendanceListeners();
+    stopPaymentListeners();
+    latestScheduleSnapshot = snapshot;
     upcomingScheduleList.innerHTML = "";
     pastScheduleList.innerHTML = "";
 
@@ -707,6 +947,34 @@ async function loadUserProfile(user) {
     }
 }
 
+async function loadMemberNames(memberIds) {
+    memberNames.clear();
+    await Promise.all((memberIds || []).map(async (memberId) => {
+        try {
+            const snapshot = await getDoc(doc(db, "users", memberId));
+            const data = snapshot.exists() ? snapshot.data() : {};
+            memberNames.set(memberId, data.name || data.email || "Team member");
+        } catch (error) {
+            console.error(`Unable to load member ${memberId}:`, error);
+            memberNames.set(memberId, "Team member");
+        }
+    }));
+}
+
+function listenForPaymentSettings() {
+    unsubscribeFromPaymentSettings = onSnapshot(
+        doc(db, "teams", teamId, "paymentSettings", "settings"),
+        (snapshot) => {
+            currentPaymentSettings = snapshot.exists() ? snapshot.data() : null;
+            if (latestScheduleSnapshot) renderSchedule(latestScheduleSnapshot);
+        },
+        (error) => {
+            console.error("Unable to load team payment settings:", error);
+            currentPaymentSettings = null;
+        }
+    );
+}
+
 async function loadTeam(user) {
     if (!teamId) {
         disableSchedulePage("No team was selected. Return to the dashboard.");
@@ -733,6 +1001,8 @@ async function loadTeam(user) {
         }
 
         currentTeam = teamData;
+        await loadMemberNames(members);
+        listenForPaymentSettings();
         scheduleTeamName.textContent = teamData.teamName || "Team Schedule";
 
         if (teamData.createdBy === user.uid) {
@@ -770,6 +1040,10 @@ createScheduleEventBtn.addEventListener("click", async () => {
     const time = scheduleEventTime.value;
     const location = scheduleEventLocation.value.trim();
     const notes = scheduleEventNotes.value.trim();
+    const paymentRequired = schedulePaymentRequired.checked;
+    const paymentAmount = Number(schedulePaymentAmount.value);
+    const paymentDescription = schedulePaymentDescription.value.trim();
+    const paymentDueDate = schedulePaymentDueDate.value;
 
     if (!currentUser || !currentTeam || !teamId) {
         showScheduleMessage("The schedule page is not ready.");
@@ -800,6 +1074,23 @@ createScheduleEventBtn.addEventListener("click", async () => {
         return;
     }
 
+    if (paymentRequired && (!Number.isFinite(paymentAmount) || paymentAmount < 0.01 || paymentAmount > 9999.99)) {
+        showScheduleMessage("Enter a payment amount between $0.01 and $9,999.99.");
+        schedulePaymentAmount.focus();
+        return;
+    }
+
+    if (paymentRequired && !paymentDescription) {
+        showScheduleMessage("Enter a short payment description.");
+        schedulePaymentDescription.focus();
+        return;
+    }
+
+    const paymentAmountCents = paymentRequired ? Math.round(paymentAmount * 100) : 0;
+    const paymentDueAt = paymentRequired && paymentDueDate
+        ? Timestamp.fromDate(new Date(`${paymentDueDate}T23:59:59`))
+        : null;
+
     createScheduleEventBtn.disabled = true;
     createScheduleEventBtn.textContent = currentEditingEventId
         ? "Saving Changes..."
@@ -817,6 +1108,10 @@ createScheduleEventBtn.addEventListener("click", async () => {
                     startsAt: Timestamp.fromDate(startsAtDate),
                     location,
                     notes,
+                    paymentRequired,
+                    paymentAmountCents,
+                    paymentDescription: paymentRequired ? paymentDescription : "",
+                    paymentDueAt,
                     updatedAt: serverTimestamp()
                 }
             );
@@ -837,6 +1132,10 @@ createScheduleEventBtn.addEventListener("click", async () => {
                 startsAt: Timestamp.fromDate(startsAtDate),
                 location,
                 notes,
+                paymentRequired,
+                paymentAmountCents,
+                paymentDescription: paymentRequired ? paymentDescription : "",
+                paymentDueAt,
                 createdBy: currentUser.uid,
                 createdByName: currentUserName,
                 createdAt: serverTimestamp()
@@ -865,6 +1164,11 @@ createScheduleEventBtn.addEventListener("click", async () => {
     }
 });
 
+schedulePaymentRequired.addEventListener("change", () => {
+    schedulePaymentFields.hidden = !schedulePaymentRequired.checked;
+    if (schedulePaymentRequired.checked) schedulePaymentAmount.focus();
+});
+
 cancelScheduleEditBtn.addEventListener("click", () => {
     resetScheduleForm();
     showScheduleMessage("Editing canceled.", "success");
@@ -876,9 +1180,13 @@ scheduleLogoutBtn.addEventListener("click", async () => {
 
     try {
         stopAttendanceListeners();
+        stopPaymentListeners();
 
         if (unsubscribeFromSchedule) {
             unsubscribeFromSchedule();
+        }
+        if (unsubscribeFromPaymentSettings) {
+            unsubscribeFromPaymentSettings();
         }
 
         await signOut(auth);
@@ -893,8 +1201,12 @@ scheduleLogoutBtn.addEventListener("click", async () => {
 
 window.addEventListener("beforeunload", () => {
     stopAttendanceListeners();
+    stopPaymentListeners();
 
     if (unsubscribeFromSchedule) {
         unsubscribeFromSchedule();
+    }
+    if (unsubscribeFromPaymentSettings) {
+        unsubscribeFromPaymentSettings();
     }
 });

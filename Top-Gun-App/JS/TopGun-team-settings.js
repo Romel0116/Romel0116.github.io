@@ -16,6 +16,10 @@ import {
 
 const settingsTeamName = document.getElementById("settingsTeamName");
 const settingsStatus = document.getElementById("settingsStatus");
+const paymentSettingsCard = document.getElementById("paymentSettingsCard");
+const teamVenmoUrl = document.getElementById("teamVenmoUrl");
+const savePaymentSettingsBtn = document.getElementById("savePaymentSettingsBtn");
+const removePaymentSettingsBtn = document.getElementById("removePaymentSettingsBtn");
 const leagueConnectionCard = document.getElementById("leagueConnectionCard");
 const leagueConnectionSummary = document.getElementById("leagueConnectionSummary");
 const leagueScheduleUrl = document.getElementById("leagueScheduleUrl");
@@ -42,6 +46,7 @@ let currentUser = null;
 let currentTeam = null;
 let currentConnection = null;
 let unsubscribeFromConnection = null;
+let unsubscribeFromPaymentSettings = null;
 
 function showSettingsMessage(text, type = "error") {
     teamSettingsPageMessage.textContent = text;
@@ -52,6 +57,39 @@ function disableSettingsPage(message) {
     settingsTeamName.textContent = "Team Settings unavailable";
     settingsStatus.textContent = message;
     leagueConnectionCard.hidden = true;
+    paymentSettingsCard.hidden = true;
+}
+
+function normalizeVenmoUrl(value) {
+    let parsedUrl;
+    try {
+        parsedUrl = new URL(value);
+    } catch {
+        throw new Error("Please enter a complete public Venmo profile link.");
+    }
+
+    const host = parsedUrl.hostname.toLowerCase();
+    if (parsedUrl.protocol !== "https:" || !["venmo.com", "www.venmo.com"].includes(host)) {
+        throw new Error("The Venmo profile link must begin with https://venmo.com/.");
+    }
+    if (!/^\/u\/[a-z0-9_-]+\/?$/i.test(parsedUrl.pathname)) {
+        throw new Error("Use the public Venmo profile link in the format https://venmo.com/u/username.");
+    }
+    parsedUrl.search = "";
+    parsedUrl.hash = "";
+    return parsedUrl.toString();
+}
+
+function listenForPaymentSettings() {
+    const reference = doc(db, "teams", teamId, "paymentSettings", "settings");
+    unsubscribeFromPaymentSettings = onSnapshot(reference, (snapshot) => {
+        const settings = snapshot.exists() ? snapshot.data() : null;
+        teamVenmoUrl.value = settings?.venmoUrl || "";
+        removePaymentSettingsBtn.hidden = !settings;
+    }, (error) => {
+        console.error("Unable to load payment settings:", error);
+        showSettingsMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    });
 }
 
 function parseScheduleUrl(value) {
@@ -191,8 +229,10 @@ async function loadTeam(user) {
 
         currentTeam = teamData;
         settingsTeamName.textContent = teamData.teamName || "Team Settings";
-        settingsStatus.textContent = "Manage this team’s league schedule connection.";
+        settingsStatus.textContent = "Manage this team’s payments and league schedule connection.";
         leagueConnectionCard.hidden = false;
+        paymentSettingsCard.hidden = false;
+        listenForPaymentSettings();
         listenForConnection();
     } catch (error) {
         console.error("Unable to load Team Settings:", error);
@@ -209,6 +249,55 @@ onAuthStateChanged(auth, async (user) => {
 
     currentUser = user;
     await loadTeam(user);
+});
+
+savePaymentSettingsBtn.addEventListener("click", async () => {
+    if (!currentUser || currentTeam?.createdBy !== currentUser.uid) {
+        showSettingsMessage("Only the team owner can save payment settings.");
+        return;
+    }
+
+    let venmoUrl;
+    try {
+        venmoUrl = normalizeVenmoUrl(teamVenmoUrl.value.trim());
+    } catch (error) {
+        showSettingsMessage(error.message);
+        teamVenmoUrl.focus();
+        return;
+    }
+
+    savePaymentSettingsBtn.disabled = true;
+    savePaymentSettingsBtn.textContent = "Saving...";
+    try {
+        await setDoc(doc(db, "teams", teamId, "paymentSettings", "settings"), {
+            venmoUrl,
+            updatedBy: currentUser.uid,
+            updatedAt: serverTimestamp()
+        });
+        showSettingsMessage("Team payment settings saved.", "success");
+    } catch (error) {
+        console.error("Unable to save payment settings:", error);
+        showSettingsMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    } finally {
+        savePaymentSettingsBtn.disabled = false;
+        savePaymentSettingsBtn.textContent = "Save Payment Settings";
+    }
+});
+
+removePaymentSettingsBtn.addEventListener("click", async () => {
+    if (!currentUser || currentTeam?.createdBy !== currentUser.uid) return;
+    if (!window.confirm("Remove this team’s Venmo link? Existing payment records will remain.")) return;
+
+    removePaymentSettingsBtn.disabled = true;
+    try {
+        await deleteDoc(doc(db, "teams", teamId, "paymentSettings", "settings"));
+        showSettingsMessage("Venmo link removed.", "success");
+    } catch (error) {
+        console.error("Unable to remove payment settings:", error);
+        showSettingsMessage(`${error.code || "Unknown error"}: ${error.message}`);
+    } finally {
+        removePaymentSettingsBtn.disabled = false;
+    }
 });
 
 saveLeagueConnectionBtn.addEventListener("click", async () => {
@@ -315,6 +404,9 @@ settingsLogoutBtn.addEventListener("click", async () => {
         if (unsubscribeFromConnection) {
             unsubscribeFromConnection();
         }
+        if (unsubscribeFromPaymentSettings) {
+            unsubscribeFromPaymentSettings();
+        }
 
         await signOut(auth);
         window.location.href = "TopGun-Index.html";
@@ -329,5 +421,8 @@ settingsLogoutBtn.addEventListener("click", async () => {
 window.addEventListener("beforeunload", () => {
     if (unsubscribeFromConnection) {
         unsubscribeFromConnection();
+    }
+    if (unsubscribeFromPaymentSettings) {
+        unsubscribeFromPaymentSettings();
     }
 });

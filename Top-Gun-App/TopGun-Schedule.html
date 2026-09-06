@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Gun Schedule</title>
     <link rel="stylesheet" href="CSS/TopGun-style.css">
+    <link rel="stylesheet" href="CSS/TopGun-payment.css">
 </head>
 <body class="schedule-page-body">
     <main class="schedule-page-container">
@@ -67,6 +68,31 @@
                 <div class="schedule-field schedule-field-wide">
                     <label for="scheduleEventNotes">Notes (optional)</label>
                     <textarea id="scheduleEventNotes" maxlength="1000" rows="4" placeholder="Arrival time, uniforms, equipment, or other details..."></textarea>
+                </div>
+
+                <label class="schedule-payment-toggle schedule-field-wide" for="schedulePaymentRequired">
+                    <input type="checkbox" id="schedulePaymentRequired">
+                    <span>
+                        <strong>Payment required for this event</strong>
+                        <small>Members can report Venmo or in-person payments for owner confirmation.</small>
+                    </span>
+                </label>
+
+                <div id="schedulePaymentFields" class="schedule-payment-fields schedule-field-wide" hidden>
+                    <div class="schedule-field">
+                        <label for="schedulePaymentAmount">Amount per member</label>
+                        <input type="number" id="schedulePaymentAmount" min="0.01" max="9999.99" step="0.01" placeholder="10.00">
+                    </div>
+
+                    <div class="schedule-field">
+                        <label for="schedulePaymentDueDate">Payment deadline (optional)</label>
+                        <input type="date" id="schedulePaymentDueDate">
+                    </div>
+
+                    <div class="schedule-field schedule-field-wide">
+                        <label for="schedulePaymentDescription">Payment description</label>
+                        <input type="text" id="schedulePaymentDescription" maxlength="120" placeholder="Example: Practice field fee">
+                    </div>
                 </div>
             </div>
 

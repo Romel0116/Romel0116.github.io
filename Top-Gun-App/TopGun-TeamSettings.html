@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Gun Team Settings</title>
     <link rel="stylesheet" href="CSS/TopGun-style.css">
+    <link rel="stylesheet" href="CSS/TopGun-payment.css">
 </head>
 <body class="team-settings-page-body">
     <main class="team-settings-page-container">
@@ -23,6 +24,32 @@
                 <button type="button" id="settingsLogoutBtn" class="logout-button">Logout</button>
             </div>
         </header>
+
+        <section id="paymentSettingsCard" class="league-connection-card" hidden>
+            <div class="league-settings-heading">
+                <div>
+                    <h2>Team Payment Settings</h2>
+                    <p>Add the public Venmo profile members should use for event payments.</p>
+                </div>
+                <span class="owner-only-badge">Owner Only</span>
+            </div>
+
+            <div class="league-settings-field">
+                <label for="teamVenmoUrl">Public Venmo Profile Link</label>
+                <input
+                    type="url"
+                    id="teamVenmoUrl"
+                    placeholder="https://venmo.com/u/your-username"
+                    autocomplete="url"
+                >
+                <small>Only save the public profile link. Never enter a Venmo password or verification code.</small>
+            </div>
+
+            <div class="league-settings-actions">
+                <button type="button" id="savePaymentSettingsBtn">Save Payment Settings</button>
+                <button type="button" id="removePaymentSettingsBtn" class="league-remove-button" hidden>Remove Venmo Link</button>
+            </div>
+        </section>
 
         <section id="leagueConnectionCard" class="league-connection-card" hidden>
             <div class="league-settings-heading">
