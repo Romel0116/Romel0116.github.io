@@ -4,41 +4,77 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Top Gun Soccer App</title>
+    <title>Create Account | Top Gun Soccer App</title>
 
     <link rel="stylesheet" href="CSS/TopGun-style.css">
+    <link rel="stylesheet" href="CSS/TopGun-auth.css">
 </head>
-<body>
+<body class="auth-page-body">
 
-    <div class="container">
+    <main class="auth-page-container">
+        <section class="auth-card" aria-labelledby="createAccountHeading">
+            <div class="auth-brand-icon" aria-hidden="true">⚽</div>
 
-        <h1>Top Gun Soccer App</h1>
+            <p class="auth-page-label">Top Gun Soccer App</p>
+            <h1 id="createAccountHeading">Create Account</h1>
+            <p class="auth-introduction">
+                Create your account to join or manage your soccer team.
+            </p>
 
-        <div class="auth-section">
-            <h2>Create Account</h2>
-            <input type="text" id="registerName" placeholder="Full Name">
-            <input type="email" id="registerEmail" placeholder="Email">
-            <input type="password" id="registerPassword" placeholder="Password">
-            <button id="registerBtn">Create Account</button>
-        </div>
+            <form id="registerForm" class="auth-form">
+                <div class="auth-field">
+                    <label for="registerName">Full Name</label>
+                    <input
+                        type="text"
+                        id="registerName"
+                        name="name"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        maxlength="80"
+                        required
+                    >
+                </div>
 
-        <hr>
+                <div class="auth-field">
+                    <label for="registerEmail">Email</label>
+                    <input
+                        type="email"
+                        id="registerEmail"
+                        name="email"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                        required
+                    >
+                </div>
 
-        <div class="auth-section">
-            <h2>Login</h2>
-            <input type="email" id="loginEmail" placeholder="Email">
-            <input type="password" id="loginPassword" placeholder="Password">
-            <button id="loginBtn">Login</button>
-            <button type="button" id="forgotPasswordBtn" class="secondary-button">
-                Forgot Password?
-            </button>
-        </div>
+                <div class="auth-field">
+                    <label for="registerPassword">Password</label>
+                    <input
+                        type="password"
+                        id="registerPassword"
+                        name="password"
+                        placeholder="At least 6 characters"
+                        autocomplete="new-password"
+                        minlength="6"
+                        required
+                    >
+                    <small>Use at least 6 characters.</small>
+                </div>
 
-        <p id="message"></p>
+                <button type="submit" id="registerBtn">
+                    Create Account
+                </button>
+            </form>
 
-    </div>
+            <p id="message" class="auth-message" role="status" aria-live="polite"></p>
+
+            <div class="auth-page-switch">
+                <span>Already have an account?</span>
+                <a href="TopGun-Login.html">Log in here</a>
+            </div>
+        </section>
+    </main>
 
     <script type="module" src="JS/TopGun-auth.js"></script>
-
 </body>
 </html>
