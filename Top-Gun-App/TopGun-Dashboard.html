@@ -7,6 +7,7 @@
     <title>Top Gun Dashboard</title>
 
     <link rel="stylesheet" href="CSS/TopGun-style.css">
+    <link rel="stylesheet" href="CSS/TopGun-admin.css">
 </head>
 <body>
 
@@ -16,6 +17,9 @@
             <div>
                 <h1>Top Gun Soccer App</h1>
                 <p id="welcomeMessage">Loading your account...</p>
+                <span id="dashboardRoleBadge" class="admin-role-badge" hidden>
+                    Team Admin
+                </span>
             </div>
 
             <button id="logoutBtn" class="logout-button">
@@ -24,11 +28,10 @@
         </header>
 
         <section class="dashboard-card">
-            <h2>My Teams</h2>
+            <h2 id="teamsHeading">My Teams</h2>
 
-            <p>
-                You are successfully logged in. Team creation and team chat
-                will be added next.
+            <p id="teamsIntroduction">
+                Create a team, join with an invite code, or open one of your teams.
             </p>
 
             <div class="team-form">

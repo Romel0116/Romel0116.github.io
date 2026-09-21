@@ -21,12 +21,14 @@ const teamSummary = document.getElementById("teamSummary");
 const teamPageMessage = document.getElementById("teamPageMessage");
 const teamLogoutBtn = document.getElementById("teamLogoutBtn");
 const teamSettingsCard = document.getElementById("teamSettingsCard");
+const teamAdminBadge = document.getElementById("teamAdminBadge");
 const featureCards = document.querySelectorAll(".team-feature-card");
 
 const urlParameters = new URLSearchParams(window.location.search);
 const teamId = urlParameters.get("teamId");
 
 let currentUser = null;
+let currentUserIsAdmin = false;
 let currentTeam = null;
 let notifications = [];
 let recentChatMessages = [];
@@ -50,20 +52,30 @@ function disableTeamPage(message) {
     });
 }
 
-function displayTeam(teamData, user) {
+function displayTeam(teamData, user, isAdmin) {
     currentTeam = teamData;
-    const isOwner = teamData.createdBy === user.uid;
+    const isCaptain = teamData.createdBy === user.uid;
     const members = Array.isArray(teamData.members) ? teamData.members : [];
 
     teamPageName.textContent = teamData.teamName;
-    teamPageRole.textContent = isOwner
-        ? "Your role: Team owner"
-        : "Your role: Team member";
+    teamPageRole.textContent = isAdmin
+        ? (isCaptain
+            ? "Your role: Team Admin and Team Captain"
+            : "Your role: Team Admin")
+        : (isCaptain
+            ? "Your role: Team Captain"
+            : "Your role: Team Member");
+    teamAdminBadge.hidden = !isAdmin;
     teamSummary.textContent =
         `${teamData.teamName} currently has ${members.length} ` +
         `member${members.length === 1 ? "" : "s"}.`;
 
-    if (!isOwner) {
+    if (isAdmin && !members.includes(user.uid)) {
+        teamSummary.textContent +=
+            " You are viewing this team with organization-wide Team Admin access.";
+    }
+
+    if (!isCaptain && !isAdmin) {
         teamSettingsCard.style.display = "none";
     }
 }
@@ -204,13 +216,16 @@ async function loadTeam(user) {
         const teamData = teamSnapshot.data();
         const members = Array.isArray(teamData.members) ? teamData.members : [];
 
-        if (!members.includes(user.uid)) {
+        if (!members.includes(user.uid) && !currentUserIsAdmin) {
             disableTeamPage("You do not have permission to view this team.");
             return;
         }
 
-        displayTeam(teamData, user);
-        listenForUnreadActivity(user);
+        displayTeam(teamData, user, currentUserIsAdmin);
+
+        if (members.includes(user.uid)) {
+            listenForUnreadActivity(user);
+        }
     } catch (error) {
         console.error("Unable to load team:", error);
         disableTeamPage("The team could not be loaded.");
@@ -220,11 +235,22 @@ async function loadTeam(user) {
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
-        window.location.href = "TopGun-Index.html";
+        window.location.href = "TopGun-Login.html";
         return;
     }
 
     currentUser = user;
+
+    try {
+        const userSnapshot = await getDoc(doc(db, "users", user.uid));
+        currentUserIsAdmin =
+            userSnapshot.exists() &&
+            userSnapshot.data().appRole === "admin";
+    } catch (error) {
+        console.error("Unable to check Team Admin role:", error);
+        currentUserIsAdmin = false;
+    }
+
     await loadTeam(user);
 });
 
@@ -276,7 +302,7 @@ teamLogoutBtn.addEventListener("click", async () => {
         }
 
         await signOut(auth);
-        window.location.href = "TopGun-Index.html";
+        window.location.href = "TopGun-Login.html";
     } catch (error) {
         console.error("Logout error:", error);
         showTeamMessage("Unable to log out. Please try again.");

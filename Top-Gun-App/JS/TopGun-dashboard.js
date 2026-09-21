@@ -42,7 +42,17 @@ const teamInviteCodeInput =
 const joinTeamBtn =
     document.getElementById("joinTeamBtn");
 
+const dashboardRoleBadge =
+    document.getElementById("dashboardRoleBadge");
+
+const teamsHeading =
+    document.getElementById("teamsHeading");
+
+const teamsIntroduction =
+    document.getElementById("teamsIntroduction");
+
 let currentUser = null;
+let currentUserIsAdmin = false;
 let unsubscribeFromTeams = null;
 
 function showDashboardMessage(text, type = "error") {
@@ -69,10 +79,15 @@ function createTeamCard(teamId, teamData) {
     const role =
         document.createElement("p");
 
-    role.textContent =
-        teamData.createdBy === currentUser.uid
-            ? "Role: Team owner"
-            : "Role: Team member";
+    if (currentUserIsAdmin) {
+        role.textContent = teamData.createdBy === currentUser.uid
+            ? "Role: Team Admin and Team Captain"
+            : "Role: Team Admin";
+    } else {
+        role.textContent = teamData.createdBy === currentUser.uid
+            ? "Role: Team Captain"
+            : "Role: Team Member";
+    }
 
     const openButton =
         document.createElement("button");
@@ -97,19 +112,21 @@ function createTeamCard(teamId, teamData) {
     return card;
 }
 
-function loadTeams(userId) {
+function loadTeams(userId, isAdmin) {
     if (unsubscribeFromTeams) {
         unsubscribeFromTeams();
     }
 
-    const teamsQuery = query(
-        collection(db, "teams"),
-        where(
-            "members",
-            "array-contains",
-            userId
-        )
-    );
+    const teamsQuery = isAdmin
+        ? query(collection(db, "teams"))
+        : query(
+            collection(db, "teams"),
+            where(
+                "members",
+                "array-contains",
+                userId
+            )
+        );
 
     unsubscribeFromTeams = onSnapshot(
         teamsQuery,
@@ -154,7 +171,7 @@ function loadTeams(userId) {
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
         window.location.href =
-            "TopGun-Index.html";
+            "TopGun-Login.html";
 
         return;
     }
@@ -175,6 +192,9 @@ onAuthStateChanged(auth, async (user) => {
                 user.email ||
                 "Team Member";
 
+            currentUserIsAdmin =
+                userData.appRole === "admin";
+
             welcomeMessage.textContent =
                 `Welcome, ${displayName} — ${user.email}`;
         } else {
@@ -191,7 +211,15 @@ onAuthStateChanged(auth, async (user) => {
             `Welcome — ${user.email}`;
     }
 
-    loadTeams(user.uid);
+    dashboardRoleBadge.hidden = !currentUserIsAdmin;
+    teamsHeading.textContent = currentUserIsAdmin
+        ? "All Teams"
+        : "My Teams";
+    teamsIntroduction.textContent = currentUserIsAdmin
+        ? "Team Admin access lets you view every team in the organization."
+        : "Create a team, join with an invite code, or open one of your teams.";
+
+    loadTeams(user.uid, currentUserIsAdmin);
 });
 
 createTeamBtn.addEventListener(
@@ -394,7 +422,7 @@ logoutBtn.addEventListener(
             await signOut(auth);
 
             window.location.href =
-                "TopGun-Index.html";
+                "TopGun-Login.html";
         } catch (error) {
             console.error(
                 "Logout error:",
