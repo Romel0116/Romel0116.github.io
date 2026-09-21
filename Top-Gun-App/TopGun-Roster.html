@@ -14,6 +14,10 @@
         rel="stylesheet"
         href="CSS/TopGun-style.css"
     >
+    <link
+        rel="stylesheet"
+        href="CSS/TopGun-admin.css"
+    >
 </head>
 
 <body>
@@ -53,15 +57,14 @@
         </header>
 
         <section
-            id="rosterOwnerControls"
+            id="rosterCaptainControls"
             class="roster-controls"
             hidden
         >
             <h2>Manage Roster</h2>
 
             <p>
-                Invite codes and player management will be added in the
-                next step.
+                Team Captains can generate invite codes for their team.
             </p>
 
             <button
@@ -86,6 +89,28 @@
         </button>
     </div>
 </div>
+        </section>
+
+        <section
+            id="captainAssignmentControls"
+            class="roster-controls captain-assignment-panel"
+            hidden
+        >
+            <div class="captain-assignment-heading">
+                <div>
+                    <h2>Assign Team Captain</h2>
+                    <p>
+                        Only Team Admins can assign or replace this team's captain.
+                    </p>
+                </div>
+
+                <span class="admin-role-badge">Team Admin Only</span>
+            </div>
+
+            <p class="captain-assignment-note">
+                Select <strong>Assign Captain</strong> beside a current member.
+                The new captain will replace the current captain.
+            </p>
         </section>
 
         <section class="roster-list-card">

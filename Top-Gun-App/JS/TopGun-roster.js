@@ -23,8 +23,11 @@ const rosterMemberCount =
 const rosterList =
     document.getElementById("rosterList");
 
-const rosterOwnerControls =
-    document.getElementById("rosterOwnerControls");
+const rosterCaptainControls =
+    document.getElementById("rosterCaptainControls");
+
+const captainAssignmentControls =
+    document.getElementById("captainAssignmentControls");
 
 const invitePlayerBtn =
     document.getElementById("invitePlayerBtn");
@@ -54,6 +57,7 @@ const teamId =
     urlParameters.get("teamId");
 
 let currentUser = null;
+let currentUserIsAdmin = false;
 let currentTeam = null;
 
 function showRosterMessage(text, type = "error") {
@@ -114,7 +118,59 @@ async function createUniqueInviteCode() {
     );
 }
 
-function createMemberCard(memberData, memberId, ownerId) {
+function teamCaptainId(teamData) {
+    return teamData.captainId || teamData.createdBy;
+}
+
+async function assignCaptain(memberId, displayName, button) {
+    if (!currentUserIsAdmin || !currentTeam || !teamId) {
+        showRosterMessage("Only a Team Admin can assign the captain.");
+        return;
+    }
+
+    if (memberId === teamCaptainId(currentTeam)) {
+        return;
+    }
+
+    const confirmed = window.confirm(
+        `Assign ${displayName} as the Team Captain for ${currentTeam.teamName}? ` +
+        "This will replace the current captain."
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Assigning...";
+
+    try {
+        await updateDoc(doc(db, "teams", teamId), {
+            captainId: memberId,
+            captainUpdatedBy: currentUser.uid,
+            captainUpdatedAt: serverTimestamp()
+        });
+
+        currentTeam.captainId = memberId;
+        currentTeam.captainUpdatedBy = currentUser.uid;
+
+        await displayRoster(currentTeam);
+
+        showRosterMessage(
+            `${displayName} is now the Team Captain.`,
+            "success"
+        );
+    } catch (error) {
+        console.error("Unable to assign Team Captain:", error);
+        showRosterMessage(
+            `${error.code || "Unknown error"}: ${error.message}`
+        );
+        button.disabled = false;
+        button.textContent = "Assign Captain";
+    }
+}
+
+function createMemberCard(memberData, memberId, captainId) {
     const memberCard =
         document.createElement("article");
 
@@ -133,6 +189,11 @@ function createMemberCard(memberData, memberId, ownerId) {
     memberInitial.textContent =
         displayName.charAt(0).toUpperCase();
 
+    const memberIdentity =
+        document.createElement("div");
+
+    memberIdentity.classList.add("roster-member-identity");
+
     const memberInformation =
         document.createElement("div");
 
@@ -146,25 +207,51 @@ function createMemberCard(memberData, memberId, ownerId) {
     const memberRole =
         document.createElement("p");
 
-    memberRole.textContent =
-        memberId === ownerId
-            ? "Team owner"
-            : "Team member";
+    memberRole.classList.add("roster-role-badge");
+
+    const isCaptain = memberId === captainId;
+    const isAdmin = memberData.appRole === "admin";
+
+    if (isCaptain) {
+        memberRole.classList.add("captain");
+    }
+
+    memberRole.textContent = isAdmin && isCaptain
+        ? "Team Admin and Team Captain"
+        : isAdmin
+            ? "Team Admin"
+            : isCaptain
+                ? "Team Captain"
+                : "Team Member";
 
     memberInformation.append(
         memberName,
         memberRole
     );
 
-    memberCard.append(
+    memberIdentity.append(
         memberInitial,
         memberInformation
     );
 
+    memberCard.append(memberIdentity);
+
+    if (currentUserIsAdmin && !isCaptain) {
+        const assignButton = document.createElement("button");
+        assignButton.type = "button";
+        assignButton.className = "assign-captain-button";
+        assignButton.textContent = "Assign Captain";
+        assignButton.addEventListener("click", () => {
+            assignCaptain(memberId, displayName, assignButton);
+        });
+
+        memberCard.appendChild(assignButton);
+    }
+
     return memberCard;
 }
 
-async function loadMemberProfile(memberId, ownerId) {
+async function loadMemberProfile(memberId, captainId) {
     try {
         const profileSnapshot = await getDoc(
             doc(db, "users", memberId)
@@ -174,14 +261,14 @@ async function loadMemberProfile(memberId, ownerId) {
             return createMemberCard(
                 { name: "Team member" },
                 memberId,
-                ownerId
+                captainId
             );
         }
 
         return createMemberCard(
             profileSnapshot.data(),
             memberId,
-            ownerId
+            captainId
         );
     } catch (error) {
         console.error(
@@ -197,7 +284,7 @@ async function loadMemberProfile(memberId, ownerId) {
                         : "Team member"
             },
             memberId,
-            ownerId
+            captainId
         );
     }
 }
@@ -223,11 +310,13 @@ async function displayRoster(teamData) {
         return;
     }
 
+    const captainId = teamCaptainId(teamData);
+
     for (const memberId of members) {
         const memberCard =
             await loadMemberProfile(
                 memberId,
-                teamData.createdBy
+                captainId
             );
 
         rosterList.appendChild(memberCard);
@@ -263,7 +352,7 @@ async function loadRoster(user) {
                 ? teamData.members
                 : [];
 
-        if (!members.includes(user.uid)) {
+        if (!members.includes(user.uid) && !currentUserIsAdmin) {
             showRosterError(
                 "You do not have permission to view this roster."
             );
@@ -273,8 +362,12 @@ async function loadRoster(user) {
 
         currentTeam = teamData;
 
-        if (teamData.createdBy === user.uid) {
-            rosterOwnerControls.hidden = false;
+        const isCaptain = teamCaptainId(teamData) === user.uid;
+
+        captainAssignmentControls.hidden = !currentUserIsAdmin;
+
+        if (isCaptain || currentUserIsAdmin) {
+            rosterCaptainControls.hidden = false;
 
             if (teamData.inviteCode) {
                 displayInviteCode(teamData.inviteCode);
@@ -297,11 +390,21 @@ async function loadRoster(user) {
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
-        window.location.href = "TopGun-Index.html";
+        window.location.href = "TopGun-Login.html";
         return;
     }
 
     currentUser = user;
+
+    try {
+        const userSnapshot = await getDoc(doc(db, "users", user.uid));
+        currentUserIsAdmin =
+            userSnapshot.exists() &&
+            userSnapshot.data().appRole === "admin";
+    } catch (error) {
+        console.error("Unable to check Team Admin role:", error);
+        currentUserIsAdmin = false;
+    }
 
     await loadRoster(user);
 });
@@ -315,9 +418,12 @@ invitePlayerBtn.addEventListener("click", async () => {
         return;
     }
 
-    if (currentTeam.createdBy !== currentUser.uid) {
+    const isCaptain =
+        teamCaptainId(currentTeam) === currentUser.uid;
+
+    if (!isCaptain && !currentUserIsAdmin) {
         showRosterMessage(
-            "Only the team owner can generate invite codes."
+            "Only the Team Captain or a Team Admin can generate invite codes."
         );
 
         return;
@@ -440,7 +546,7 @@ rosterLogoutBtn.addEventListener("click", async () => {
     try {
         await signOut(auth);
 
-        window.location.href = "TopGun-Index.html";
+        window.location.href = "TopGun-Login.html";
     } catch (error) {
         console.error("Logout error:", error);
 

@@ -54,7 +54,8 @@ function disableTeamPage(message) {
 
 function displayTeam(teamData, user, isAdmin) {
     currentTeam = teamData;
-    const isCaptain = teamData.createdBy === user.uid;
+    const captainId = teamData.captainId || teamData.createdBy;
+    const isCaptain = captainId === user.uid;
     const members = Array.isArray(teamData.members) ? teamData.members : [];
 
     teamPageName.textContent = teamData.teamName;

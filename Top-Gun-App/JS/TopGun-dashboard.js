@@ -79,12 +79,14 @@ function createTeamCard(teamId, teamData) {
     const role =
         document.createElement("p");
 
+    const captainId = teamData.captainId || teamData.createdBy;
+
     if (currentUserIsAdmin) {
-        role.textContent = teamData.createdBy === currentUser.uid
+        role.textContent = captainId === currentUser.uid
             ? "Role: Team Admin and Team Captain"
             : "Role: Team Admin";
     } else {
-        role.textContent = teamData.createdBy === currentUser.uid
+        role.textContent = captainId === currentUser.uid
             ? "Role: Team Captain"
             : "Role: Team Member";
     }

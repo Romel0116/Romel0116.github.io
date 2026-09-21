@@ -17,9 +17,81 @@
     display: none;
 }
 
+.captain-assignment-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.captain-assignment-heading p,
+.captain-assignment-note {
+    color: #53645b;
+    line-height: 1.5;
+}
+
+.captain-assignment-note {
+    margin-top: 14px;
+}
+
+.roster-member-card {
+    justify-content: space-between;
+}
+
+.roster-member-identity {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 16px;
+}
+
+.roster-role-badge {
+    display: inline-flex;
+    width: fit-content;
+    margin-top: 5px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #e6efff;
+    color: #2858a5;
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.roster-role-badge.captain {
+    background: #e8f6ed;
+    color: #0c6e3d;
+}
+
+.assign-captain-button {
+    width: auto;
+    min-width: 132px;
+    margin-left: 18px;
+    padding: 9px 12px;
+    border: 1px solid #0c6e3d;
+    background: #ffffff;
+    color: #0c6e3d;
+    font-weight: 800;
+}
+
+.assign-captain-button:hover:not(:disabled) {
+    background: #eaf5ef;
+}
+
 @media (max-width: 600px) {
     .admin-role-badge {
         margin-right: auto;
         margin-left: auto;
+    }
+
+    .captain-assignment-heading,
+    .roster-member-card {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .assign-captain-button {
+        width: 100%;
+        margin-left: 0;
     }
 }
