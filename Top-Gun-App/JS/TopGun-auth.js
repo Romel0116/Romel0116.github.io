@@ -75,11 +75,16 @@ if (registerForm && registerBtn) {
     registerForm.addEventListener("submit", async (event) => {
         event.preventDefault();
 
-        const name = document.getElementById("registerName").value.trim();
+        const firstName = document
+            .getElementById("registerFirstName")
+            .value.trim();
+        const lastName = document
+            .getElementById("registerLastName")
+            .value.trim();
         const email = document.getElementById("registerEmail").value.trim();
         const password = document.getElementById("registerPassword").value;
 
-        if (!name || !email || !password) {
+        if (!firstName || !lastName || !email || !password) {
             showMessage("Please complete every account creation field.");
             return;
         }
@@ -99,7 +104,11 @@ if (registerForm && registerBtn) {
                 password
             );
 
+            const name = `${firstName} ${lastName}`;
+
             await setDoc(doc(db, "users", userCredential.user.uid), {
+                firstName,
+                lastName,
                 name,
                 email,
                 createdAt: new Date()

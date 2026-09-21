@@ -23,14 +23,27 @@
 
             <form id="registerForm" class="auth-form">
                 <div class="auth-field">
-                    <label for="registerName">Full Name</label>
+                    <label for="registerFirstName">First Name</label>
                     <input
                         type="text"
-                        id="registerName"
-                        name="name"
-                        placeholder="Enter your full name"
-                        autocomplete="name"
-                        maxlength="80"
+                        id="registerFirstName"
+                        name="firstName"
+                        placeholder="Enter your first name"
+                        autocomplete="given-name"
+                        maxlength="40"
+                        required
+                    >
+                </div>
+
+                <div class="auth-field">
+                    <label for="registerLastName">Last Name</label>
+                    <input
+                        type="text"
+                        id="registerLastName"
+                        name="lastName"
+                        placeholder="Enter your last name"
+                        autocomplete="family-name"
+                        maxlength="40"
                         required
                     >
                 </div>
