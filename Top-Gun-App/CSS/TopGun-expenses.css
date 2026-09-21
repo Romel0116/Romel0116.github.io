@@ -1,0 +1,346 @@
+.expenses-page-body {
+    min-height: 100vh;
+    margin: 0;
+    background: #f3f7f4;
+    color: #18392b;
+}
+
+.expenses-page-container {
+    width: min(1160px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 32px 0 56px;
+}
+
+.expenses-page-header,
+.expenses-card {
+    background: #ffffff;
+    border: 1px solid #dce8df;
+    border-radius: 20px;
+    box-shadow: 0 12px 32px rgba(20, 66, 43, 0.08);
+}
+
+.expenses-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding: 24px;
+}
+
+.expenses-header-identity {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.expenses-header-icon {
+    display: grid;
+    width: 58px;
+    height: 58px;
+    flex: 0 0 auto;
+    place-items: center;
+    background: #e9f6ee;
+    border: 1px solid #cde8d7;
+    border-radius: 16px;
+    font-size: 1.75rem;
+}
+
+.expenses-page-header h1,
+.expenses-section-heading h2 {
+    margin: 0;
+    text-align: left;
+}
+
+.expenses-page-header p,
+.expenses-section-heading p {
+    margin: 5px 0 0;
+    color: #64766d;
+}
+
+.expenses-card {
+    margin-bottom: 24px;
+    padding: 24px;
+}
+
+.expenses-card[hidden] {
+    display: none;
+}
+
+.expenses-section-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.expense-form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.expense-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.expense-field[hidden] {
+    display: none;
+}
+
+.expense-field-wide {
+    grid-column: 1 / -1;
+}
+
+.expense-field label {
+    color: #244c38;
+    font-weight: 750;
+}
+
+.expense-field input,
+.expense-field select,
+.expense-field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 12px 14px;
+    color: #18392b;
+    background: #fbfdfb;
+    border: 1px solid #bed2c5;
+    border-radius: 11px;
+    font: inherit;
+}
+
+.expense-field input:focus,
+.expense-field select:focus,
+.expense-field textarea:focus {
+    border-color: #147041;
+    outline: 3px solid rgba(20, 112, 65, 0.15);
+}
+
+.expense-field textarea {
+    resize: vertical;
+}
+
+.expense-form-actions,
+.expense-export-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.expense-form-actions button,
+.expense-export-actions button,
+.expense-reset-button {
+    width: auto;
+    margin: 0;
+}
+
+.expense-form-actions button {
+    min-width: 150px;
+}
+
+.expense-export-actions button {
+    min-width: 125px;
+}
+
+.expense-filters {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    padding: 18px;
+    background: #f7faf8;
+    border: 1px solid #dce8df;
+    border-radius: 14px;
+}
+
+.expense-reset-button {
+    align-self: end;
+    min-height: 43px;
+}
+
+.expense-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+
+.expense-summary-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 16px;
+    background: #eef7f1;
+    border: 1px solid #c9e2d2;
+    border-radius: 12px;
+}
+
+.expense-summary-item span {
+    color: #456052;
+    font-weight: 700;
+}
+
+.expense-summary-item strong {
+    color: #0c6e3d;
+    font-size: 1.25rem;
+}
+
+.expense-list {
+    display: grid;
+    gap: 14px;
+}
+
+.expense-record {
+    padding: 18px;
+    background: #fbfdfb;
+    border: 1px solid #dce8df;
+    border-radius: 14px;
+}
+
+.expense-record-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.expense-record h3 {
+    margin: 5px 0 0;
+    color: #18392b;
+}
+
+.expense-category-badge {
+    display: inline-flex;
+    padding: 5px 9px;
+    color: #2858a5;
+    background: #e6efff;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 850;
+    text-transform: uppercase;
+}
+
+.expense-record-amount {
+    color: #0c6e3d;
+    font-size: 1.3rem;
+    font-weight: 850;
+    white-space: nowrap;
+}
+
+.expense-record-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px 18px;
+    margin-top: 14px;
+    color: #53645b;
+    font-size: 0.9rem;
+}
+
+.expense-record-notes {
+    margin: 13px 0 0;
+    color: #53645b;
+    line-height: 1.5;
+    white-space: pre-wrap;
+}
+
+.expense-record-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 15px;
+    padding-top: 14px;
+    border-top: 1px solid #e0e9e3;
+}
+
+.expense-record-actions button {
+    width: auto;
+    padding: 8px 12px;
+}
+
+.expense-delete-button {
+    color: #b42318;
+    background: #ffffff;
+    border: 1px solid #b42318;
+}
+
+.expense-delete-button:hover {
+    background: #fff0ee;
+}
+
+.expense-empty-message {
+    margin: 0;
+    padding: 24px;
+    color: #64766d;
+    border: 1px dashed #bfd1c5;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.expenses-page-message {
+    min-height: 24px;
+    margin: 0;
+    color: #b42318;
+    font-weight: 750;
+    text-align: center;
+}
+
+.expenses-page-message.success {
+    color: #0c6e3d;
+}
+
+@media (max-width: 850px) {
+    .expense-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .expense-record-details {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 650px) {
+    .expenses-page-container {
+        width: min(100% - 20px, 1160px);
+        padding-top: 14px;
+    }
+
+    .expenses-page-header,
+    .expenses-section-heading,
+    .expense-report-heading,
+    .expense-record-header {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .expense-form,
+    .expense-filters,
+    .expense-summary-grid,
+    .expense-record-details {
+        grid-template-columns: 1fr;
+    }
+
+    .expense-field-wide {
+        grid-column: auto;
+    }
+
+    .expense-export-actions button,
+    .expense-form-actions button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .expenses-page-header,
+    .expenses-card {
+        padding: 18px;
+    }
+
+    .expenses-header-identity {
+        align-items: flex-start;
+    }
+}

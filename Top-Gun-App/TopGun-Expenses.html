@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Expense Sheet | Top Gun Soccer App</title>
+
+    <link rel="stylesheet" href="CSS/TopGun-style.css">
+    <link rel="stylesheet" href="CSS/TopGun-admin.css">
+    <link rel="stylesheet" href="CSS/TopGun-expenses.css">
+</head>
+<body class="expenses-page-body">
+
+    <main class="expenses-page-container">
+        <header class="expenses-page-header">
+            <div class="expenses-header-identity">
+                <div class="expenses-header-icon" aria-hidden="true">🧾</div>
+
+                <div>
+                    <p class="team-page-label">Private Admin Area</p>
+                    <h1>Expense Sheet</h1>
+                    <p id="expenseAccessStatus">Checking Team Admin access...</p>
+                </div>
+            </div>
+
+            <div class="team-header-actions">
+                <a class="dashboard-link" href="TopGun-Dashboard.html">
+                    Back to Dashboard
+                </a>
+
+                <button
+                    type="button"
+                    id="expensesLogoutBtn"
+                    class="logout-button"
+                >
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <section id="expenseFormCard" class="expenses-card" hidden>
+            <div class="expenses-section-heading">
+                <div>
+                    <h2 id="expenseFormHeading">Add an Expense</h2>
+                    <p>Record an organization-wide or team-specific expense.</p>
+                </div>
+
+                <span class="admin-role-badge">Team Admin Only</span>
+            </div>
+
+            <form id="expenseForm" class="expense-form">
+                <div class="expense-field expense-field-wide">
+                    <label for="expenseDescription">Expense Description</label>
+                    <input
+                        type="text"
+                        id="expenseDescription"
+                        maxlength="150"
+                        placeholder="Example: Practice soccer balls"
+                        required
+                    >
+                </div>
+
+                <div class="expense-field">
+                    <label for="expenseCategory">Category</label>
+                    <select id="expenseCategory" required>
+                        <option value="soccer_balls">Soccer Balls</option>
+                        <option value="jerseys_uniforms">Jerseys and Uniforms</option>
+                        <option value="field_rental">Field or Practice Rental</option>
+                        <option value="league_registration">League Registration</option>
+                        <option value="referee_fees">Referee Fees</option>
+                        <option value="equipment">Equipment</option>
+                        <option value="tournament_fees">Tournament Fees</option>
+                        <option value="insurance">Insurance</option>
+                        <option value="website_software">Website or Software</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div id="customCategoryField" class="expense-field" hidden>
+                    <label for="expenseCustomCategory">Custom Category</label>
+                    <input
+                        type="text"
+                        id="expenseCustomCategory"
+                        maxlength="100"
+                        placeholder="Enter the category"
+                    >
+                </div>
+
+                <div class="expense-field">
+                    <label for="expenseAmount">Amount</label>
+                    <input
+                        type="number"
+                        id="expenseAmount"
+                        min="0.01"
+                        max="1000000"
+                        step="0.01"
+                        placeholder="0.00"
+                        required
+                    >
+                </div>
+
+                <div class="expense-field">
+                    <label for="expenseDate">Expense Date</label>
+                    <input type="date" id="expenseDate" required>
+                </div>
+
+                <div class="expense-field">
+                    <label for="expenseTeam">Team</label>
+                    <select id="expenseTeam">
+                        <option value="">Organization-wide</option>
+                    </select>
+                </div>
+
+                <div class="expense-field">
+                    <label for="expenseVendor">Vendor or Payee</label>
+                    <input
+                        type="text"
+                        id="expenseVendor"
+                        maxlength="120"
+                        placeholder="Optional"
+                    >
+                </div>
+
+                <div class="expense-field">
+                    <label for="expensePaymentMethod">Payment Method</label>
+                    <select id="expensePaymentMethod" required>
+                        <option value="cash">Cash</option>
+                        <option value="venmo">Venmo</option>
+                        <option value="credit_card">Credit Card</option>
+                        <option value="debit_card">Debit Card</option>
+                        <option value="check">Check</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="expense-field">
+                    <label for="expensePaidBy">Paid By</label>
+                    <input
+                        type="text"
+                        id="expensePaidBy"
+                        maxlength="120"
+                        placeholder="Optional person or account"
+                    >
+                </div>
+
+                <div class="expense-field expense-field-wide">
+                    <label for="expenseNotes">Notes</label>
+                    <textarea
+                        id="expenseNotes"
+                        rows="4"
+                        maxlength="1000"
+                        placeholder="Optional details"
+                    ></textarea>
+                </div>
+
+                <div class="expense-form-actions expense-field-wide">
+                    <button type="submit" id="saveExpenseBtn">
+                        Add Expense
+                    </button>
+
+                    <button
+                        type="button"
+                        id="cancelExpenseEditBtn"
+                        class="secondary-button"
+                        hidden
+                    >
+                        Cancel Edit
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <section id="expenseReportCard" class="expenses-card" hidden>
+            <div class="expenses-section-heading expense-report-heading">
+                <div>
+                    <h2>Expense Report</h2>
+                    <p>Filter the records before exporting, if needed.</p>
+                </div>
+
+                <div class="expense-export-actions">
+                    <button type="button" id="exportExpensesExcelBtn">
+                        Export Excel
+                    </button>
+                    <button type="button" id="exportExpensesPdfBtn">
+                        Export PDF
+                    </button>
+                </div>
+            </div>
+
+            <div class="expense-filters">
+                <div class="expense-field">
+                    <label for="expenseFilterStart">From</label>
+                    <input type="date" id="expenseFilterStart">
+                </div>
+
+                <div class="expense-field">
+                    <label for="expenseFilterEnd">Through</label>
+                    <input type="date" id="expenseFilterEnd">
+                </div>
+
+                <div class="expense-field">
+                    <label for="expenseFilterCategory">Category</label>
+                    <select id="expenseFilterCategory">
+                        <option value="">All Categories</option>
+                    </select>
+                </div>
+
+                <div class="expense-field">
+                    <label for="expenseFilterTeam">Team</label>
+                    <select id="expenseFilterTeam">
+                        <option value="">All Teams</option>
+                        <option value="organization">Organization-wide</option>
+                    </select>
+                </div>
+
+                <button
+                    type="button"
+                    id="resetExpenseFiltersBtn"
+                    class="secondary-button expense-reset-button"
+                >
+                    Reset Filters
+                </button>
+            </div>
+
+            <div class="expense-summary-grid">
+                <div class="expense-summary-item">
+                    <span>Visible Expenses</span>
+                    <strong id="expenseVisibleCount">0</strong>
+                </div>
+
+                <div class="expense-summary-item">
+                    <span>Visible Total</span>
+                    <strong id="expenseVisibleTotal">$0.00</strong>
+                </div>
+            </div>
+
+            <div id="expenseList" class="expense-list">
+                <p class="expense-empty-message">Loading expenses...</p>
+            </div>
+        </section>
+
+        <p id="expensesPageMessage" class="expenses-page-message" role="status"></p>
+    </main>
+
+    <script type="module" src="JS/TopGun-expenses.js"></script>
+</body>
+</html>

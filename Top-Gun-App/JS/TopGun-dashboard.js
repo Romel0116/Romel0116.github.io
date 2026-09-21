@@ -51,6 +51,12 @@ const teamsHeading =
 const teamsIntroduction =
     document.getElementById("teamsIntroduction");
 
+const adminToolsCard =
+    document.getElementById("adminToolsCard");
+
+const openExpenseSheetBtn =
+    document.getElementById("openExpenseSheetBtn");
+
 let currentUser = null;
 let currentUserIsAdmin = false;
 let unsubscribeFromTeams = null;
@@ -214,6 +220,7 @@ onAuthStateChanged(auth, async (user) => {
     }
 
     dashboardRoleBadge.hidden = !currentUserIsAdmin;
+    adminToolsCard.hidden = !currentUserIsAdmin;
     teamsHeading.textContent = currentUserIsAdmin
         ? "All Teams"
         : "My Teams";
@@ -222,6 +229,14 @@ onAuthStateChanged(auth, async (user) => {
         : "Create a team, join with an invite code, or open one of your teams.";
 
     loadTeams(user.uid, currentUserIsAdmin);
+});
+
+openExpenseSheetBtn.addEventListener("click", () => {
+    if (!currentUserIsAdmin) {
+        return;
+    }
+
+    window.location.href = "TopGun-Expenses.html";
 });
 
 createTeamBtn.addEventListener(
