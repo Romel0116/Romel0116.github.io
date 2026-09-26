@@ -285,6 +285,25 @@ html[data-theme="dark"] :where(
     border-color: var(--top-gun-dark-green);
 }
 
+/* Some unfinished or restricted features are disabled by the page script.
+   Keep their Dark Mode appearance consistent without changing behavior. */
+html[data-theme="dark"] body .team-feature-card:disabled {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface);
+    border-color: var(--top-gun-dark-border);
+    opacity: 1;
+    filter: none;
+}
+
+html[data-theme="dark"] body .team-feature-card:disabled strong {
+    color: var(--top-gun-dark-green);
+}
+
+html[data-theme="dark"] body .team-feature-card:disabled span:last-child {
+    color: var(--top-gun-dark-text);
+    opacity: 1;
+}
+
 html[data-theme="dark"] .auth-page-switch {
     color: var(--top-gun-dark-text);
     border-color: var(--top-gun-dark-border);
