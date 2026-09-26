@@ -316,6 +316,133 @@ html[data-theme="dark"] body #teamPageRole {
     opacity: 1;
 }
 
+/* Announcements */
+html[data-theme="dark"] body.announcements-page-body .announcements-page-header p,
+html[data-theme="dark"] body.announcements-page-body .announcement-composer-heading p,
+html[data-theme="dark"] body.announcements-page-body .announcements-list-heading p,
+html[data-theme="dark"] body.announcements-page-body .announcement-composer-card label,
+html[data-theme="dark"] body.announcements-page-body .announcement-card-heading p,
+html[data-theme="dark"] body.announcements-page-body .announcement-card time,
+html[data-theme="dark"] body.announcements-page-body .announcement-card-message {
+    color: var(--top-gun-dark-text);
+}
+
+/* Team Chat */
+html[data-theme="dark"] body.chat-page-body .modern-chat-panel,
+html[data-theme="dark"] body.chat-page-body .modern-chat-messages,
+html[data-theme="dark"] body.chat-page-body .modern-chat-composer,
+html[data-theme="dark"] body.chat-page-body .chat-input-wrapper {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] body.chat-page-body .modern-chat-messages {
+    background: var(--top-gun-dark-surface-soft);
+}
+
+html[data-theme="dark"] body.chat-page-body .chat-message,
+html[data-theme="dark"] body.chat-page-body .own-chat-message {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-raised);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] body.chat-page-body .chat-message p,
+html[data-theme="dark"] body.chat-page-body .chat-message-header time,
+html[data-theme="dark"] body.chat-page-body .chat-empty-message,
+html[data-theme="dark"] body.chat-page-body .chat-date-divider,
+html[data-theme="dark"] body.chat-page-body .chat-keyboard-help,
+html[data-theme="dark"] body.chat-page-body .chat-input-wrapper textarea {
+    color: var(--top-gun-dark-text);
+}
+
+html[data-theme="dark"] body.chat-page-body .chat-date-divider::before,
+html[data-theme="dark"] body.chat-page-body .chat-date-divider::after {
+    background: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] body.chat-page-body .chat-date-divider span {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-raised);
+}
+
+/* Schedule and attendance */
+html[data-theme="dark"] body.schedule-page-body .schedule-event-card h3,
+html[data-theme="dark"] body.schedule-page-body .schedule-event-date,
+html[data-theme="dark"] body.schedule-page-body .schedule-event-date span,
+html[data-theme="dark"] body.schedule-page-body .schedule-event-location,
+html[data-theme="dark"] body.schedule-page-body .schedule-event-notes,
+html[data-theme="dark"] body.schedule-page-body .schedule-attendance-heading,
+html[data-theme="dark"] body.schedule-page-body .attendance-response-details summary,
+html[data-theme="dark"] body.schedule-page-body .attendance-response-group h4,
+html[data-theme="dark"] body.schedule-page-body .attendance-response-group ul,
+html[data-theme="dark"] body.schedule-page-body .attendance-response-group .attendance-no-responses {
+    color: var(--top-gun-dark-text);
+}
+
+html[data-theme="dark"] body.schedule-page-body .schedule-past-card .schedule-event-card {
+    opacity: 1;
+}
+
+html[data-theme="dark"] body.schedule-page-body .attendance-button,
+html[data-theme="dark"] body.schedule-page-body .attendance-button:disabled {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-raised);
+    border-color: var(--top-gun-dark-green);
+    opacity: 1;
+}
+
+html[data-theme="dark"] body.schedule-page-body .attendance-button.selected {
+    color: #ffffff;
+    background: #147041;
+}
+
+/* Schedule payment additions */
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-toggle,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-fields,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-section,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-roster-row {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-raised);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-toggle strong,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-toggle small,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-heading,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-heading strong,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-heading span,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-your-status,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-owner-area,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-roster-row,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-roster-row strong,
+html[data-theme="dark"] body.schedule-page-body .schedule-payment-roster-row span {
+    color: var(--top-gun-dark-text);
+}
+
+/* Team Settings */
+html[data-theme="dark"] body.team-settings-page-body .team-settings-page-header p,
+html[data-theme="dark"] body.team-settings-page-body .league-settings-heading p,
+html[data-theme="dark"] body.team-settings-page-body .league-connection-summary,
+html[data-theme="dark"] body.team-settings-page-body .league-connection-summary strong,
+html[data-theme="dark"] body.team-settings-page-body .league-connection-summary span,
+html[data-theme="dark"] body.team-settings-page-body .league-settings-field label,
+html[data-theme="dark"] body.team-settings-page-body .league-settings-field small,
+html[data-theme="dark"] body.team-settings-page-body .league-sync-toggle,
+html[data-theme="dark"] body.team-settings-page-body .league-sync-toggle strong,
+html[data-theme="dark"] body.team-settings-page-body .league-sync-toggle small,
+html[data-theme="dark"] body.team-settings-page-body .league-sync-information-card ol,
+html[data-theme="dark"] body.team-settings-page-body .league-sync-information-card p {
+    color: var(--top-gun-dark-text);
+}
+
+html[data-theme="dark"] body.team-settings-page-body .league-connection-summary,
+html[data-theme="dark"] body.team-settings-page-body .league-sync-toggle {
+    background: var(--top-gun-dark-surface-raised);
+    border-color: var(--top-gun-dark-border);
+}
+
 html[data-theme="dark"] .auth-page-switch {
     color: var(--top-gun-dark-text);
     border-color: var(--top-gun-dark-border);
