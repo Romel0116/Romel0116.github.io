@@ -517,3 +517,66 @@ html[data-theme="dark"] a {
         display: none !important;
     }
 }
+
+/* Shared payment layout.
+   Kept here because this stylesheet is loaded on every current app page. */
+.schedule-payment-toggle {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 18px 20px !important;
+    border: 2px solid #159255 !important;
+    border-radius: 12px !important;
+    cursor: pointer;
+}
+
+.schedule-payment-toggle > input[type="checkbox"] {
+    display: block !important;
+    flex: 0 0 34px !important;
+    width: 34px !important;
+    min-width: 34px !important;
+    max-width: 34px !important;
+    height: 34px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    accent-color: #0c8f4f;
+    cursor: pointer;
+}
+
+.schedule-payment-toggle > span {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    min-width: 0;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+}
+
+.schedule-payment-toggle > span > strong,
+.schedule-payment-toggle > span > small {
+    display: block;
+    margin: 0;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    line-height: 1.35 !important;
+    text-align: left !important;
+}
+
+@media (max-width: 720px) {
+    .schedule-payment-toggle {
+        align-items: flex-start !important;
+        gap: 13px !important;
+        padding: 16px !important;
+    }
+
+    .schedule-payment-toggle > input[type="checkbox"] {
+        flex-basis: 32px !important;
+        width: 32px !important;
+        min-width: 32px !important;
+        max-width: 32px !important;
+        height: 32px !important;
+    }
+}
