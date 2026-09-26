@@ -1,0 +1,295 @@
+:root {
+    --top-gun-dark-background: #0f1712;
+    --top-gun-dark-surface: #17221b;
+    --top-gun-dark-surface-raised: #1d2b22;
+    --top-gun-dark-surface-soft: #223128;
+    --top-gun-dark-border: #385044;
+    --top-gun-dark-text: #edf5f0;
+    --top-gun-dark-muted: #b6c6bc;
+    --top-gun-dark-green: #65d391;
+    --top-gun-dark-input: #111b15;
+}
+
+.top-gun-theme-toggle {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 10000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: auto;
+    min-height: 44px;
+    padding: 10px 14px;
+    color: #ffffff;
+    background: #0c6e3d;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+    font: inherit;
+    font-size: 0.86rem;
+    font-weight: 800;
+}
+
+.top-gun-theme-toggle:hover {
+    background: #09552f;
+    transform: translateY(-1px);
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .auth-page-body,
+html[data-theme="dark"] .chat-page-body,
+html[data-theme="dark"] .announcements-page-body,
+html[data-theme="dark"] .schedule-page-body,
+html[data-theme="dark"] .team-settings-page-body,
+html[data-theme="dark"] .expenses-page-body {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-background);
+}
+
+html[data-theme="dark"] :where(
+    .container,
+    .auth-card,
+    .dashboard-header,
+    .dashboard-card,
+    .team-page-header,
+    .team-summary-card,
+    .team-feature-card,
+    .roster-page-header,
+    .roster-controls,
+    .roster-list-card,
+    .roster-member-card,
+    .chat-page-header,
+    .chat-card,
+    .modern-chat-header,
+    .modern-chat-panel,
+    .chat-message,
+    .announcements-page-header,
+    .announcement-composer-card,
+    .announcements-list-card,
+    .announcement-card,
+    .schedule-page-header,
+    .schedule-composer-card,
+    .schedule-list-card,
+    .schedule-event-card,
+    .attendance-response-details,
+    .attendance-response-group,
+    .team-settings-page-header,
+    .league-connection-card,
+    .league-sync-information-card,
+    .expenses-page-header,
+    .expenses-card,
+    .expense-record
+) {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface);
+    border-color: var(--top-gun-dark-border);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+html[data-theme="dark"] :where(
+    h1,
+    h2,
+    h3,
+    h4,
+    .schedule-page-header h1,
+    .modern-chat-header h1,
+    .expense-record h3
+) {
+    color: var(--top-gun-dark-text);
+}
+
+html[data-theme="dark"] :where(
+    #welcomeMessage,
+    #teamPageRole,
+    #rosterMemberCount,
+    .auth-introduction,
+    .auth-field small,
+    .chat-status,
+    .schedule-page-header p,
+    .schedule-section-heading p,
+    .schedule-event-date span,
+    .schedule-event-notes,
+    .announcement-card-heading p,
+    .announcement-composer-heading p,
+    .announcements-list-heading p,
+    .team-settings-page-header p,
+    .league-settings-heading p,
+    .league-settings-field small,
+    .league-sync-toggle small,
+    .league-sync-information-card p,
+    .expenses-page-header p,
+    .expenses-section-heading p,
+    .expense-record-details,
+    .expense-record-notes,
+    .admin-tools-heading p:last-child,
+    .admin-tool-card span:last-child,
+    .team-feature-card span:last-child,
+    .captain-assignment-heading p,
+    .captain-assignment-note
+) {
+    color: var(--top-gun-dark-muted);
+}
+
+html[data-theme="dark"] :where(
+    input,
+    select,
+    textarea,
+    .auth-field input,
+    .schedule-field input,
+    .schedule-field select,
+    .schedule-field textarea,
+    .league-settings-field input,
+    .expense-field input,
+    .expense-field select,
+    .expense-field textarea,
+    .announcement-composer-card input,
+    .announcement-composer-card textarea,
+    .chat-composer textarea
+) {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-input);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] :where(input, textarea)::placeholder {
+    color: #8fa197;
+}
+
+html[data-theme="dark"] :where(
+    .team-form,
+    #teamsList,
+    .join-team-form,
+    .invite-code-section,
+    .chat-messages,
+    .own-chat-message,
+    .announcement-card,
+    .schedule-event-card,
+    .attendance-response-group,
+    .league-connection-summary,
+    .league-sync-toggle,
+    .expense-filters,
+    .expense-summary-item,
+    .admin-tool-card
+) {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-soft);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] :where(
+    .dashboard-link,
+    .chat-back-button,
+    .secondary-button,
+    .schedule-edit-button,
+    .schedule-delete-button,
+    .schedule-cancel-edit-button,
+    .schedule-reminder-button,
+    .attendance-button,
+    .assign-captain-button,
+    .expense-delete-button
+) {
+    color: var(--top-gun-dark-green);
+    background: var(--top-gun-dark-surface-raised);
+    border-color: var(--top-gun-dark-green);
+}
+
+html[data-theme="dark"] :where(
+    .dashboard-link,
+    .chat-back-button,
+    .secondary-button,
+    .schedule-edit-button,
+    .schedule-cancel-edit-button,
+    .attendance-button,
+    .assign-captain-button
+):hover {
+    background: #294536;
+}
+
+html[data-theme="dark"] :where(
+    .team-page-label,
+    .chat-section-label,
+    .auth-page-label,
+    .team-feature-card strong,
+    .admin-tool-card strong,
+    .chat-message-header strong,
+    .announcement-card-heading h3,
+    .member-information h3,
+    .expense-summary-item strong
+) {
+    color: var(--top-gun-dark-green);
+}
+
+html[data-theme="dark"] :where(
+    .team-feature-card,
+    .admin-tool-card
+):hover {
+    background: #263c30;
+    border-color: var(--top-gun-dark-green);
+}
+
+html[data-theme="dark"] .auth-page-switch {
+    color: var(--top-gun-dark-muted);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] .auth-page-switch a {
+    color: var(--top-gun-dark-green);
+}
+
+html[data-theme="dark"] .schedule-empty-message,
+html[data-theme="dark"] .expense-empty-message,
+html[data-theme="dark"] .announcements-empty-message {
+    color: var(--top-gun-dark-muted);
+    background: var(--top-gun-dark-surface-soft);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] .expense-summary-item span,
+html[data-theme="dark"] .schedule-event-location,
+html[data-theme="dark"] .attendance-response-details summary,
+html[data-theme="dark"] .attendance-response-group ul,
+html[data-theme="dark"] .league-sync-information-card ol {
+    color: var(--top-gun-dark-muted);
+}
+
+html[data-theme="dark"] .expense-record-actions,
+html[data-theme="dark"] .schedule-attendance {
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] .expense-record-amount {
+    color: var(--top-gun-dark-green);
+}
+
+html[data-theme="dark"] .logout-button,
+html[data-theme="dark"] .chat-logout-button {
+    background: #a9322a;
+}
+
+html[data-theme="dark"] .logout-button:hover,
+html[data-theme="dark"] .chat-logout-button:hover {
+    background: #84261f;
+}
+
+html[data-theme="dark"] a {
+    color: var(--top-gun-dark-green);
+}
+
+@media (max-width: 520px) {
+    .top-gun-theme-toggle {
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .top-gun-theme-toggle span:last-child {
+        display: none;
+    }
+}
+
+@media print {
+    .top-gun-theme-toggle {
+        display: none !important;
+    }
+}

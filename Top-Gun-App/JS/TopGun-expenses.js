@@ -20,8 +20,6 @@ import {
     updateDoc
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
-import * as XLSX from "https://cdn.sheetjs.com/xlsx-0.20.3/package/xlsx.mjs";
-
 const CATEGORY_LABELS = {
     soccer_balls: "Soccer Balls",
     jerseys_uniforms: "Jerseys and Uniforms",
@@ -339,7 +337,7 @@ function applyFilters() {
 
 function exportRows() {
     return filteredExpenses.map((expense) => ({
-        Date: dateInputFromTimestamp(expense.expenseDate),
+        Date: expense.expenseDate.toDate(),
         Description: expense.description,
         Category: categoryLabel(expense),
         Amount: (expense.amountCents || 0) / 100,
@@ -352,23 +350,116 @@ function exportRows() {
     }));
 }
 
-function exportExcel() {
+async function exportExcel() {
     if (filteredExpenses.length === 0) {
         showMessage("There are no visible expenses to export.");
         return;
     }
 
     try {
-        const worksheet = XLSX.utils.json_to_sheet(exportRows());
-        worksheet["!cols"] = [
-            { wch: 12 }, { wch: 30 }, { wch: 24 }, { wch: 12 },
-            { wch: 24 }, { wch: 22 }, { wch: 18 }, { wch: 20 },
-            { wch: 36 }, { wch: 22 }
+        if (!window.ExcelJS) {
+            throw new Error("The Excel export library did not load.");
+        }
+
+        const workbook = new window.ExcelJS.Workbook();
+        workbook.creator = "Top Gun Soccer App";
+        workbook.created = new Date();
+
+        const worksheet = workbook.addWorksheet("Expenses", {
+            views: [
+                {
+                    state: "frozen",
+                    ySplit: 1
+                }
+            ]
+        });
+
+        worksheet.columns = [
+            { header: "Date", key: "Date", width: 14 },
+            { header: "Description", key: "Description", width: 32 },
+            { header: "Category", key: "Category", width: 25 },
+            { header: "Amount", key: "Amount", width: 14 },
+            { header: "Team", key: "Team", width: 25 },
+            { header: "Vendor", key: "Vendor", width: 22 },
+            { header: "Payment Method", key: "Payment Method", width: 19 },
+            { header: "Paid By", key: "Paid By", width: 20 },
+            { header: "Notes", key: "Notes", width: 38 },
+            { header: "Entered By", key: "Entered By", width: 22 }
         ];
 
-        const workbook = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Expenses");
-        XLSX.writeFile(workbook, `Top-Gun-Expenses-${todayInputValue()}.xlsx`);
+        worksheet.addRows(exportRows());
+
+        const headerRow = worksheet.getRow(1);
+        headerRow.height = 24;
+        headerRow.font = {
+            name: "Aptos",
+            size: 11,
+            bold: true,
+            underline: true,
+            color: { argb: "FF173D2B" }
+        };
+        headerRow.alignment = {
+            vertical: "middle",
+            horizontal: "center"
+        };
+
+        headerRow.eachCell((cell) => {
+            cell.fill = {
+                type: "pattern",
+                pattern: "solid",
+                fgColor: { argb: "FFC6EFCE" }
+            };
+            cell.border = {
+                bottom: {
+                    style: "thin",
+                    color: { argb: "FF70AD86" }
+                }
+            };
+        });
+
+        worksheet.autoFilter = {
+            from: "A1",
+            to: "J1"
+        };
+
+        worksheet.getColumn(1).numFmt = "mm/dd/yy";
+        worksheet.getColumn(4).numFmt = '"$"#,##0.00';
+
+        worksheet.eachRow((row, rowNumber) => {
+            if (rowNumber > 1) {
+                row.alignment = {
+                    vertical: "top"
+                };
+            }
+        });
+
+        worksheet.getColumn(4).eachCell((cell, rowNumber) => {
+            if (rowNumber > 1) {
+                cell.alignment = {
+                    vertical: "top",
+                    horizontal: "right"
+                };
+            }
+        });
+
+        const buffer = await workbook.xlsx.writeBuffer();
+        const downloadUrl = URL.createObjectURL(
+            new Blob(
+                [buffer],
+                {
+                    type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                }
+            )
+        );
+
+        const downloadLink = document.createElement("a");
+        downloadLink.href = downloadUrl;
+        downloadLink.download = `Top-Gun-Expenses-${todayInputValue()}.xlsx`;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        downloadLink.remove();
+        window.setTimeout(() => URL.revokeObjectURL(downloadUrl), 1000);
+
         showMessage("Excel expense sheet downloaded.", "success");
     } catch (error) {
         console.error("Unable to export Excel file:", error);
