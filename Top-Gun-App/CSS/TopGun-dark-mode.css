@@ -327,6 +327,10 @@ html[data-theme="dark"] body.announcements-page-body .announcement-card-message 
     color: var(--top-gun-dark-text);
 }
 
+html[data-theme="dark"] body.announcements-page-body #announcementsStatus {
+    color: var(--top-gun-dark-text);
+}
+
 /* Team Chat */
 html[data-theme="dark"] body.chat-page-body .modern-chat-panel,
 html[data-theme="dark"] body.chat-page-body .modern-chat-messages,
@@ -365,6 +369,12 @@ html[data-theme="dark"] body.chat-page-body .chat-date-divider::after {
 html[data-theme="dark"] body.chat-page-body .chat-date-divider span {
     color: var(--top-gun-dark-text);
     background: var(--top-gun-dark-surface-raised);
+}
+
+html[data-theme="dark"] body.chat-page-body .chat-keyboard-help {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface);
+    border-color: var(--top-gun-dark-border);
 }
 
 /* Schedule and attendance */
