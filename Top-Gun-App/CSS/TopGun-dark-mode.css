@@ -129,7 +129,7 @@ html[data-theme="dark"] :where(
     .captain-assignment-heading p,
     .captain-assignment-note
 ) {
-    color: var(--top-gun-dark-muted);
+    color: var(--top-gun-dark-text);
 }
 
 html[data-theme="dark"] :where(
@@ -154,7 +154,8 @@ html[data-theme="dark"] :where(
 }
 
 html[data-theme="dark"] :where(input, textarea)::placeholder {
-    color: #8fa197;
+    color: var(--top-gun-dark-text);
+    opacity: 0.78;
 }
 
 html[data-theme="dark"] :where(
@@ -189,7 +190,7 @@ html[data-theme="dark"] .team-card h3 {
 }
 
 html[data-theme="dark"] .team-card p {
-    color: var(--top-gun-dark-muted);
+    color: var(--top-gun-dark-text);
 }
 
 /* The original dashboard uses an ID selector for this generated list.
@@ -218,7 +219,7 @@ html[data-theme="dark"] :where(
 
 html[data-theme="dark"] .settings-option-description,
 html[data-theme="dark"] .settings-page-header p {
-    color: var(--top-gun-dark-muted);
+    color: var(--top-gun-dark-text);
 }
 
 html[data-theme="dark"] .theme-choice-button {
@@ -285,7 +286,7 @@ html[data-theme="dark"] :where(
 }
 
 html[data-theme="dark"] .auth-page-switch {
-    color: var(--top-gun-dark-muted);
+    color: var(--top-gun-dark-text);
     border-color: var(--top-gun-dark-border);
 }
 
@@ -296,7 +297,7 @@ html[data-theme="dark"] .auth-page-switch a {
 html[data-theme="dark"] .schedule-empty-message,
 html[data-theme="dark"] .expense-empty-message,
 html[data-theme="dark"] .announcements-empty-message {
-    color: var(--top-gun-dark-muted);
+    color: var(--top-gun-dark-text);
     background: var(--top-gun-dark-surface-soft);
     border-color: var(--top-gun-dark-border);
 }
@@ -306,7 +307,7 @@ html[data-theme="dark"] .schedule-event-location,
 html[data-theme="dark"] .attendance-response-details summary,
 html[data-theme="dark"] .attendance-response-group ul,
 html[data-theme="dark"] .league-sync-information-card ol {
-    color: var(--top-gun-dark-muted);
+    color: var(--top-gun-dark-text);
 }
 
 html[data-theme="dark"] .expense-record-actions,
