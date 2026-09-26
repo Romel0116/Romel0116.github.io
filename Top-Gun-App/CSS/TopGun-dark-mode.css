@@ -391,6 +391,10 @@ html[data-theme="dark"] body.schedule-page-body .attendance-response-group .atte
     color: var(--top-gun-dark-text);
 }
 
+html[data-theme="dark"] body.schedule-page-body .schedule-field > label {
+    color: var(--top-gun-dark-text);
+}
+
 html[data-theme="dark"] body.schedule-page-body .schedule-past-card .schedule-event-card {
     opacity: 1;
 }
