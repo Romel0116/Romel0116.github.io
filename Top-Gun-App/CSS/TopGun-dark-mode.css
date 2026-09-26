@@ -192,6 +192,20 @@ html[data-theme="dark"] .team-card p {
     color: var(--top-gun-dark-muted);
 }
 
+/* The original dashboard uses an ID selector for this generated list.
+   Keep this rule outside :where() so the Dark Mode style wins. */
+html[data-theme="dark"] body #teamsList {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-soft);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] body #teamsList > .team-card {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-raised);
+    border-color: var(--top-gun-dark-border);
+}
+
 html[data-theme="dark"] :where(
     .settings-page-header,
     .settings-card,
