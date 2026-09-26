@@ -178,6 +178,47 @@ html[data-theme="dark"] :where(
     border-color: var(--top-gun-dark-border);
 }
 
+html[data-theme="dark"] .team-card {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-raised);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] .team-card h3 {
+    color: var(--top-gun-dark-green);
+}
+
+html[data-theme="dark"] .team-card p {
+    color: var(--top-gun-dark-muted);
+}
+
+html[data-theme="dark"] :where(
+    .settings-page-header,
+    .settings-card,
+    .settings-option
+) {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] .settings-option-description,
+html[data-theme="dark"] .settings-page-header p {
+    color: var(--top-gun-dark-muted);
+}
+
+html[data-theme="dark"] .theme-choice-button {
+    color: var(--top-gun-dark-text);
+    background: var(--top-gun-dark-surface-raised);
+    border-color: var(--top-gun-dark-border);
+}
+
+html[data-theme="dark"] .theme-choice-button.selected {
+    color: #ffffff;
+    background: #0c6e3d;
+    border-color: var(--top-gun-dark-green);
+}
+
 html[data-theme="dark"] :where(
     .dashboard-link,
     .chat-back-button,

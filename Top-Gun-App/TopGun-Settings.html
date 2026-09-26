@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | Top Gun Soccer App</title>
+
+    <link rel="stylesheet" href="CSS/TopGun-style.css">
+    <link rel="stylesheet" href="CSS/TopGun-settings.css">
+</head>
+<body class="settings-page-body">
+
+    <main class="settings-page-container">
+        <header class="settings-page-header">
+            <div class="settings-header-identity">
+                <div class="settings-header-icon" aria-hidden="true">⚙️</div>
+
+                <div>
+                    <p class="team-page-label">Account Preferences</p>
+                    <h1>Settings</h1>
+                    <p id="settingsAccountStatus">Checking your account...</p>
+                </div>
+            </div>
+
+            <div class="settings-header-actions">
+                <a class="dashboard-link" href="TopGun-Dashboard.html">
+                    Back to Dashboard
+                </a>
+
+                <button type="button" id="settingsLogoutBtn" class="logout-button">
+                    Logout
+                </button>
+            </div>
+        </header>
+
+        <section class="settings-card">
+            <div class="settings-card-heading">
+                <p class="team-page-label">Appearance</p>
+                <h2>Color Theme</h2>
+                <p class="settings-option-description">
+                    Choose how the Top Gun Soccer App looks on this browser.
+                </p>
+            </div>
+
+            <div class="theme-choice-grid" role="group" aria-label="Color theme">
+                <button type="button" class="theme-choice-button" data-theme-choice="light">
+                    <span class="theme-choice-icon" aria-hidden="true">☀️</span>
+                    <strong>Light Mode</strong>
+                    <span>Always use the light appearance</span>
+                </button>
+
+                <button type="button" class="theme-choice-button" data-theme-choice="dark">
+                    <span class="theme-choice-icon" aria-hidden="true">🌙</span>
+                    <strong>Dark Mode</strong>
+                    <span>Always use the dark appearance</span>
+                </button>
+
+                <button type="button" class="theme-choice-button" data-theme-choice="system">
+                    <span class="theme-choice-icon" aria-hidden="true">💻</span>
+                    <strong>Use Device Setting</strong>
+                    <span>Follow your phone or computer setting</span>
+                </button>
+            </div>
+
+            <p id="settingsPageMessage" class="settings-page-message" role="status"></p>
+        </section>
+    </main>
+
+    <script type="module" src="JS/TopGun-settings.js"></script>
+</body>
+</html>

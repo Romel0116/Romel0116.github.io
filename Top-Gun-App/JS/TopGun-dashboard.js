@@ -57,6 +57,9 @@ const adminToolsCard =
 const openExpenseSheetBtn =
     document.getElementById("openExpenseSheetBtn");
 
+const openAppSettingsBtn =
+    document.getElementById("openAppSettingsBtn");
+
 let currentUser = null;
 let currentUserIsAdmin = false;
 let unsubscribeFromTeams = null;
@@ -237,6 +240,10 @@ openExpenseSheetBtn.addEventListener("click", () => {
     }
 
     window.location.href = "TopGun-Expenses.html";
+});
+
+openAppSettingsBtn.addEventListener("click", () => {
+    window.location.href = "TopGun-Settings.html";
 });
 
 createTeamBtn.addEventListener(

@@ -1,0 +1,131 @@
+.settings-page-body {
+    min-height: 100vh;
+    margin: 0;
+    background: #f3f6f4;
+}
+
+.settings-page-container {
+    width: min(920px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 48px 0;
+}
+
+.settings-page-header,
+.settings-card {
+    padding: 26px;
+    background: #ffffff;
+    border: 1px solid #d6e2da;
+    border-radius: 16px;
+    box-shadow: 0 10px 28px rgba(20, 66, 43, 0.09);
+}
+
+.settings-page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.settings-header-identity,
+.settings-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.settings-header-icon {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    background: #eaf5ef;
+    border: 1px solid #c8e3d2;
+    border-radius: 14px;
+    font-size: 1.35rem;
+}
+
+.settings-page-header h1,
+.settings-card h2 {
+    margin: 3px 0 5px;
+}
+
+.settings-page-header p,
+.settings-card-heading p {
+    margin: 0;
+}
+
+.settings-card {
+    margin-top: 22px;
+}
+
+.settings-option-description {
+    color: #53645b;
+}
+
+.theme-choice-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+}
+
+.theme-choice-button {
+    min-height: 160px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 8px;
+    color: #20372b;
+    background: #ffffff;
+    border: 2px solid #cbd8d0;
+    border-radius: 14px;
+    text-align: left;
+}
+
+.theme-choice-button:hover {
+    background: #eef7f1;
+    border-color: #0c6e3d;
+    transform: translateY(-2px);
+}
+
+.theme-choice-button.selected {
+    color: #ffffff;
+    background: #0c6e3d;
+    border-color: #0c6e3d;
+    box-shadow: 0 8px 22px rgba(12, 110, 61, 0.2);
+}
+
+.theme-choice-button span:last-child {
+    line-height: 1.4;
+    opacity: 0.88;
+}
+
+.theme-choice-icon {
+    font-size: 1.55rem;
+}
+
+.settings-page-message {
+    min-height: 24px;
+    margin: 20px 0 0;
+    color: #0c6e3d;
+    font-weight: 700;
+    text-align: center;
+}
+
+@media (max-width: 720px) {
+    .settings-page-container {
+        padding: 20px 0;
+    }
+
+    .settings-page-header,
+    .settings-header-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .theme-choice-grid {
+        grid-template-columns: 1fr;
+    }
+}

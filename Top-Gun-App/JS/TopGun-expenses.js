@@ -396,7 +396,7 @@ async function exportExcel() {
             size: 11,
             bold: true,
             underline: true,
-            color: { argb: "FF173D2B" }
+            color: { argb: "FFFFFFFF" }
         };
         headerRow.alignment = {
             vertical: "middle",
@@ -407,7 +407,7 @@ async function exportExcel() {
             cell.fill = {
                 type: "pattern",
                 pattern: "solid",
-                fgColor: { argb: "FFC6EFCE" }
+                fgColor: { argb: "FF1F7A45" }
             };
             cell.border = {
                 bottom: {
