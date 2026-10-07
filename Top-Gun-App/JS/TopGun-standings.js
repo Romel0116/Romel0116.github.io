@@ -42,8 +42,8 @@ function render() {
         : "Official standings from TeamSideline.";
     element("standingsEmpty").textContent = rows.length ? "" : "No standings imported yet. The team owner can connect the division page in Team Settings.";
     element("standingsUpdated").textContent = useSnapshot
-        ? `Snapshot captured: ${new Date(data.capturedAt).toLocaleString()}. Check the official page for newer results.`
-        : rows.length && data.updatedAt?.toDate ? `Last successful update: ${data.updatedAt.toDate().toLocaleString()}` : "";
+        ? `Current Standings as of: ${new Date(data.capturedAt).toLocaleString()}`
+        : rows.length && data.updatedAt?.toDate ? `Current Standings as of: ${data.updatedAt.toDate().toLocaleString()}` : "";
     const own = rows.find(row => row.teamName.toLowerCase() === data.teamName.toLowerCase());
     element("standingsSummary").textContent = own ? `${own.teamName} · Place ${own.place} · ${own.wins} W / ${own.losses} L / ${own.ties} T · ${own.points} points` : "";
     const source = element("standingsSource");
