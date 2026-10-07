@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="CSS/TopGun-style.css">
     <link rel="stylesheet" href="CSS/TopGun-standings.css">
 </head>
-<body>
+<body class="standings-page-body">
 <main class="team-page-container">
     <header class="team-page-header">
         <div><p class="team-page-label">League Standings</p><h1 id="standingsTeam">Loading team...</h1><p id="standingsStatus" role="status">Checking your membership...</p></div>
@@ -18,10 +18,10 @@
         <p id="standingsSummary"></p>
         <p id="standingsUpdated"></p>
         <p><a id="standingsSource" target="_blank" rel="noopener noreferrer" hidden>View official TeamSideline standings</a></p>
-        <div class="standings-table-scroll" tabindex="0" aria-label="Scroll league standings">
+        <div id="standingsTable" hidden class="standings-table-scroll" tabindex="0" aria-label="Scroll league standings">
             <table class="standings-table"><caption>Official league positions and records</caption><thead><tr><th scope="col">Place</th><th scope="col">Team</th><th scope="col">GP</th><th scope="col">W</th><th scope="col">L</th><th scope="col">T</th><th scope="col">GF</th><th scope="col">GA</th><th scope="col">GD</th><th scope="col">PTS</th><th scope="col">Streak</th></tr></thead><tbody id="standingsRows"></tbody></table>
         </div>
-        <p>GP: games played · W: wins · L: losses · T: ties · GF: goals for · GA: goals against · GD: goal difference · PTS: points</p>
+        <p id="standingsLegend" hidden>GP: games played · W: wins · L: losses · T: ties · GF: goals for · GA: goals against · GD: goal difference · PTS: points</p>
         <p id="standingsEmpty" role="status"></p>
     </section>
 </main>

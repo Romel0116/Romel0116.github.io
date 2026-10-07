@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+import assert from 'node:assert/strict';
+import {standingsSnapshot} from '../Top-Gun-App/JS/TopGun-standings-snapshot.js';
+const elements=new Map();
+function node(){return {children:[],hidden:false,textContent:'',append(child){this.children.push(child)},replaceChildren(){this.children=[]}}}
+const document={getElementById(id){if(!elements.has(id))elements.set(id,node());return elements.get(id)},createElement:node};
+let source=fs.readFileSync('Top-Gun-App/JS/TopGun-standings.js','utf8');
+source=source.slice(source.indexOf('const element ='),source.indexOf('onAuthStateChanged(auth,'));
+const context=vm.createContext({document,standingsSnapshot,URL,URLSearchParams,location:{search:'?teamId=test'}});
+vm.runInContext(source,context);
+vm.runInContext('connection={sourceUrl:standingsSnapshot.sourceUrl,teamName:"Top Gun FC",status:"pending"}; connectionLoaded=true; standingsLoaded=true; render();',context);
+assert.equal(elements.get('standingsRows').children.length,10);
+assert.equal(elements.get('standingsTable').hidden,false);
+assert.match(elements.get('standingsUpdated').textContent,/Snapshot captured/);
+assert.equal(elements.get('standingsRows').children.filter(row=>row.className==='standings-own-team').length,1);
+vm.runInContext('current={...standingsSnapshot,rows:standingsSnapshot.rows.slice(0,1),updatedAt:{toDate:()=>new Date()}}; render();',context);
+assert.equal(elements.get('standingsRows').children.length,1);
+assert.match(elements.get('standingsUpdated').textContent,/Last successful update/);
+vm.runInContext('current=null; connection.teamName="Other Team"; render();',context);
+assert.equal(elements.get('standingsRows').children.length,0);
+assert.equal(elements.get('standingsTable').hidden,true);
+vm.runInContext('loadError="Permission denied"; render();',context);
+assert.match(elements.get('standingsStatus').textContent,/Permission denied/);
+console.log('PASS: all 10 snapshot rows, team highlight, capture label, Firebase precedence, other-team isolation, error state.');

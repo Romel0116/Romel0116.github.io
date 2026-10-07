@@ -1,0 +1,138 @@
+// Captured from the public division table; this is not a live feed.
+export const standingsSnapshot = {
+  "sourceUrl": "https://thewoodlandstownship.teamsidelinesite.com/schedule?divisionid=746501",
+  "teamName": "Top Gun FC",
+  "capturedAt": "2026-10-07T03:28:09Z",
+  "rows": [
+    {
+      "teamName": "AL-Jahir",
+      "streak": "Won 3",
+      "place": 1,
+      "wins": 3,
+      "losses": 0,
+      "ties": 0,
+      "played": 3,
+      "goalDifference": 11,
+      "goalsAgainst": 4,
+      "goalsFor": 15,
+      "points": 9
+    },
+    {
+      "teamName": "Blue Star",
+      "streak": "Won 1",
+      "place": 2,
+      "wins": 2,
+      "losses": 0,
+      "ties": 1,
+      "played": 3,
+      "goalDifference": 8,
+      "goalsAgainst": 4,
+      "goalsFor": 12,
+      "points": 7
+    },
+    {
+      "teamName": "La Picuneta",
+      "streak": "Lost 1",
+      "place": 3,
+      "wins": 2,
+      "losses": 1,
+      "ties": 0,
+      "played": 3,
+      "goalDifference": 2,
+      "goalsAgainst": 4,
+      "goalsFor": 6,
+      "points": 6
+    },
+    {
+      "teamName": "Misfit",
+      "streak": "Lost 1",
+      "place": 4,
+      "wins": 2,
+      "losses": 1,
+      "ties": 0,
+      "played": 3,
+      "goalDifference": 1,
+      "goalsAgainst": 6,
+      "goalsFor": 7,
+      "points": 6
+    },
+    {
+      "teamName": "Top Gun FC",
+      "streak": "Won 2",
+      "place": 5,
+      "wins": 2,
+      "losses": 1,
+      "ties": 0,
+      "played": 3,
+      "goalDifference": 0,
+      "goalsAgainst": 6,
+      "goalsFor": 6,
+      "points": 6
+    },
+    {
+      "teamName": "CF Goluvia",
+      "streak": "Lost 1",
+      "place": 6,
+      "wins": 1,
+      "losses": 1,
+      "ties": 1,
+      "played": 3,
+      "goalDifference": 1,
+      "goalsAgainst": 7,
+      "goalsFor": 8,
+      "points": 4
+    },
+    {
+      "teamName": "Moscos FC",
+      "streak": "Won 1",
+      "place": 7,
+      "wins": 1,
+      "losses": 2,
+      "ties": 0,
+      "played": 3,
+      "goalDifference": -2,
+      "goalsAgainst": 8,
+      "goalsFor": 6,
+      "points": 3
+    },
+    {
+      "teamName": "Tigres",
+      "streak": "Won 1",
+      "place": 8,
+      "wins": 1,
+      "losses": 2,
+      "ties": 0,
+      "played": 3,
+      "goalDifference": -4,
+      "goalsAgainst": 8,
+      "goalsFor": 4,
+      "points": 3
+    },
+    {
+      "teamName": "AC Zimapan",
+      "streak": "Lost 3",
+      "place": 9,
+      "wins": 0,
+      "losses": 3,
+      "ties": 0,
+      "played": 3,
+      "goalDifference": -5,
+      "goalsAgainst": 10,
+      "goalsFor": 5,
+      "points": 0
+    },
+    {
+      "teamName": "Arrowhead FC",
+      "streak": "Lost 3",
+      "place": 10,
+      "wins": 0,
+      "losses": 3,
+      "ties": 0,
+      "played": 3,
+      "goalDifference": -12,
+      "goalsAgainst": 16,
+      "goalsFor": 4,
+      "points": 0
+    }
+  ]
+};

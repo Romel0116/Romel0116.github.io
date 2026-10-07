@@ -28,6 +28,13 @@ export function parseStandings(headers, rows) {
 export async function readStandings(browser, value) {
     const url = validateStandingsUrl(value);
     const page = await browser.newPage();
+    let widgetBlocked = false;
+    page.on("response", response => {
+        if (response.url().startsWith("https://teamsideline.com/widgets/") &&
+            (response.status() === 403 || response.headers()["cf-mitigated"] === "challenge")) {
+            widgetBlocked = true;
+        }
+    });
     try {
         await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 });
         // Bring the embedded widget into view before waiting for its table.
@@ -39,6 +46,9 @@ export async function readStandings(browser, value) {
         const rows = await table.locator("tbody tr").evaluateAll(elements => elements.map(row => Array.from(row.querySelectorAll("td")).map(cell => cell.textContent.trim())));
         return { sourceUrl: url, rows: parseStandings(headers, rows) };
     } catch (error) {
+        if (widgetBlocked) {
+            throw new Error("TeamSideline blocked its public widget with browser verification. Automatic standings import is unavailable; the previous table is preserved.");
+        }
         const detail = (await page.locator("body").innerText().catch(() => "")).slice(0, 700);
         throw new Error(`Unable to read public standings: ${error.message}. Page text: ${detail}`);
     } finally { await page.close(); }

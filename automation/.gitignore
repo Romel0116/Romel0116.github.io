@@ -1,3 +1,6 @@
 node_modules/
 .browsers/
 probe-local.mjs
+diagnose-local.mjs
+capture-local.mjs
+widget-local.txt

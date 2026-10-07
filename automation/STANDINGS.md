@@ -23,8 +23,12 @@ Successful imports atomically replace `teams/{teamId}/standings/current` and mar
 
 ## Firestore access
 
-No Firestore rules file is present in this repository, so deployed rules have not been changed or verified. The rules must permit members (and existing organization admins) to read these two document paths, permit only the team owner to save connection settings, and forbid frontend writes to imported standings. Merge narrowly scoped rules into the existing policy; do not replace it or add public access. The importer uses the Admin SDK.
+`../firestore.rules` contains the user-supplied existing policy plus standings permissions. Members and existing organization admins can read the two standings document paths. Only the team owner can save connection settings; frontend writes to imported standings are forbidden. The importer uses the Admin SDK. This file has not been published or validated by the Firebase compiler/emulator. To apply it, copy its full contents into Firebase Console → Firestore Database → Rules, review the editor diagnostics, and publish. A GitHub commit alone does not deploy these rules.
 
 ## Verification status
 
-The public page is readable in the Codex browser, and the standalone standings parser and URL validation pass local checks. The first standalone headless-browser probe downloaded the page but timed out waiting for its dynamic table. Automatic imports are not yet verified; do not treat the workflow as production-ready until the probe or a manual GitHub run succeeds. Firebase writes and authenticated app flows have not been tested in this workspace.
+The public page is readable in the Codex browser. A standalone diagnostic found cross-origin resources blocked, and a direct request for TeamSideline's public widget returned a Cloudflare browser-verification page. Automatic imports remain blocked; no verification protections are disabled.
+
+`TopGun-standings-snapshot.js` contains all 10 official division rows captured on October 6, 2026 at 10:28 p.m. Chicago time. The app shows this explicitly dated snapshot only when the saved URL matches division 746501, the league team name is Top Gun FC, and no matching Firebase table is available. A successful Firebase import takes precedence. This snapshot does not refresh weekly and must not be represented as live data.
+
+Rendering checks verify all 10 rows, the Top Gun FC highlight, capture labeling, Firebase precedence, isolation from other teams, and the error state. Run `node automation/verify-standings.mjs` from the repository root. Firebase writes and the authenticated deployed app have not been tested in this workspace.

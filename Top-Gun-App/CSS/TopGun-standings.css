@@ -1,3 +1,9 @@
+.standings-page-body { align-items: flex-start; }
+.standings-page-body .team-page-container { max-width: 1200px; }
+.standings-page-body [hidden] { display: none !important; }
+.standings-page-body .team-summary-card p { margin: 12px 0; line-height: 1.5; }
+.standings-page-body #standingsEmpty { padding: 20px; border: 1px dashed #94a3b8; border-radius: 8px; }
+.standings-page-body #standingsEmpty:empty { display: none; }
 .standings-table-scroll { overflow-x: auto; }
 .standings-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
 .standings-table caption { text-align: left; padding: 12px 0; }
