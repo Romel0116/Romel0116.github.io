@@ -100,6 +100,17 @@
             </div>
         </section>
 
+        <section id="standingsSettings" class="league-connection-card" hidden>
+            <h2>League Standings Connection</h2>
+            <p>Import the official division table every Monday. Use the division page, not the Subscribe calendar.</p>
+            <form id="standingsForm">
+                <div class="league-settings-field"><label for="standingsUrl">TeamSideline Division URL</label><input id="standingsUrl" type="url" required placeholder="https://thewoodlandstownship.teamsidelinesite.com/schedule?divisionid=746501"></div>
+                <div class="league-settings-field"><label for="standingsLeagueTeam">Team name exactly as shown by the league</label><input id="standingsLeagueTeam" maxlength="100" required placeholder="Top Gun FC"></div>
+                <label class="league-sync-toggle"><input id="standingsEnabled" type="checkbox" checked> Enable weekly standings updates</label>
+                <div class="league-settings-actions"><button id="saveStandings" type="submit">Save Standings Connection</button></div>
+            </form>
+            <p id="standingsSettingsStatus" role="status"></p>
+        </section>
         <section class="league-sync-information-card">
             <h2>How automatic synchronization works</h2>
             <ol>
@@ -115,5 +126,6 @@
     </main>
 
     <script type="module" src="JS/TopGun-team-settings.js"></script>
+    <script type="module" src="JS/TopGun-standings-settings.js"></script>
 </body>
 </html>

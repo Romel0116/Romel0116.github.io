@@ -1,0 +1,30 @@
+name: Sync TeamSideline Standings
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "30 13 * * 1"
+permissions:
+  contents: read
+concurrency:
+  group: teamsideline-standings-sync
+  cancel-in-progress: false
+jobs:
+  standings:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        working-directory: automation
+        run: npm install --no-audit --no-fund
+      - name: Install browser
+        working-directory: automation
+        run: npx playwright install --with-deps chromium
+      - name: Import standings
+        working-directory: automation
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: npm run sync:standings

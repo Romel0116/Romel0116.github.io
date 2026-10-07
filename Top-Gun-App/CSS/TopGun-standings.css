@@ -1,0 +1,7 @@
+.standings-table-scroll { overflow-x: auto; }
+.standings-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+.standings-table caption { text-align: left; padding: 12px 0; }
+.standings-table th, .standings-table td { padding: 12px; text-align: right; border-bottom: 1px solid #cbd5e1; }
+.standings-table th:nth-child(2), .standings-table td:nth-child(2) { text-align: left; }
+.standings-table .standings-own-team { background: #e0f2fe; color: #0c4a6e; font-weight: 700; }
+html[data-theme="dark"] .standings-table .standings-own-team { background: #164e63; color: #e0f2fe; }

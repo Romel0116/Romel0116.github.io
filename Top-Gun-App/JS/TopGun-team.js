@@ -264,6 +264,7 @@ featureCards.forEach((card) => {
         const feature = card.dataset.feature;
         const encodedTeamId = encodeURIComponent(teamId);
         const destinations = {
+            standings: "TopGun-Standings.html",
             schedule: "TopGun-Schedule.html",
             announcements: "TopGun-Announcements.html",
             roster: "TopGun-Roster.html",

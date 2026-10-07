@@ -4,10 +4,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sync": "node sync-teamsideline-calendar.mjs"
+    "sync": "node sync-teamsideline-calendar.mjs",
+    "sync:standings": "node sync-teamsideline-standings.mjs"
   },
   "dependencies": {
     "firebase-admin": "13.5.0",
-    "luxon": "3.7.2"
+    "luxon": "3.7.2",
+    "playwright": "1.62.1"
   }
 }
