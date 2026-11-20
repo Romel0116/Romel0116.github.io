@@ -118,9 +118,9 @@
 }
 
 .schedule-payment-secondary {
-    border: 1px solid #0c6e3d;
+    border: 1px solid #1d4ed8;
     background: #fff;
-    color: #0c6e3d;
+    color: #1d4ed8;
 }
 
 .schedule-payment-owner-area {
@@ -147,7 +147,7 @@
 }
 
 .schedule-payment-confirm {
-    background: #0c6e3d;
+    background: #1d4ed8;
     color: #fff;
 }
 

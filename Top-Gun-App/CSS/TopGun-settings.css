@@ -38,7 +38,7 @@
     place-items: center;
     width: 48px;
     height: 48px;
-    background: #eaf5ef;
+    background: #eff6ff;
     border: 1px solid #c8e3d2;
     border-radius: 14px;
     font-size: 1.35rem;
@@ -63,7 +63,7 @@
 }
 
 .settings-option-description {
-    color: #53645b;
+    color: #475569;
 }
 
 .theme-choice-grid {
@@ -89,16 +89,16 @@
 }
 
 .theme-choice-button:hover {
-    background: #eef7f1;
-    border-color: #0c6e3d;
+    background: #eff6ff;
+    border-color: #1d4ed8;
     transform: translateY(-2px);
 }
 
 .theme-choice-button.selected {
     color: #ffffff;
-    background: #0c6e3d;
-    border-color: #0c6e3d;
-    box-shadow: 0 8px 22px rgba(12, 110, 61, 0.2);
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    box-shadow: 0 8px 22px rgba(37, 99, 235, 0.2);
 }
 
 .theme-choice-button span:last-child {
@@ -113,7 +113,7 @@
 .settings-page-message {
     min-height: 24px;
     margin: 20px 0 0;
-    color: #0c6e3d;
+    color: #1d4ed8;
     font-weight: 700;
     text-align: center;
 }

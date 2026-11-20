@@ -1,13 +1,13 @@
 :root {
-    --top-gun-dark-background: #0f1712;
-    --top-gun-dark-surface: #17221b;
-    --top-gun-dark-surface-raised: #1d2b22;
-    --top-gun-dark-surface-soft: #223128;
-    --top-gun-dark-border: #385044;
-    --top-gun-dark-text: #edf5f0;
-    --top-gun-dark-muted: #b6c6bc;
-    --top-gun-dark-green: #65d391;
-    --top-gun-dark-input: #111b15;
+    --top-gun-dark-background: #0b1426;
+    --top-gun-dark-surface: #1c2635;
+    --top-gun-dark-surface-raised: #233043;
+    --top-gun-dark-surface-soft: #202d40;
+    --top-gun-dark-border: #3b4b63;
+    --top-gun-dark-text: #f1f5f9;
+    --top-gun-dark-muted: #bcc9d9;
+    --top-gun-dark-accent: #60a5fa;
+    --top-gun-dark-input: #131e30;
 }
 
 .top-gun-theme-toggle {
@@ -23,7 +23,7 @@
     min-height: 44px;
     padding: 10px 14px;
     color: #ffffff;
-    background: #0c6e3d;
+    background: #1d4ed8;
     border: 1px solid rgba(255, 255, 255, 0.28);
     border-radius: 999px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
@@ -33,7 +33,7 @@
 }
 
 .top-gun-theme-toggle:hover {
-    background: #09552f;
+    background: #1e40af;
     transform: translateY(-1px);
 }
 
@@ -186,7 +186,7 @@ html[data-theme="dark"] .team-card {
 }
 
 html[data-theme="dark"] .team-card h3 {
-    color: var(--top-gun-dark-green);
+    color: var(--top-gun-dark-accent);
 }
 
 html[data-theme="dark"] .team-card p {
@@ -230,8 +230,8 @@ html[data-theme="dark"] .theme-choice-button {
 
 html[data-theme="dark"] .theme-choice-button.selected {
     color: #ffffff;
-    background: #0c6e3d;
-    border-color: var(--top-gun-dark-green);
+    background: #1d4ed8;
+    border-color: var(--top-gun-dark-accent);
 }
 
 html[data-theme="dark"] :where(
@@ -246,9 +246,9 @@ html[data-theme="dark"] :where(
     .assign-captain-button,
     .expense-delete-button
 ) {
-    color: var(--top-gun-dark-green);
+    color: var(--top-gun-dark-accent);
     background: var(--top-gun-dark-surface-raised);
-    border-color: var(--top-gun-dark-green);
+    border-color: var(--top-gun-dark-accent);
 }
 
 html[data-theme="dark"] :where(
@@ -260,7 +260,7 @@ html[data-theme="dark"] :where(
     .attendance-button,
     .assign-captain-button
 ):hover {
-    background: #294536;
+    background: #243c5a;
 }
 
 html[data-theme="dark"] :where(
@@ -274,15 +274,15 @@ html[data-theme="dark"] :where(
     .member-information h3,
     .expense-summary-item strong
 ) {
-    color: var(--top-gun-dark-green);
+    color: var(--top-gun-dark-accent);
 }
 
 html[data-theme="dark"] :where(
     .team-feature-card,
     .admin-tool-card
 ):hover {
-    background: #263c30;
-    border-color: var(--top-gun-dark-green);
+    background: #203550;
+    border-color: var(--top-gun-dark-accent);
 }
 
 /* Some unfinished or restricted features are disabled by the page script.
@@ -296,7 +296,7 @@ html[data-theme="dark"] body .team-feature-card:disabled {
 }
 
 html[data-theme="dark"] body .team-feature-card:disabled strong {
-    color: var(--top-gun-dark-green);
+    color: var(--top-gun-dark-accent);
 }
 
 html[data-theme="dark"] body .team-feature-card:disabled span:last-child {
@@ -403,13 +403,13 @@ html[data-theme="dark"] body.schedule-page-body .attendance-button,
 html[data-theme="dark"] body.schedule-page-body .attendance-button:disabled {
     color: var(--top-gun-dark-text);
     background: var(--top-gun-dark-surface-raised);
-    border-color: var(--top-gun-dark-green);
+    border-color: var(--top-gun-dark-accent);
     opacity: 1;
 }
 
 html[data-theme="dark"] body.schedule-page-body .attendance-button.selected {
     color: #ffffff;
-    background: #147041;
+    background: #1d4ed8;
 }
 
 /* Schedule payment additions */
@@ -463,7 +463,7 @@ html[data-theme="dark"] .auth-page-switch {
 }
 
 html[data-theme="dark"] .auth-page-switch a {
-    color: var(--top-gun-dark-green);
+    color: var(--top-gun-dark-accent);
 }
 
 html[data-theme="dark"] .schedule-empty-message,
@@ -488,7 +488,7 @@ html[data-theme="dark"] .schedule-attendance {
 }
 
 html[data-theme="dark"] .expense-record-amount {
-    color: var(--top-gun-dark-green);
+    color: var(--top-gun-dark-accent);
 }
 
 html[data-theme="dark"] .logout-button,
@@ -502,7 +502,7 @@ html[data-theme="dark"] .chat-logout-button:hover {
 }
 
 html[data-theme="dark"] a {
-    color: var(--top-gun-dark-green);
+    color: var(--top-gun-dark-accent);
 }
 
 @media (max-width: 520px) {
@@ -596,4 +596,31 @@ html[data-theme="dark"] a {
 .settings-page-header h1,
 .team-page-header h1 {
     text-align: left !important;
+}
+
+html[data-theme="dark"] .team-home-page .team-page-header {
+    background: linear-gradient(125deg, #152a4b, #233f6b);
+}
+
+html[data-theme="dark"] body.team-home-page #teamPageRole {
+    color: #e0eaff;
+}
+
+html[data-theme="dark"] .team-home-page .team-feature-card .feature-icon {
+    background: #203c61;
+}
+
+html[data-theme="dark"] .team-home-page .team-feature-card[data-feature="schedule"]:enabled {
+    background: #1d334e;
+    border-color: #5076a7;
+}
+
+html[data-theme="dark"] .team-home-page .team-feature-card[data-feature="schedule"]:enabled:hover {
+    background: #254367;
+    border-color: var(--top-gun-dark-accent);
+}
+
+html[data-theme="dark"] .standings-table-scroll + p,
+html[data-theme="dark"] #standingsUpdated {
+    color: var(--top-gun-dark-muted);
 }

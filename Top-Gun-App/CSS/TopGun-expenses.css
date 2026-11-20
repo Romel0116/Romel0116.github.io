@@ -1,8 +1,8 @@
 .expenses-page-body {
     min-height: 100vh;
     margin: 0;
-    background: #f3f7f4;
-    color: #18392b;
+    background: #f1f5f9;
+    color: #0f172a;
 }
 
 .expenses-page-container {
@@ -14,7 +14,7 @@
 .expenses-page-header,
 .expenses-card {
     background: #ffffff;
-    border: 1px solid #dce8df;
+    border: 1px solid #dbe3ed;
     border-radius: 20px;
     box-shadow: 0 12px 32px rgba(20, 66, 43, 0.08);
 }
@@ -40,8 +40,8 @@
     height: 58px;
     flex: 0 0 auto;
     place-items: center;
-    background: #e9f6ee;
-    border: 1px solid #cde8d7;
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
     border-radius: 16px;
     font-size: 1.75rem;
 }
@@ -55,7 +55,7 @@
 .expenses-page-header p,
 .expenses-section-heading p {
     margin: 5px 0 0;
-    color: #64766d;
+    color: #526277;
 }
 
 .expenses-card {
@@ -96,7 +96,7 @@
 }
 
 .expense-field label {
-    color: #244c38;
+    color: #243951;
     font-weight: 750;
 }
 
@@ -107,9 +107,9 @@
     box-sizing: border-box;
     margin: 0;
     padding: 12px 14px;
-    color: #18392b;
-    background: #fbfdfb;
-    border: 1px solid #bed2c5;
+    color: #0f172a;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
     border-radius: 11px;
     font: inherit;
 }
@@ -117,8 +117,8 @@
 .expense-field input:focus,
 .expense-field select:focus,
 .expense-field textarea:focus {
-    border-color: #147041;
-    outline: 3px solid rgba(20, 112, 65, 0.15);
+    border-color: #1d4ed8;
+    outline: 3px solid rgba(37, 99, 235, 0.15);
 }
 
 .expense-field textarea {
@@ -153,7 +153,7 @@
     gap: 14px;
     padding: 18px;
     background: #f7faf8;
-    border: 1px solid #dce8df;
+    border: 1px solid #dbe3ed;
     border-radius: 14px;
 }
 
@@ -175,7 +175,7 @@
     justify-content: space-between;
     gap: 18px;
     padding: 16px;
-    background: #eef7f1;
+    background: #eff6ff;
     border: 1px solid #c9e2d2;
     border-radius: 12px;
 }
@@ -186,7 +186,7 @@
 }
 
 .expense-summary-item strong {
-    color: #0c6e3d;
+    color: #1d4ed8;
     font-size: 1.25rem;
 }
 
@@ -197,8 +197,8 @@
 
 .expense-record {
     padding: 18px;
-    background: #fbfdfb;
-    border: 1px solid #dce8df;
+    background: #f8fafc;
+    border: 1px solid #dbe3ed;
     border-radius: 14px;
 }
 
@@ -211,7 +211,7 @@
 
 .expense-record h3 {
     margin: 5px 0 0;
-    color: #18392b;
+    color: #0f172a;
 }
 
 .expense-category-badge {
@@ -226,7 +226,7 @@
 }
 
 .expense-record-amount {
-    color: #0c6e3d;
+    color: #1d4ed8;
     font-size: 1.3rem;
     font-weight: 850;
     white-space: nowrap;
@@ -237,13 +237,13 @@
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 9px 18px;
     margin-top: 14px;
-    color: #53645b;
+    color: #475569;
     font-size: 0.9rem;
 }
 
 .expense-record-notes {
     margin: 13px 0 0;
-    color: #53645b;
+    color: #475569;
     line-height: 1.5;
     white-space: pre-wrap;
 }
@@ -275,7 +275,7 @@
 .expense-empty-message {
     margin: 0;
     padding: 24px;
-    color: #64766d;
+    color: #526277;
     border: 1px dashed #bfd1c5;
     border-radius: 14px;
     text-align: center;

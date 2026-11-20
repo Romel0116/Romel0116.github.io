@@ -5,7 +5,7 @@
     margin-top: 10px;
     padding: 6px 10px;
     color: #ffffff;
-    background: #0c6e3d;
+    background: #1d4ed8;
     border-radius: 999px;
     font-size: 0.76rem;
     font-weight: 800;
@@ -33,7 +33,7 @@
 }
 
 .admin-tools-heading p:last-child {
-    color: #53645b;
+    color: #475569;
 }
 
 .admin-dashboard-grid {
@@ -60,18 +60,18 @@
 }
 
 .admin-tool-card strong {
-    color: #0c6e3d;
+    color: #1d4ed8;
     font-size: 1.08rem;
 }
 
 .admin-tool-card span:last-child {
-    color: #53645b;
+    color: #475569;
     line-height: 1.4;
 }
 
 .admin-tool-card:hover {
-    background: #eef7f1;
-    border-color: #0c6e3d;
+    background: #eff6ff;
+    border-color: #1d4ed8;
     transform: translateY(-2px);
 }
 
@@ -84,7 +84,7 @@
 
 .captain-assignment-heading p,
 .captain-assignment-note {
-    color: #53645b;
+    color: #475569;
     line-height: 1.5;
 }
 
@@ -117,8 +117,8 @@
 }
 
 .roster-role-badge.captain {
-    background: #e8f6ed;
-    color: #0c6e3d;
+    background: #dbeafe;
+    color: #1d4ed8;
 }
 
 .assign-captain-button {
@@ -126,14 +126,14 @@
     min-width: 132px;
     margin-left: 18px;
     padding: 9px 12px;
-    border: 1px solid #0c6e3d;
+    border: 1px solid #1d4ed8;
     background: #ffffff;
-    color: #0c6e3d;
+    color: #1d4ed8;
     font-weight: 800;
 }
 
 .assign-captain-button:hover:not(:disabled) {
-    background: #eaf5ef;
+    background: #eff6ff;
 }
 
 @media (max-width: 600px) {
