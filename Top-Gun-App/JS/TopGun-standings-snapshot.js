@@ -134,5 +134,82 @@ export const standingsSnapshot = {
       "goalsFor": 25,
       "points": 2
     }
-  ]
+  ],
+  "playoffs": {
+    "capturedAt": "2026-11-22T05:30:24Z",
+    "games": [
+      {
+        "id": "R1-G1",
+        "date": "Nov 22, 2026",
+        "time": "6:00 PM",
+        "field": "BB Turf 5B",
+        "home": "Arrowhead FC",
+        "away": "Misfit"
+      },
+      {
+        "id": "R1-G2",
+        "date": "Nov 22, 2026",
+        "time": "6:00 PM",
+        "field": "BB Turf 5A",
+        "home": "Moscos FC",
+        "away": "AC Zimapan"
+      },
+      {
+        "id": "R2-G1",
+        "date": "Dec 6, 2026",
+        "time": "4:00 PM",
+        "field": "BB Turf 1B",
+        "home": "Blue Star",
+        "away": "CF Goluvia"
+      },
+      {
+        "id": "R2-G2",
+        "date": "Dec 6, 2026",
+        "time": "4:00 PM",
+        "field": "BB Turf 3B",
+        "home": "Top Gun FC",
+        "away": "Tigres"
+      },
+      {
+        "id": "R2-G3",
+        "date": "Dec 6, 2026",
+        "time": "4:00 PM",
+        "field": "BB Turf 1A",
+        "home": "AL-Jahir",
+        "away": "R1-G1 Winner"
+      },
+      {
+        "id": "R2-G4",
+        "date": "Dec 6, 2026",
+        "time": "4:00 PM",
+        "field": "BB Turf 3A",
+        "home": "La Picuneta",
+        "away": "R1-G2 Winner"
+      },
+      {
+        "id": "R3-G1",
+        "date": "Dec 6, 2026",
+        "time": "5:00 PM",
+        "field": "BB Turf 1A",
+        "home": "R2-G1 Winner",
+        "away": "R2-G3 Winner"
+      },
+      {
+        "id": "R3-G2",
+        "date": "Dec 6, 2026",
+        "time": "5:00 PM",
+        "field": "BB Turf 3A",
+        "home": "R2-G4 Winner",
+        "away": "R2-G2 Winner"
+      },
+      {
+        "id": "R4-G1",
+        "date": "Dec 13, 2026",
+        "time": "7:00 PM",
+        "field": "BB Turf 4A",
+        "home": "R3-G1 Winner",
+        "away": "R3-G2 Winner"
+      }
+    ]
+  }
 };

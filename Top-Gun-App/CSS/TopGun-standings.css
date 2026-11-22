@@ -13,3 +13,22 @@
 html[data-theme="dark"] .standings-table .standings-own-team { background: #203c61; color: #e0edff; }
 
 html[data-theme="dark"] .standings-table :is(th, td) { border-color: var(--top-gun-dark-border); }
+
+.playoffs-section { margin-top: 24px; padding-top: 20px; border-top: 1px solid #cbd5e1; }
+.playoffs-rounds { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 16px; }
+.playoff-round h4 { margin: 0 0 8px; }
+.playoff-round ul { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.playoff-match {
+    display: grid;
+    gap: 5px;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    background: #f8fafc;
+    overflow-wrap: anywhere;
+}
+.playoff-match span { font-size: 0.875rem; line-height: 1.4; }
+.playoff-own-team { background: #dbeafe; border-color: #2563eb; color: #1e3a8a; }
+html[data-theme="dark"] :is(.playoffs-section, .playoff-match) { border-color: var(--top-gun-dark-border); }
+html[data-theme="dark"] .playoff-match { background: var(--top-gun-dark-surface-raised); }
+html[data-theme="dark"] .playoff-own-team { background: #203c61; border-color: #60a5fa; color: #e0edff; }

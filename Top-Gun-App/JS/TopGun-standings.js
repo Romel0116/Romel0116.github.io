@@ -12,13 +12,59 @@ let loadError = "";
 let connectionLoaded = false;
 let standingsLoaded = false;
 
+function renderPlayoffs(matchesSnapshot) {
+    const section = element("playoffsSection");
+    const rounds = element("playoffsRounds");
+    rounds.replaceChildren();
+    const playoffs = matchesSnapshot ? standingsSnapshot.playoffs : null;
+    section.hidden = !playoffs?.games.length || Boolean(loadError) || !connectionLoaded || !standingsLoaded;
+    if (section.hidden) return;
+
+    element("playoffsUpdated").textContent =
+        `Schedule checked ${new Date(playoffs.capturedAt).toLocaleDateString()} · All times Central`;
+    const teamName = connection.teamName.trim().toLowerCase();
+    const roundLists = new Map();
+    for (const game of playoffs.games) {
+        const round = Number(game.id.match(/^R(\d+)-/)?.[1]);
+        if (!roundLists.has(round)) {
+            const group = document.createElement("div");
+            group.className = "playoff-round";
+            const heading = document.createElement("h4");
+            heading.textContent = ({
+                1: "Opening round", 2: "Quarterfinals", 3: "Semifinals", 4: "Championship"
+            })[round] || `Round ${round}`;
+            const list = document.createElement("ul");
+            group.append(heading, list);
+            rounds.append(group);
+            roundLists.set(round, list);
+        }
+        const match = document.createElement("li");
+        match.className = "playoff-match";
+        const containsTeam = [game.home, game.away].some(name => name.toLowerCase() === teamName);
+        if (containsTeam) match.classList.add("playoff-own-team");
+        const matchup = document.createElement("strong");
+        matchup.textContent = `${game.home} vs. ${game.away}`;
+        const details = document.createElement("span");
+        details.textContent = `${game.id} · ${game.date} · ${game.time} · ${game.field}`;
+        match.append(matchup, details);
+        if (game.result) {
+            const result = document.createElement("span");
+            result.textContent = game.result;
+            match.append(result);
+        }
+        roundLists.get(round).append(match);
+    }
+}
+
 function render() {
     const body = element("standingsRows");
     body.replaceChildren();
     const matchesConnection = current && connection && current.sourceUrl === connection.sourceUrl && current.teamName === connection.teamName;
     const importedRows = matchesConnection && Array.isArray(current.rows) ? current.rows : [];
-    const useSnapshot = !importedRows.length && connection?.sourceUrl === standingsSnapshot.sourceUrl
+    const matchesSnapshot = connection?.sourceUrl === standingsSnapshot.sourceUrl
         && connection?.teamName?.trim().toLowerCase() === standingsSnapshot.teamName.toLowerCase();
+    const useSnapshot = !importedRows.length && matchesSnapshot;
+    renderPlayoffs(matchesSnapshot);
     const data = useSnapshot ? standingsSnapshot : current;
     const rows = useSnapshot ? standingsSnapshot.rows : importedRows;
     element("standingsTable").hidden = !rows.length || Boolean(loadError);
