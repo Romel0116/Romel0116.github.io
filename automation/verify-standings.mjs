@@ -35,8 +35,16 @@ assert.equal(elements.get('standingsTable').hidden,true);
 assert.equal(elements.get('playoffsSection').hidden,true);
 vm.runInContext('connection={sourceUrl:recreation2Snapshot.sourceUrl,teamName:recreation2Snapshot.teamName}; render();',context);
 assert.match(elements.get('standingsSummary').textContent,/Place 1.*21 points/);
-assert.equal(elements.get('playoffsSection').hidden,true);
+assert.equal(elements.get('playoffsSection').hidden,false);
+const rec2Matches=elements.get('playoffsRounds').children.flatMap(round=>round.children[1].children);
+assert.equal(rec2Matches.length,recreation2Snapshot.playoffs.games.length);
+for (const game of recreation2Snapshot.playoffs.games) {
+    const match=rec2Matches.find(item=>item.children[1].textContent.startsWith(game.id+' ·'));
+    assert.equal(match.children[0].textContent,`${game.home} vs. ${game.away}`);
+    assert.match(match.children[1].textContent,/BB Turf/);
+    assert.equal(match.classes.has('playoff-own-team'),[game.home,game.away].includes(recreation2Snapshot.teamName));
+}
 assert.equal(recreation2Snapshot.scores.games.length,40);
 vm.runInContext('loadError="Permission denied"; render();',context);
 assert.match(elements.get('standingsStatus').textContent,/Permission denied/);
-console.log('PASS: all 10 snapshot rows, team highlight, capture label, playoff rounds and team highlight, Firebase precedence, other-team isolation, error state.');
+console.log('PASS: all 10 snapshot rows, team highlight, capture label, both divisions playoff rounds and team highlights, Firebase precedence, other-team isolation, error state.');

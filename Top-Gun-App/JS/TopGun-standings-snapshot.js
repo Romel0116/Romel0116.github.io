@@ -719,5 +719,82 @@ export const recreation2Snapshot = {
         "awayScore": 1
       }
     ]
+  },
+  "playoffs": {
+    "capturedAt": "2026-11-23T05:31:33Z",
+    "games": [
+      {
+        "id": "R1-G1",
+        "date": "Nov 22, 2026",
+        "time": "8:00 PM",
+        "field": "BB Turf 4B",
+        "home": "Vibes Only",
+        "away": "Parklife FC"
+      },
+      {
+        "id": "R1-G2",
+        "date": "Nov 22, 2026",
+        "time": "8:00 PM",
+        "field": "BB Turf 1B",
+        "home": "Chalanes FC",
+        "away": "tiki-tacos"
+      },
+      {
+        "id": "R2-G1",
+        "date": "Dec 6, 2026",
+        "time": "4:00 PM",
+        "field": "BB Turf 4B",
+        "home": "Bully FC",
+        "away": "Meowscles"
+      },
+      {
+        "id": "R2-G2",
+        "date": "Dec 6, 2026",
+        "time": "4:00 PM",
+        "field": "BB Turf 5B",
+        "home": "Titans FC",
+        "away": "Solteros FC"
+      },
+      {
+        "id": "R2-G3",
+        "date": "Dec 6, 2026",
+        "time": "4:00 PM",
+        "field": "BB Turf 4A",
+        "home": "Top Gun FC",
+        "away": "R1-G1 Winner"
+      },
+      {
+        "id": "R2-G4",
+        "date": "Dec 6, 2026",
+        "time": "4:00 PM",
+        "field": "BB Turf 5A",
+        "home": "Papaupas",
+        "away": "R1-G2 Winner"
+      },
+      {
+        "id": "R3-G1",
+        "date": "Dec 6, 2026",
+        "time": "5:00 PM",
+        "field": "BB Turf 4A",
+        "home": "R2-G1 Winner",
+        "away": "R2-G3 Winner"
+      },
+      {
+        "id": "R3-G2",
+        "date": "Dec 6, 2026",
+        "time": "5:00 PM",
+        "field": "BB Turf 5A",
+        "home": "R2-G4 Winner",
+        "away": "R2-G2 Winner"
+      },
+      {
+        "id": "R4-G1",
+        "date": "Dec 13, 2026",
+        "time": "9:00 PM",
+        "field": "BB Turf 3B",
+        "home": "R3-G1 Winner",
+        "away": "R3-G2 Winner"
+      }
+    ]
   }
 };
