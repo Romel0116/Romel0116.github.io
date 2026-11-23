@@ -56,9 +56,43 @@ function renderPlayoffs(snapshot) {
     }
 }
 
+const standingsStats = [
+    ["played", "GP"], ["wins", "W"], ["losses", "L"], ["ties", "T"],
+    ["goalsFor", "GF"], ["goalsAgainst", "GA"], ["goalDifference", "GD"], ["streak", "Streak"]
+];
+
+function createStandingsCard(row, isOwnTeam) {
+    const card = document.createElement("li");
+    card.className = isOwnTeam ? "standings-card standings-own-team" : "standings-card";
+    const header = document.createElement("div");
+    header.className = "standings-card-header";
+    const team = document.createElement("strong");
+    team.textContent = "#" + row.place + " " + row.teamName;
+    const points = document.createElement("span");
+    points.className = "standings-card-points";
+    points.textContent = (row.points ?? "—") + " pts";
+    header.append(team, points);
+
+    const stats = document.createElement("dl");
+    stats.className = "standings-card-stats";
+    for (const [key, label] of standingsStats) {
+        const stat = document.createElement("div");
+        const term = document.createElement("dt");
+        term.textContent = label;
+        const value = document.createElement("dd");
+        value.textContent = row[key] ?? "—";
+        stat.append(term, value);
+        stats.append(stat);
+    }
+    card.append(header, stats);
+    return card;
+}
+
 function render() {
     const body = element("standingsRows");
+    const cards = element("standingsCards");
     body.replaceChildren();
+    cards.replaceChildren();
     const matchesConnection = current && connection && current.sourceUrl === connection.sourceUrl && current.teamName === connection.teamName;
     const importedRows = matchesConnection && Array.isArray(current.rows) ? current.rows : [];
     const snapshot = [standingsSnapshot, recreation2Snapshot].find(entry =>
@@ -68,8 +102,10 @@ function render() {
     renderPlayoffs(snapshot);
     const data = useSnapshot ? snapshot : current;
     const rows = useSnapshot ? snapshot.rows : importedRows;
-    element("standingsTable").hidden = !rows.length || Boolean(loadError);
-    element("standingsLegend").hidden = !rows.length || Boolean(loadError);
+    const hideStandings = !rows.length || Boolean(loadError) || !connectionLoaded || !standingsLoaded;
+    element("standingsTable").hidden = hideStandings;
+    cards.hidden = hideStandings;
+    element("standingsLegend").hidden = hideStandings;
     if (loadError || !connectionLoaded || !standingsLoaded) {
         element("standingsStatus").textContent = loadError || "Loading league standings...";
         element("standingsEmpty").textContent = loadError
@@ -108,6 +144,7 @@ function render() {
             tr.append(cell);
         }
         body.append(tr);
+        cards.append(createStandingsCard(row, row === own));
     }
 }
 
