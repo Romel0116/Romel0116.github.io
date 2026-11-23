@@ -50,8 +50,15 @@
             <div class="score-filter-field">
                 <label for="scoresSort">Sort by</label>
                 <select id="scoresSort">
-                    <option value="newest">Newest first</option>
-                    <option value="oldest">Oldest first</option>
+                    <option value="date">Match date</option>
+                    <option value="goals">Total goals</option>
+                </select>
+            </div>
+            <div class="score-filter-field">
+                <label for="scoresOrder">Order</label>
+                <select id="scoresOrder">
+                    <option value="descending">Descending</option>
+                    <option value="ascending">Ascending</option>
                 </select>
             </div>
             <button type="button" id="scoresReset" class="score-filters-reset">Reset filters</button>

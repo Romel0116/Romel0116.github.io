@@ -40,7 +40,8 @@ function renderScores() {
     const stage = element("scoresStage").value;
     const from = element("scoresFrom").value;
     const through = element("scoresThrough").value;
-    const oldestFirst = element("scoresSort").value === "oldest";
+    const sortByGoals = element("scoresSort").value === "goals";
+    const direction = element("scoresOrder").value === "ascending" ? 1 : -1;
     const includesTeam = (game, team) => [game.home, game.away].some(name => normalize(name) === team);
 
     if (from && through && from > through) {
@@ -53,7 +54,12 @@ function renderScores() {
         return (teamFilter === "division" || includesTeam(game, selectedTeam)) &&
             (stage === "all" || stage === gameStage) &&
             (!from || game.date >= from) && (!through || game.date <= through);
-    }).sort((a, b) => oldestFirst ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date));
+    }).sort((a, b) => {
+        const dateDifference = a.date.localeCompare(b.date);
+        if (!sortByGoals) return direction * dateDifference;
+        const goalsDifference = (a.homeScore + a.awayScore) - (b.homeScore + b.awayScore);
+        return direction * goalsDifference || -dateDifference;
+    });
 
     if (!games.length) {
         count.textContent = finalGames.length
