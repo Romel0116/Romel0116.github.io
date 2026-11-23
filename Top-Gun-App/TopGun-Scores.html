@@ -21,13 +21,42 @@
     </header>
     <section class="team-summary-card" id="scoresContent" aria-labelledby="scoresHeading" hidden>
         <h2 id="scoresHeading">Final Scores</h2>
-        <label for="scoresFilter">Show</label>
-        <select id="scoresFilter">
-            <option value="team">My team</option>
-            <option value="division">All division games</option>
-        </select>
         <p id="scoresUpdated"></p>
         <p><a id="scoresSource" target="_blank" rel="noopener noreferrer">View official TeamSideline results</a></p>
+        <form id="scoresFilters" class="score-filters" aria-label="Filter final scores">
+            <div class="score-filter-field">
+                <label for="scoresFilter">Team</label>
+                <select id="scoresFilter">
+                    <option value="team">My team</option>
+                    <option value="division">All division games</option>
+                </select>
+            </div>
+            <div class="score-filter-field">
+                <label for="scoresStage">Stage</label>
+                <select id="scoresStage">
+                    <option value="all">All stages</option>
+                    <option value="regular">Regular season</option>
+                    <option value="playoffs">Playoffs</option>
+                </select>
+            </div>
+            <div class="score-filter-field">
+                <label for="scoresFrom">From date</label>
+                <input id="scoresFrom" type="date">
+            </div>
+            <div class="score-filter-field">
+                <label for="scoresThrough">Through date</label>
+                <input id="scoresThrough" type="date">
+            </div>
+            <div class="score-filter-field">
+                <label for="scoresSort">Sort by</label>
+                <select id="scoresSort">
+                    <option value="newest">Newest first</option>
+                    <option value="oldest">Oldest first</option>
+                </select>
+            </div>
+            <button type="button" id="scoresReset" class="score-filters-reset">Reset filters</button>
+        </form>
+        <p id="scoresCount" role="status"></p>
         <div id="scoresList"></div>
     </section>
 </main>
