@@ -1,8 +1,7 @@
 import { auth, db } from "./TopGun-firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 import {
@@ -19,7 +18,6 @@ const teamPageName = document.getElementById("teamPageName");
 const teamPageRole = document.getElementById("teamPageRole");
 const teamSummary = document.getElementById("teamSummary");
 const teamPageMessage = document.getElementById("teamPageMessage");
-const teamLogoutBtn = document.getElementById("teamLogoutBtn");
 const teamSettingsCard = document.getElementById("teamSettingsCard");
 const teamAdminBadge = document.getElementById("teamAdminBadge");
 const featureCards = document.querySelectorAll(".team-feature-card");
@@ -285,33 +283,6 @@ featureCards.forEach((card) => {
             "success"
         );
     });
-});
-
-teamLogoutBtn.addEventListener("click", async () => {
-    teamLogoutBtn.disabled = true;
-    teamLogoutBtn.textContent = "Logging Out...";
-
-    try {
-        if (unsubscribeFromNotifications) {
-            unsubscribeFromNotifications();
-        }
-
-        if (unsubscribeFromReadStatus) {
-            unsubscribeFromReadStatus();
-        }
-
-        if (unsubscribeFromChatMessages) {
-            unsubscribeFromChatMessages();
-        }
-
-        await signOut(auth);
-        window.location.href = "TopGun-Login.html";
-    } catch (error) {
-        console.error("Logout error:", error);
-        showTeamMessage("Unable to log out. Please try again.");
-        teamLogoutBtn.disabled = false;
-        teamLogoutBtn.textContent = "Logout";
-    }
 });
 
 window.addEventListener("beforeunload", () => {

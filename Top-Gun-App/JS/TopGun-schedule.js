@@ -1,8 +1,7 @@
 import { auth, db } from "./TopGun-firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 import {
@@ -40,7 +39,6 @@ const createScheduleEventBtn = document.getElementById("createScheduleEventBtn")
 const upcomingScheduleList = document.getElementById("upcomingScheduleList");
 const pastScheduleList = document.getElementById("pastScheduleList");
 const backToTeamFromSchedule = document.getElementById("backToTeamFromSchedule");
-const scheduleLogoutBtn = document.getElementById("scheduleLogoutBtn");
 const schedulePageMessage = document.getElementById("schedulePageMessage");
 
 const urlParameters = new URLSearchParams(window.location.search);
@@ -1172,31 +1170,6 @@ schedulePaymentRequired.addEventListener("change", () => {
 cancelScheduleEditBtn.addEventListener("click", () => {
     resetScheduleForm();
     showScheduleMessage("Editing canceled.", "success");
-});
-
-scheduleLogoutBtn.addEventListener("click", async () => {
-    scheduleLogoutBtn.disabled = true;
-    scheduleLogoutBtn.textContent = "Logging Out...";
-
-    try {
-        stopAttendanceListeners();
-        stopPaymentListeners();
-
-        if (unsubscribeFromSchedule) {
-            unsubscribeFromSchedule();
-        }
-        if (unsubscribeFromPaymentSettings) {
-            unsubscribeFromPaymentSettings();
-        }
-
-        await signOut(auth);
-        window.location.href = "TopGun-Index.html";
-    } catch (error) {
-        console.error("Logout error:", error);
-        showScheduleMessage("Unable to log out. Please try again.");
-        scheduleLogoutBtn.disabled = false;
-        scheduleLogoutBtn.textContent = "Logout";
-    }
 });
 
 window.addEventListener("beforeunload", () => {

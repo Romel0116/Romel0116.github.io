@@ -1,8 +1,7 @@
 import { auth, db } from "./TopGun-firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 import {
@@ -28,7 +27,6 @@ const leagueSyncEnabled = document.getElementById("leagueSyncEnabled");
 const saveLeagueConnectionBtn = document.getElementById("saveLeagueConnectionBtn");
 const removeLeagueConnectionBtn = document.getElementById("removeLeagueConnectionBtn");
 const backToTeamFromSettings = document.getElementById("backToTeamFromSettings");
-const settingsLogoutBtn = document.getElementById("settingsLogoutBtn");
 const teamSettingsPageMessage = document.getElementById("teamSettingsPageMessage");
 
 const urlParameters = new URLSearchParams(window.location.search);
@@ -393,28 +391,6 @@ removeLeagueConnectionBtn.addEventListener("click", async () => {
         showSettingsMessage(`${error.code || "Unknown error"}: ${error.message}`);
     } finally {
         removeLeagueConnectionBtn.disabled = false;
-    }
-});
-
-settingsLogoutBtn.addEventListener("click", async () => {
-    settingsLogoutBtn.disabled = true;
-    settingsLogoutBtn.textContent = "Logging Out...";
-
-    try {
-        if (unsubscribeFromConnection) {
-            unsubscribeFromConnection();
-        }
-        if (unsubscribeFromPaymentSettings) {
-            unsubscribeFromPaymentSettings();
-        }
-
-        await signOut(auth);
-        window.location.href = "TopGun-Index.html";
-    } catch (error) {
-        console.error("Logout error:", error);
-        showSettingsMessage("Unable to log out. Please try again.");
-        settingsLogoutBtn.disabled = false;
-        settingsLogoutBtn.textContent = "Logout";
     }
 });
 

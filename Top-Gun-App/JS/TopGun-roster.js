@@ -1,8 +1,7 @@
 import { auth, db } from "./TopGun-firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 import {
@@ -44,8 +43,6 @@ const copyInviteCodeBtn =
 const backToTeamLink =
     document.getElementById("backToTeamLink");
 
-const rosterLogoutBtn =
-    document.getElementById("rosterLogoutBtn");
 
 const rosterMessage =
     document.getElementById("rosterMessage");
@@ -536,25 +533,5 @@ copyInviteCodeBtn.addEventListener("click", async () => {
             `Copy this code manually: ${inviteCode}`,
             "success"
         );
-    }
-});
-
-rosterLogoutBtn.addEventListener("click", async () => {
-    rosterLogoutBtn.disabled = true;
-    rosterLogoutBtn.textContent = "Logging Out...";
-
-    try {
-        await signOut(auth);
-
-        window.location.href = "TopGun-Login.html";
-    } catch (error) {
-        console.error("Logout error:", error);
-
-        showRosterMessage(
-            "Unable to log out. Please try again."
-        );
-
-        rosterLogoutBtn.disabled = false;
-        rosterLogoutBtn.textContent = "Logout";
     }
 });

@@ -1,8 +1,7 @@
 import { auth, db } from "./TopGun-firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 import {
@@ -23,7 +22,6 @@ const chatMessages = document.getElementById("chatMessages");
 const chatMessageInput = document.getElementById("chatMessageInput");
 const sendMessageBtn = document.getElementById("sendMessageBtn");
 const backToTeamFromChat = document.getElementById("backToTeamFromChat");
-const chatLogoutBtn = document.getElementById("chatLogoutBtn");
 const chatPageMessage = document.getElementById("chatPageMessage");
 
 const urlParameters = new URLSearchParams(window.location.search);
@@ -246,25 +244,6 @@ chatMessageInput.addEventListener("keydown", (event) => {
     if (event.key === "Enter" && !event.shiftKey) {
         event.preventDefault();
         sendMessageBtn.click();
-    }
-});
-
-chatLogoutBtn.addEventListener("click", async () => {
-    chatLogoutBtn.disabled = true;
-    chatLogoutBtn.textContent = "Logging Out...";
-
-    try {
-        if (unsubscribeFromMessages) {
-            unsubscribeFromMessages();
-        }
-
-        await signOut(auth);
-        window.location.href = "TopGun-Index.html";
-    } catch (error) {
-        console.error("Logout error:", error);
-        showChatMessage("Unable to log out. Please try again.");
-        chatLogoutBtn.disabled = false;
-        chatLogoutBtn.textContent = "Logout";
     }
 });
 

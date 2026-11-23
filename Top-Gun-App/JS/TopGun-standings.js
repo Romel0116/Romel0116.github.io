@@ -1,6 +1,6 @@
 import { auth, db } from "./TopGun-firebase.js";
 import { standingsSnapshot, recreation2Snapshot } from "./TopGun-standings-snapshot.js";
-import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
 const element = id => document.getElementById(id);
@@ -173,8 +173,5 @@ onAuthStateChanged(auth, async user => {
         listeners.push(onSnapshot(doc(db, "teams", teamId, "standingsConnection", "settings"), snapshot => { connection = snapshot.data() || null; connectionLoaded = true; render(); }, failure));
         listeners.push(onSnapshot(doc(db, "teams", teamId, "standings", "current"), snapshot => { current = snapshot.data() || null; standingsLoaded = true; render(); }, failure));
     } catch (error) { element("standingsTeam").textContent = "Standings unavailable"; element("standingsStatus").textContent = error.message; }
-});
-element("standingsLogout").addEventListener("click", async () => {
-    try { await signOut(auth); } catch { element("standingsStatus").textContent = "Unable to log out. Please try again."; }
 });
 window.addEventListener("beforeunload", () => listeners.forEach(stop => stop()));

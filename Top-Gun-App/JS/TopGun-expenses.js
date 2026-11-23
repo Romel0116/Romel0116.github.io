@@ -1,8 +1,7 @@
 import { auth, db } from "./TopGun-firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 import {
@@ -71,7 +70,6 @@ const expenseVisibleTotal = document.getElementById("expenseVisibleTotal");
 const expenseList = document.getElementById("expenseList");
 const exportExpensesExcelBtn = document.getElementById("exportExpensesExcelBtn");
 const exportExpensesPdfBtn = document.getElementById("exportExpensesPdfBtn");
-const expensesLogoutBtn = document.getElementById("expensesLogoutBtn");
 const expensesPageMessage = document.getElementById("expensesPageMessage");
 
 let currentUser = null;
@@ -687,25 +685,6 @@ onAuthStateChanged(auth, async (user) => {
     } catch (error) {
         console.error("Unable to open Expense Sheet:", error);
         showMessage(`${error.code || "Unknown error"}: ${error.message}`);
-    }
-});
-
-expensesLogoutBtn.addEventListener("click", async () => {
-    expensesLogoutBtn.disabled = true;
-    expensesLogoutBtn.textContent = "Logging Out...";
-
-    try {
-        if (unsubscribeFromExpenses) {
-            unsubscribeFromExpenses();
-        }
-
-        await signOut(auth);
-        window.location.replace("TopGun-Login.html");
-    } catch (error) {
-        console.error("Logout error:", error);
-        showMessage("Unable to log out. Please try again.");
-        expensesLogoutBtn.disabled = false;
-        expensesLogoutBtn.textContent = "Logout";
     }
 });
 

@@ -1,15 +1,13 @@
 import { auth } from "./TopGun-firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 const THEME_STORAGE_KEY = "topGunColorTheme";
 const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
 const settingsAccountStatus = document.getElementById("settingsAccountStatus");
-const settingsLogoutBtn = document.getElementById("settingsLogoutBtn");
 const settingsPageMessage = document.getElementById("settingsPageMessage");
 const themeButtons = [...document.querySelectorAll("[data-theme-choice]")];
 
@@ -74,19 +72,4 @@ onAuthStateChanged(auth, (user) => {
     }
 
     settingsAccountStatus.textContent = user.email || "Signed in";
-});
-
-settingsLogoutBtn.addEventListener("click", async () => {
-    settingsLogoutBtn.disabled = true;
-    settingsLogoutBtn.textContent = "Logging Out...";
-
-    try {
-        await signOut(auth);
-        window.location.replace("TopGun-Login.html");
-    } catch (error) {
-        console.error("Logout error:", error);
-        settingsPageMessage.textContent = "Unable to log out. Please try again.";
-        settingsLogoutBtn.disabled = false;
-        settingsLogoutBtn.textContent = "Logout";
-    }
 });

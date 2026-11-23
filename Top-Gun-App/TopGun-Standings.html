@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top Gun Standings</title>
     <link rel="stylesheet" href="CSS/TopGun-style.css">
-    <link rel="stylesheet" href="CSS/TopGun-standings.css">
+    <link rel="stylesheet" href="CSS/TopGun-standings.css?v=mobile-cards">
 </head>
 <body class="standings-page-body">
 <main class="team-page-container">
     <header class="team-page-header">
         <div><p class="team-page-label">League Standings</p><h1 id="standingsTeam">Loading team...</h1><p id="standingsStatus" role="status">Checking your membership...</p></div>
-        <div class="team-header-actions"><a id="standingsBack" class="dashboard-link" href="TopGun-Dashboard.html">Back to Team</a><button id="standingsLogout" class="logout-button" type="button">Logout</button></div>
+        <div class="team-header-actions"><a id="standingsBack" class="dashboard-link" href="TopGun-Dashboard.html">Back to Team</a><a class="dashboard-link" href="TopGun-Dashboard.html">Back to Home</a></div>
     </header>
     <section class="team-summary-card" id="standingsContent" hidden>
         <h2>Division Standings</h2>
@@ -31,6 +31,6 @@
         </section>
     </section>
 </main>
-<script type="module" src="JS/TopGun-standings.js"></script>
+<script type="module" src="JS/TopGun-standings.js?v=mobile-cards-home"></script>
 </body>
 </html>

@@ -1,8 +1,7 @@
 import { auth, db } from "./TopGun-firebase.js";
 
 import {
-    onAuthStateChanged,
-    signOut
+    onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
 import {
@@ -25,7 +24,6 @@ const announcementMessage = document.getElementById("announcementMessage");
 const postAnnouncementBtn = document.getElementById("postAnnouncementBtn");
 const announcementsList = document.getElementById("announcementsList");
 const backToTeamFromAnnouncements = document.getElementById("backToTeamFromAnnouncements");
-const announcementsLogoutBtn = document.getElementById("announcementsLogoutBtn");
 const announcementsPageMessage = document.getElementById("announcementsPageMessage");
 
 const urlParameters = new URLSearchParams(window.location.search);
@@ -303,21 +301,6 @@ announcementMessage.addEventListener("keydown", (event) => {
     }
 });
 
-announcementsLogoutBtn.addEventListener("click", async () => {
-    announcementsLogoutBtn.disabled = true;
-    announcementsLogoutBtn.textContent = "Logging Out...";
-
-    try {
-        if (unsubscribeFromAnnouncements) {
-            unsubscribeFromAnnouncements();
-        }
-
-        await signOut(auth);
-        window.location.href = "TopGun-Index.html";
-    } catch (error) {
-        console.error("Logout error:", error);
-        showAnnouncementsMessage("Unable to log out. Please try again.");
-        announcementsLogoutBtn.disabled = false;
-        announcementsLogoutBtn.textContent = "Logout";
-    }
+window.addEventListener("beforeunload", () => {
+    unsubscribeFromAnnouncements?.();
 });
