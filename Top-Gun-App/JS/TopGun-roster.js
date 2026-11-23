@@ -1,4 +1,5 @@
 import { auth, db } from "./TopGun-firebase.js";
+import { invitePageUrl } from "./TopGun-invite.js";
 
 import {
     onAuthStateChanged
@@ -40,6 +41,9 @@ const inviteCodeDisplay =
 const copyInviteCodeBtn =
     document.getElementById("copyInviteCodeBtn");
 
+const inviteLink = document.getElementById("inviteLink");
+const copyInviteLinkBtn = document.getElementById("copyInviteLinkBtn");
+
 const backToTeamLink =
     document.getElementById("backToTeamLink");
 
@@ -72,6 +76,8 @@ function showRosterError(message) {
 
 function displayInviteCode(inviteCode) {
     inviteCodeDisplay.textContent = inviteCode;
+    inviteLink.href = invitePageUrl("TopGun-Dashboard.html", inviteCode);
+    inviteLink.textContent = inviteLink.href;
     inviteCodeSection.hidden = false;
     invitePlayerBtn.textContent = "Generate New Code";
 }
@@ -533,5 +539,17 @@ copyInviteCodeBtn.addEventListener("click", async () => {
             `Copy this code manually: ${inviteCode}`,
             "success"
         );
+    }
+});
+
+copyInviteLinkBtn.addEventListener("click", async () => {
+    const url = inviteLink.getAttribute("href");
+    if (!url) return;
+
+    try {
+        await navigator.clipboard.writeText(url);
+        showRosterMessage("Invite link copied.", "success");
+    } catch {
+        showRosterMessage("Press and hold or right-click the link above to copy it.");
     }
 });

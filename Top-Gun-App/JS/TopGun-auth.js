@@ -1,4 +1,5 @@
 import { auth, db } from "./TopGun-firebase.js";
+import { getInviteCode, invitePageUrl } from "./TopGun-invite.js";
 
 import {
     createUserWithEmailAndPassword,
@@ -18,6 +19,12 @@ const loginForm = document.getElementById("loginForm");
 const loginBtn = document.getElementById("loginBtn");
 const forgotPasswordBtn = document.getElementById("forgotPasswordBtn");
 const message = document.getElementById("message");
+const invitation = getInviteCode();
+const alternateAuthLink = document.querySelector(".auth-page-switch a");
+
+if (invitation && alternateAuthLink) {
+    alternateAuthLink.href = invitePageUrl(alternateAuthLink.href, invitation);
+}
 
 function showMessage(text, type = "error") {
     if (!message) {
@@ -68,7 +75,7 @@ function showAccountCreatedConfirmation() {
         "success"
     );
 
-    window.history.replaceState({}, document.title, "TopGun-Login.html");
+    window.history.replaceState({}, document.title, invitePageUrl("TopGun-Login.html", invitation));
 }
 
 if (registerForm && registerBtn) {
@@ -117,7 +124,7 @@ if (registerForm && registerBtn) {
             await signOut(auth);
 
             window.location.replace(
-                "TopGun-Login.html?accountCreated=true"
+                invitePageUrl("TopGun-Login.html?accountCreated=true", invitation)
             );
         } catch (error) {
             console.error("Registration error:", error);
@@ -162,7 +169,7 @@ if (loginForm && loginBtn) {
                 { merge: true }
             );
 
-            window.location.replace("TopGun-Dashboard.html");
+            window.location.replace(invitePageUrl("TopGun-Dashboard.html", invitation));
         } catch (error) {
             console.error("Login error:", error);
             showMessage(getFriendlyErrorMessage(error.code));

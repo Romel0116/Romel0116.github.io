@@ -479,6 +479,17 @@ button:disabled {
     letter-spacing: 2px;
 }
 
+.invite-link-label {
+    margin-top: 16px;
+}
+
+.invite-link {
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
 .invite-code-row button {
     width: auto;
     margin: 0;

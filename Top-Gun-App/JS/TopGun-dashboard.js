@@ -1,4 +1,5 @@
 import { auth, db } from "./TopGun-firebase.js";
+import { getInviteCode, invitePageUrl } from "./TopGun-invite.js";
 
 import {
     onAuthStateChanged,
@@ -41,6 +42,9 @@ const teamInviteCodeInput =
 
 const joinTeamBtn =
     document.getElementById("joinTeamBtn");
+
+const invitation = getInviteCode();
+const inviteLinkMessage = document.getElementById("inviteLinkMessage");
 
 const dashboardRoleBadge =
     document.getElementById("dashboardRoleBadge");
@@ -181,13 +185,17 @@ function loadTeams(userId, isAdmin) {
 
 onAuthStateChanged(auth, async (user) => {
     if (!user) {
-        window.location.href =
-            "TopGun-Login.html";
+        window.location.replace(invitePageUrl("TopGun-Login.html", invitation));
 
         return;
     }
 
     currentUser = user;
+    if (invitation) {
+        teamInviteCodeInput.value = invitation;
+        inviteLinkMessage.hidden = false;
+        joinTeamBtn.focus();
+    }
 
     try {
         const userDocument = await getDoc(
@@ -396,6 +404,12 @@ joinTeamBtn.addEventListener(
             });
 
             teamInviteCodeInput.value = "";
+            if (invitation) {
+                inviteLinkMessage.hidden = true;
+                const url = new URL(window.location.href);
+                url.hash = "";
+                window.history.replaceState(window.history.state, "", url);
+            }
 
             showDashboardMessage(
                 `You joined ${
