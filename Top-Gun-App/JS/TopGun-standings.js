@@ -1,5 +1,5 @@
 import { auth, db } from "./TopGun-firebase.js";
-import { standingsSnapshot } from "./TopGun-standings-snapshot.js";
+import { standingsSnapshot, recreation2Snapshot } from "./TopGun-standings-snapshot.js";
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { doc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
@@ -12,11 +12,11 @@ let loadError = "";
 let connectionLoaded = false;
 let standingsLoaded = false;
 
-function renderPlayoffs(matchesSnapshot) {
+function renderPlayoffs(snapshot) {
     const section = element("playoffsSection");
     const rounds = element("playoffsRounds");
     rounds.replaceChildren();
-    const playoffs = matchesSnapshot ? standingsSnapshot.playoffs : null;
+    const playoffs = snapshot?.playoffs;
     section.hidden = !playoffs?.games.length || Boolean(loadError) || !connectionLoaded || !standingsLoaded;
     if (section.hidden) return;
 
@@ -61,12 +61,13 @@ function render() {
     body.replaceChildren();
     const matchesConnection = current && connection && current.sourceUrl === connection.sourceUrl && current.teamName === connection.teamName;
     const importedRows = matchesConnection && Array.isArray(current.rows) ? current.rows : [];
-    const matchesSnapshot = connection?.sourceUrl === standingsSnapshot.sourceUrl
-        && connection?.teamName?.trim().toLowerCase() === standingsSnapshot.teamName.toLowerCase();
-    const useSnapshot = !importedRows.length && matchesSnapshot;
-    renderPlayoffs(matchesSnapshot);
-    const data = useSnapshot ? standingsSnapshot : current;
-    const rows = useSnapshot ? standingsSnapshot.rows : importedRows;
+    const snapshot = [standingsSnapshot, recreation2Snapshot].find(entry =>
+        entry.sourceUrl === connection?.sourceUrl &&
+        entry.teamName.toLowerCase() === connection?.teamName?.trim().toLowerCase());
+    const useSnapshot = !importedRows.length && Boolean(snapshot);
+    renderPlayoffs(snapshot);
+    const data = useSnapshot ? snapshot : current;
+    const rows = useSnapshot ? snapshot.rows : importedRows;
     element("standingsTable").hidden = !rows.length || Boolean(loadError);
     element("standingsLegend").hidden = !rows.length || Boolean(loadError);
     if (loadError || !connectionLoaded || !standingsLoaded) {

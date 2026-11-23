@@ -1,13 +1,13 @@
 import fs from 'node:fs';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
-import {standingsSnapshot} from '../Top-Gun-App/JS/TopGun-standings-snapshot.js';
+import {standingsSnapshot,recreation2Snapshot} from '../Top-Gun-App/JS/TopGun-standings-snapshot.js';
 const elements=new Map();
 function node(){const el={classes:new Set(),children:[],hidden:false,textContent:'',append(...children){this.children.push(...children)},replaceChildren(){this.children=[]}};el.classList={add:name=>el.classes.add(name)};return el}
 const document={getElementById(id){if(!elements.has(id))elements.set(id,node());return elements.get(id)},createElement:node};
 let source=fs.readFileSync('Top-Gun-App/JS/TopGun-standings.js','utf8');
 source=source.slice(source.indexOf('const element ='),source.indexOf('onAuthStateChanged(auth,'));
-const context=vm.createContext({document,standingsSnapshot,URL,URLSearchParams,location:{search:'?teamId=test'}});
+const context=vm.createContext({document,standingsSnapshot,recreation2Snapshot,URL,URLSearchParams,location:{search:'?teamId=test'}});
 vm.runInContext(source,context);
 vm.runInContext('connection={sourceUrl:standingsSnapshot.sourceUrl,teamName:"Top Gun FC",status:"pending"}; connectionLoaded=true; standingsLoaded=true; render();',context);
 assert.equal(elements.get('standingsRows').children.length,10);
@@ -33,6 +33,10 @@ vm.runInContext('current=null; connection.teamName="Other Team"; render();',cont
 assert.equal(elements.get('standingsRows').children.length,0);
 assert.equal(elements.get('standingsTable').hidden,true);
 assert.equal(elements.get('playoffsSection').hidden,true);
+vm.runInContext('connection={sourceUrl:recreation2Snapshot.sourceUrl,teamName:recreation2Snapshot.teamName}; render();',context);
+assert.match(elements.get('standingsSummary').textContent,/Place 1.*21 points/);
+assert.equal(elements.get('playoffsSection').hidden,true);
+assert.equal(recreation2Snapshot.scores.games.length,40);
 vm.runInContext('loadError="Permission denied"; render();',context);
 assert.match(elements.get('standingsStatus').textContent,/Permission denied/);
 console.log('PASS: all 10 snapshot rows, team highlight, capture label, playoff rounds and team highlight, Firebase precedence, other-team isolation, error state.');

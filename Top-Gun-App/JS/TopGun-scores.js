@@ -1,5 +1,5 @@
 import { auth, db } from "./TopGun-firebase.js";
-import { standingsSnapshot } from "./TopGun-standings-snapshot.js";
+import { standingsSnapshot, recreation2Snapshot } from "./TopGun-standings-snapshot.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
 
@@ -10,12 +10,13 @@ const gameDate = new Intl.DateTimeFormat(undefined, {
     month: "short", day: "numeric", year: "numeric", timeZone: "UTC"
 });
 let leagueTeam = "";
+let scoreSnapshot = null;
 
 function renderScores() {
     const list = element("scoresList");
     list.replaceChildren();
     const isTeamGame = game => [game.home, game.away].some(name => normalize(name) === leagueTeam);
-    const games = (standingsSnapshot.scores?.games || [])
+    const games = (scoreSnapshot?.scores?.games || [])
         .filter(game => Number.isInteger(game.homeScore) && game.homeScore >= 0 &&
             Number.isInteger(game.awayScore) && game.awayScore >= 0 &&
             (element("scoresFilter").value === "division" || isTeamGame(game)))
@@ -64,14 +65,16 @@ onAuthStateChanged(auth, async user => {
         element("scoresBack").href = `TopGun-Team.html?teamId=${encodeURIComponent(teamId)}`;
         const settings = await getDoc(doc(db, "teams", teamId, "standingsConnection", "settings"));
         const connection = settings.data();
-        if (connection?.sourceUrl !== standingsSnapshot.sourceUrl || !normalize(connection?.teamName)) {
+        scoreSnapshot = [standingsSnapshot, recreation2Snapshot].find(entry =>
+            entry.sourceUrl === connection?.sourceUrl);
+        if (!scoreSnapshot || !normalize(connection?.teamName)) {
             element("scoresStatus").textContent = "No scores are available for this team's league connection.";
             return;
         }
 
         leagueTeam = normalize(connection.teamName);
-        element("scoresSource").href = standingsSnapshot.sourceUrl;
-        const capture = standingsSnapshot.scores?.capturedAt;
+        element("scoresSource").href = scoreSnapshot.sourceUrl;
+        const capture = scoreSnapshot.scores?.capturedAt;
         element("scoresUpdated").textContent = capture ? `Scores checked ${new Date(capture).toLocaleDateString()}` : "";
         renderScores();
         element("scoresStatus").textContent = "Final results posted by TeamSideline.";
