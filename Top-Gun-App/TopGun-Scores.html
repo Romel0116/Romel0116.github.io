@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Gun Scores</title>
+    <link rel="stylesheet" href="CSS/TopGun-style.css">
+    <link rel="stylesheet" href="CSS/TopGun-standings.css">
+</head>
+<body class="standings-page-body">
+<main class="team-page-container">
+    <header class="team-page-header">
+        <div>
+            <p class="team-page-label">League Scores</p>
+            <h1 id="scoresTeam">Scores</h1>
+            <p id="scoresStatus" role="status">Checking your membership...</p>
+        </div>
+        <div class="team-header-actions">
+            <a id="scoresBack" class="dashboard-link" href="TopGun-Dashboard.html">Back to Team</a>
+        </div>
+    </header>
+    <section class="team-summary-card" id="scoresContent" aria-labelledby="scoresHeading" hidden>
+        <h2 id="scoresHeading">Final Scores</h2>
+        <label for="scoresFilter">Show</label>
+        <select id="scoresFilter">
+            <option value="team">My team</option>
+            <option value="division">All division games</option>
+        </select>
+        <p id="scoresUpdated"></p>
+        <p><a id="scoresSource" target="_blank" rel="noopener noreferrer">View official TeamSideline results</a></p>
+        <div id="scoresList"></div>
+    </section>
+</main>
+<script type="module" src="JS/TopGun-scores.js"></script>
+</body>
+</html>

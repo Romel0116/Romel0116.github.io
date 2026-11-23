@@ -211,5 +211,50 @@ export const standingsSnapshot = {
         "away": "R3-G2 Winner"
       }
     ]
+  },
+  "scores": {
+    "capturedAt": "2026-11-23T05:17:53Z",
+    "games": [
+      {"date":"2026-09-20","round":"Week 1","home":"Moscos FC","homeScore":2,"away":"CF Goluvia","awayScore":4},
+      {"date":"2026-09-20","round":"Week 1","home":"AL-Jahir","homeScore":4,"away":"Top Gun FC","awayScore":1},
+      {"date":"2026-09-20","round":"Week 1","home":"Blue Star","homeScore":6,"away":"Arrowhead FC","awayScore":1},
+      {"date":"2026-09-20","round":"Week 1","home":"La Picuneta","homeScore":2,"away":"Tigres","awayScore":0},
+      {"date":"2026-09-20","round":"Week 1","home":"Misfit","homeScore":4,"away":"AC Zimapan","awayScore":1},
+      {"date":"2026-09-27","round":"Week 2","home":"La Picuneta","homeScore":3,"away":"AC Zimapan","awayScore":2},
+      {"date":"2026-09-27","round":"Week 2","home":"Misfit","homeScore":3,"away":"Moscos FC","awayScore":2},
+      {"date":"2026-09-27","round":"Week 2","home":"Blue Star","homeScore":3,"away":"CF Goluvia","awayScore":3},
+      {"date":"2026-09-27","round":"Week 2","home":"AL-Jahir","homeScore":4,"away":"Tigres","awayScore":1},
+      {"date":"2026-09-27","round":"Week 2","home":"Top Gun FC","homeScore":3,"away":"Arrowhead FC","awayScore":1},
+      {"date":"2026-10-04","round":"Week 3","home":"AL-Jahir","homeScore":7,"away":"Arrowhead FC","awayScore":2},
+      {"date":"2026-10-04","round":"Week 3","home":"Tigres","homeScore":3,"away":"AC Zimapan","awayScore":2},
+      {"date":"2026-10-04","round":"Week 3","home":"Blue Star","homeScore":3,"away":"Misfit","awayScore":0},
+      {"date":"2026-10-04","round":"Week 3","home":"Top Gun FC","homeScore":2,"away":"CF Goluvia","awayScore":1},
+      {"date":"2026-10-04","round":"Week 3","home":"La Picuneta","homeScore":1,"away":"Moscos FC","awayScore":2},
+      {"date":"2026-10-11","round":"Week 4","home":"Top Gun FC","homeScore":4,"away":"Misfit","awayScore":3},
+      {"date":"2026-10-11","round":"Week 4","home":"La Picuneta","homeScore":7,"away":"Blue Star","awayScore":2},
+      {"date":"2026-10-11","round":"Week 4","home":"AL-Jahir","homeScore":5,"away":"AC Zimapan","awayScore":4},
+      {"date":"2026-10-11","round":"Week 4","home":"Arrowhead FC","homeScore":1,"away":"CF Goluvia","awayScore":7},
+      {"date":"2026-10-11","round":"Week 4","home":"Tigres","homeScore":1,"away":"Moscos FC","awayScore":1},
+      {"date":"2026-10-18","round":"Week 5","home":"CF Goluvia","homeScore":1,"away":"AL-Jahir","awayScore":3},
+      {"date":"2026-10-18","round":"Week 5","home":"AC Zimapan","homeScore":4,"away":"Moscos FC","awayScore":4},
+      {"date":"2026-10-18","round":"Week 5","home":"Tigres","homeScore":2,"away":"Blue Star","awayScore":4},
+      {"date":"2026-10-18","round":"Week 5","home":"Arrowhead FC","homeScore":2,"away":"Misfit","awayScore":0},
+      {"date":"2026-10-18","round":"Week 5","home":"Top Gun FC","homeScore":1,"away":"La Picuneta","awayScore":3},
+      {"date":"2026-10-25","round":"Week 6","home":"Tigres","homeScore":1,"away":"Top Gun FC","awayScore":3},
+      {"date":"2026-10-25","round":"Week 6","home":"AC Zimapan","homeScore":5,"away":"Blue Star","awayScore":5},
+      {"date":"2026-10-25","round":"Week 6","home":"Moscos FC","homeScore":2,"away":"AL-Jahir","awayScore":3},
+      {"date":"2026-10-25","round":"Week 6","home":"CF Goluvia","homeScore":4,"away":"Misfit","awayScore":2},
+      {"date":"2026-10-25","round":"Week 6","home":"Arrowhead FC","homeScore":1,"away":"La Picuneta","awayScore":6},
+      {"date":"2026-11-01","round":"Week 7","home":"Arrowhead FC","homeScore":1,"away":"Tigres","awayScore":2},
+      {"date":"2026-11-01","round":"Week 7","home":"Moscos FC","homeScore":5,"away":"Blue Star","awayScore":1},
+      {"date":"2026-11-01","round":"Week 7","home":"Misfit","homeScore":0,"away":"AL-Jahir","awayScore":2},
+      {"date":"2026-11-01","round":"Week 7","home":"CF Goluvia","homeScore":6,"away":"La Picuneta","awayScore":2},
+      {"date":"2026-11-01","round":"Week 7","home":"AC Zimapan","homeScore":3,"away":"Top Gun FC","awayScore":7},
+      {"date":"2026-11-08","round":"Week 8","home":"CF Goluvia","homeScore":0,"away":"Tigres","awayScore":2},
+      {"date":"2026-11-08","round":"Week 8","home":"AC Zimapan","homeScore":4,"away":"Arrowhead FC","awayScore":5},
+      {"date":"2026-11-08","round":"Week 8","home":"Blue Star","homeScore":1,"away":"AL-Jahir","awayScore":0},
+      {"date":"2026-11-08","round":"Week 8","home":"Misfit","homeScore":2,"away":"La Picuneta","awayScore":3},
+      {"date":"2026-11-08","round":"Week 8","home":"Moscos FC","homeScore":0,"away":"Top Gun FC","awayScore":3}
+    ]
   }
 };
